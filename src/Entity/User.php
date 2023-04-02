@@ -1,67 +1,121 @@
 <?php
 
-namespace MyBundle;
+namespace App\Entity;
 
+use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * User
- *
- * @ORM\Table(name="user")
- * @ORM\Entity
- */
+#[ORM\Entity(repositoryClass: UserRepository::class)]
 class User
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="Id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="Nom", type="string", length=20, nullable=true)
-     */
-    private $nom;
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $Nom = null;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="Prenom", type="string", length=20, nullable=true)
-     */
-    private $prenom;
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $Prenom = null;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="Email", type="string", length=30, nullable=true)
-     */
-    private $email;
+    #[ORM\Column(length: 30, nullable: true)]
+    private ?string $Email = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=255, nullable=false)
-     */
-    private $password;
+    #[ORM\Column(length: 255)]
+    private ?string $password = null;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="Type", type="string", length=10, nullable=true)
-     */
-    private $type;
+    #[ORM\Column(length: 10, nullable: true)]
+    private ?string $Type = null;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="isActive", type="integer", nullable=false, options={"default"="1"})
-     */
-    private $isactive = 1;
+    #[ORM\Column(nullable: true)]
+    private ?int $isActive = 1;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
+    public function getNom(): ?string
+    {
+        return $this->Nom;
+    }
+
+    public function setNom(?string $Nom): self
+    {
+        $this->Nom = $Nom;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->Prenom;
+    }
+
+    public function setPrenom(?string $Prenom): self
+    {
+        $this->Prenom = $Prenom;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->Email;
+    }
+
+    public function setEmail(?string $Email): self
+    {
+        $this->Email = $Email;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->Type;
+    }
+
+    public function setType(?string $Type): self
+    {
+        $this->Type = $Type;
+
+        return $this;
+    }
+
+    public function getIsActive(): ?int
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(?int $isActive): self
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+    public function __toString()
+    {
+        return $this->nom;
+    }
+    public function checklogin($email, $password): ?bool
+    {
+        if ($this->getEmail() === $email && $this->getPassword() === $password) {
+            return true;
+        }
+        return null;
+    }
 }
