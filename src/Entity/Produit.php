@@ -93,18 +93,20 @@ class Produit
         return $this;
     }
 
-
-    public function getImage(): ?String
+    public function getImage(): ?string
     {
         return $this->image;
     }
 
-    public function setImage(float $image): self
+    public function setImage(string $image): self
     {
         $this->image = $image;
 
         return $this;
     }
+
+
+
 
 
 

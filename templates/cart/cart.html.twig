@@ -26,7 +26,7 @@
                         </a>
                         <a href="cart.html" class="btn cart">
                             <i class="fa fa-shopping-cart"></i>
-                            <span>(0)</span>
+                            <span>{{ panier_count }} </span>
                         </a>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                                     <tr>
                                         <td>
                                             <div class="img">
-                                                <a href="#"><img src="{{item.IdProduct.getImage}}" alt="Image"></a>
+                                                <img src={{item.IdProduct.getImage}} alt="Image">
                                                 <p>{{item.IdProduct.getLib}}</p>
                                             </div>
                                         </td>

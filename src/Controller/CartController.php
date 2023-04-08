@@ -36,6 +36,25 @@ class CartController extends AbstractController
 
         ]);
     }
+
+    #[Route('/home', name: 'home')]
+   
+    public function count( ManagerRegistry $doctrine): Response
+    {
+        $idUsercon=41;
+        $entityManager=$doctrine->getManager();
+        $panier = $entityManager->getRepository(Panier::class)->findBy([
+            'idClient' => $idUsercon
+        ]);
+        $count=count($panier);
+    
+        return $this->render('base.html.twig', [
+
+            'panier_count' => $count
+
+        ]);
+    }
+
     #[Route('/cart/remove/{idpanier}',name:'delete_panier')]
 
     public function delete($idpanier,ManagerRegistry $doctrine) {
@@ -63,10 +82,15 @@ class CartController extends AbstractController
             'idClient' => $idUsercon,
             'idProduct' => $idProduit
         ]);
-    
+        $totalPrice = 0;
+
         foreach ($paniers as $panier) {
             $quantite = $panier->getQuantite();
                 $panier->setQuantite($quantite + 1);
+                $product = $panier->getIdProduct();
+                $quantity = $panier->getQuantite();
+                $totalPrice += $product->getPrix() * $quantity; 
+                $panier->setTotale($totalPrice);             
                 $entityManager->persist($panier);
                 $entityManager->flush();
         }
@@ -80,12 +104,16 @@ class CartController extends AbstractController
             $paniers = $entityManager->getRepository(Panier::class)->findBy([
                 'idClient' => $idUsercon,
                 'idProduct' => $idProduit
-            ]);
-        
+            ]); 
+            $totalPrice = 0;
             foreach ($paniers as $panier) {
                 $quantite = $panier->getQuantite();
                 if ($quantite > 1) {
                     $panier->setQuantite($quantite - 1);
+                    $product = $panier->getIdProduct();
+                $quantity = $panier->getQuantite();
+                $totalPrice += $product->getPrix() * $quantity; 
+                $panier->setTotale($totalPrice); 
                     $entityManager->persist($panier);
                     $entityManager->flush();
                 }
