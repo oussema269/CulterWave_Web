@@ -1,0 +1,44 @@
+{% extends 'Admindachboard.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center mt-5 mb-3">Modifier un événement</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                {{ form_start(form) }}
+                <div class="form-group">
+                    {{ form_label(form.nom, 'Nom de l\'événement', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.description, 'Description', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                    {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.lieu, 'Lieu', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                    {{ form_widget(form.lieu, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.prix, 'Prix', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                    {{ form_widget(form.prix, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.date, 'Date', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                    {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.nbParticipants, 'Nombre de participants', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                    {{ form_widget(form.nbParticipants, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.typeEvenement, 'Type d\'événement', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                    {{ form_widget(form.typeEvenement, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary">Modifier</button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'Admindachboard.html.twig' %}
+
+{% block body %}
+
+  <h2><left>Liste des sponsors </left><div class="text-right">
+    <a href="{{ path('app_sponsor_create') }}" class="btn btn-primary">Ajouter un sponsor</a>
+  </div></h2>
+  <form action="{{ path('app_liste_ordonneeee') }}" method="get">
+
+ 
+    <div class="">
+        <input type="text" name="nom">
+<input type="submit" value="recherche" class="btn btn-danger mr-2 search-button">
+    </div>
+    
+</form>
+  <div class="row">
+    {% for sponsor in form %}
+      <div class="col-md-3 mb-3">
+        <div class="card event-card">
+          
+         <div class="card-header"><img src="{{ asset('public\img' ~ sponsor.image )}}" alt="{{ sponsor.nom }}"></div>
+
+
+          <div class="card-footer">
+            <a href="{{ path('app_sponsor_delete', {id: sponsor.id}) }}" class="btn btn-danger mr-2">Supprimer</a>
+              <a href="{{ path('app_sponsor_edit', {id: sponsor.id}) }}" class="btn btn-primary">Modifier</a>
+          </div>
+         
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

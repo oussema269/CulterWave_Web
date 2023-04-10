@@ -1,49 +1,76 @@
 <?php
 
-namespace MyBundle;
+namespace App\Entity;
 
+use App\Repository\SponsorRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
-/**
- * Sponsor
- *
- * @ORM\Table(name="sponsor", indexes={@ORM\Index(name="id-owner", columns={"id-owner"})})
- * @ORM\Entity
- */
+#[ORM\Entity(repositoryClass: SponsorRepository::class)]
+#[ORM\Table(name: '`sponsor`')]
 class Sponsor
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+    //#[ORM\ManyToOne(inversedBy: 'sponsor')]
+    //private ?Evennement $evennement = null;
+    #[ORM\OneToMany(mappedBy: 'sponsor', targetEntity: Evennement::class, cascade:["persist", "remove"], orphanRemoval:true)]
+    private Collection $evennement;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
-     */
-    private $nom;
+    public function __construct()
+    {
+        $this->evennement = new ArrayCollection();
+    }
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+ 
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    private ?string $nom = null;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="image", type="string", length=255, nullable=true)
-     */
-    private $image;
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    private ?string $image = null;
 
-    /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id-owner", referencedColumnName="Id")
-     * })
-     */
-    private $idOwner;
+   
 
+    
+    
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): void
+    {
+        $this->nom = $nom;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): void
+    {
+        $this->image = $image;
+    }
+    public function getEvennement(): ?Collection
+    {
+        return $this->evennement;
+    }
+    public function setEvennement(?Evennement $evennement): void
+    {
+        $this->evennement = $evennement;
+    }
+
+  
 }

@@ -1,0 +1,60 @@
+{% extends 'Admindachboard.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="my-5">Ajouter un événement</h1>
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_start(form) }}
+                    <div class="form-group">
+                        {{ form_label(form.nom, 'Nom de l\'événement') }}
+                        {{ form_widget(form.nom, { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.description, 'Description') }}
+                        {{ form_widget(form.description, { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.lieu, 'Lieu') }}
+                        {{ form_widget(form.lieu, { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.prix, 'Prix') }}
+                        {{ form_widget(form.prix, { 'attr': {'class': 'form-control'} }) }}
+                        {% if form.prix.vars.errors|length %}
+    <div class="alert alert-danger">
+        {% for error in form.prix.vars.errors %}
+            {{ error.message }}<br>
+        {% endfor %}
+    </div>
+{% endif %}
+                    </div>
+                    <div class="form-group">
+                    {{ form_label(form.date, 'Date', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                    {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                       <div class="form-group">
+                        {{ form_label(form.nbParticipants, 'Prix') }}
+                        {{ form_widget(form.nbParticipants, { 'attr': {'class': 'form-control'} }) }}
+                        {% if form.nbParticipants.vars.errors|length %}
+    <div class="alert alert-danger">
+        {% for error in form.nbParticipants.vars.errors %}
+            {{ error.message }}<br>
+        {% endfor %}
+    </div>
+{% endif %}
+                    </div>
+          <div class="form-group">
+                        {{ form_label(form.typeEvenement, 'Type dévénement') }}
+                        {{ form_widget(form.typeEvenement, { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.sponsor, 'Choisi sponsor') }}
+                        {{ form_widget(form.sponsor, { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Créer</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

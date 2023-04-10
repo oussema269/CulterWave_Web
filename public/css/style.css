@@ -2394,3 +2394,14 @@ h2 {
         text-align: center; 
     } 
 }
+
+.event-card {
+    background-image: url('/img/category-7.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.search-button {
+    width: 100px;
+    height: 40px;
+  }

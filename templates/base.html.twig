@@ -39,10 +39,15 @@
 
 						<div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
 							<div class="navbar-nav mr-auto">
-								<a href="index.html" class="nav-item nav-link active">Home</a>
+								<a href="#" class="nav-item nav-link ">Home</a>
 
-								<a href="product-detail.html" class="nav-item nav-link">Event
-								</a>
+								
+								<a href="{{
+              path(
+                'app_read2',
+               
+              )
+            }}" class="nav-item nav-link active">event</a>
 
 								<a href="#" class="nav-item nav-link">formation</a>
 								<a href="product-list.html" class="nav-item nav-link">Products</a>
@@ -800,6 +805,27 @@
 
 			<!-- Template Javascript -->
 			<script src="js/main.js"></script>
+
+
+
+
+
+
 		</body>
 	</html>
 {% endblock %}
+  {% for message in app.session.getFlashBag.get('success') %}
+  <br>
+  <br>
+  <div class="container position-fixed top-3 start-50 translate-middle-x" style="width:300px;">
+    <div class="alert alert-success text-center" role="alert" style="background-color: #d4edda; border-color: #c3e6cb; color: #155724; border-radius: .25rem;">
+      {{ message }}
+    </div>
+  </div>
+
+   <script>
+        setTimeout(function() {
+            document.querySelector('.alert-success').remove();
+        }, 3000);
+    </script>
+{% endfor %}

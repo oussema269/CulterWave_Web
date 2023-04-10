@@ -1,94 +1,185 @@
 <?php
 
-namespace MyBundle;
-
+namespace App\Entity;
+use App\Entity\User;
+use App\Entity\Sponsor;
+use App\Repository\EvennementRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Form\FormTypeInterface;
+use App\Form\EvennementType;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
+#[ORM\Entity(repositoryClass: EvennementRepository::class)]
+#[ORM\Table(name: '`evennement`')]
 
-/**
- * Evennement
- *
- * @ORM\Table(name="evennement", indexes={@ORM\Index(name="fk_sponsor", columns={"sponsor_id"}), @ORM\Index(name="id-owner", columns={"id-owner"})})
- * @ORM\Entity
- */
+ 
 class Evennement
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    private ?User $user = null; 
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
-     */
-    private $nom;
+   // #[ORM\OneToMany(mappedBy: 'evennement', targetEntity: Sponsor::class, cascade:["persist", "remove"], orphanRemoval:true)]
+    //private Collection $sponsor;
+    #[ORM\ManyToOne(inversedBy: 'evennement')]
+    private ?Sponsor $sponsor = null;
+   // public function __construct()
+   // {
+    //    $this->sponsor = new ArrayCollection();
+   // }
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="string", length=500, nullable=false)
-     */
-    private $description;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="lieu", type="string", length=255, nullable=false)
-     */
-    private $lieu;
+    #[ORM\Column(length: 255)]
+    // db
+    private ?string $nom = null;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="prix", type="integer", nullable=false)
-     */
-    private $prix;
+    #[ORM\Column(length: 255)]
+    // db
+    private ?string $description = null;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date", type="date", nullable=false)
-     */
-    private $date;
+    #[ORM\Column(length: 255)]
+    // db
+    private ?string $lieu = null;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="nb_participants", type="integer", nullable=false)
-     */
-    private $nbParticipants;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="type_evenement", type="string", length=255, nullable=false)
-     */
-    private $typeEvenement;
-
-    /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id-owner", referencedColumnName="Id")
-     * })
-     */
-    private $idOwner;
-
-    /**
-     * @var \Sponsor
-     *
-     * @ORM\ManyToOne(targetEntity="Sponsor")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="sponsor_id", referencedColumnName="id")
-     * })
-     */
-    private $sponsor;
+    #[ORM\Column(type: "integer", nullable: false)]
+    #[NotBlank(message: 'Le prix ne peut pas être negatif.')]
+    #[Assert\GreaterThanOrEqual(
+        value: 0,
+        message: "Le prix ne peut pas être negatif."
+    )]
+    private ?int $prix = null;
+    
+    
 
 
+    #[ORM\Column(type:"date", nullable:false)]
+    // db
+    private ?\DateTimeInterface $date = null;
+
+    #[ORM\Column(type:"integer", nullable:false)]
+    #[NotBlank(message: 'Le prix ne peut pas être negatif.')]
+    #[Assert\GreaterThanOrEqual(
+        value: 0,
+        message: "Le nombre ne peut pas être negatif."
+    )]
+    // db
+    private ?int $nbParticipants = null;
+
+    #[ORM\Column(type:"string", length:255, nullable:false)]
+    // db
+    private ?string $typeEvenement = null;
+
+    
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    public function getLieu(): ?string
+    {
+        return $this->lieu;
+    }
+
+    public function setLieu(string $lieu): self
+    {
+        $this->lieu = $lieu;
+        return $this;
+    }
+
+    public function getPrix(): ?int
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(int $prix): self
+    {
+        $this->prix = $prix;
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+        return $this;
+    }
+
+    public function getNbParticipants(): ?int
+    {
+        return $this->nbParticipants;
+    }
+
+    public function setNbParticipants(int $nbParticipants): self
+    {
+        $this->nbParticipants = $nbParticipants;
+        return $this;
+    }
+
+    public function getTypeEvenement(): ?string
+    {
+        return $this->typeEvenement;
+    }
+
+    public function setTypeEvenement(string $typeEvenement): self
+    {
+        $this->typeEvenement = $typeEvenement;
+        return $this;
+    }
+
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+    public function getSponsor(): ?Sponsor
+    {
+        return $this->sponsor;
+    }
+    public function setSponsor(?Sponsor $sponsor): self
+    {
+        $this->sponsor = $sponsor;
+        return $this;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+        return $this;
+    }
+
+
+  
 }
