@@ -1,28 +1,64 @@
-{% extends 'base.html.twig' %}
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<title>E Store - eCommerce HTML Template</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+		<meta content="eCommerce HTML Template Free Download" name="keywords"/>
+		<meta
+		content="eCommerce HTML Template Free Download" name="description"/>
 
+		<!-- Favicon -->
+		<link
+		href="{{asset("img/favicon.ico")}}" rel="icon"/>
 
-{% block body %}
-	{{ form_start(form) }}
-	<div class="container">
-		<h1 class="my-5">log in</h1>
-		<div class="row">
-			<div class="col-md-6">
-				<div class="form-group">
-					{{ form_label(form.Email, 'votre Email') }}
-					{{ form_widget(form.Email, { 'attr': {'class': 'form-control'} }) }}
+		<!-- Google Fonts -->
+		<link
+		href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet"/>
+
+		<!-- CSS Libraries -->
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"/>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet"/>
+		<link href="{{asset("lib/slick/slick.css")}}" rel="stylesheet"/>
+		<link href="{{asset("lib/slick/slick-theme.css")}}" rel="stylesheet"/> {% block cssandthings %}{% endblock %}
+		<!-- Template Stylesheet -->
+		<link href="{{asset("css/style.css")}}" rel="stylesheet"/>
+	</head>
+
+	<body>
+		{{ form_start(form) }}
+		<div class="container">
+			<h1 class="my-5">log in</h1>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						{{ form_label(form.Email, 'votre Email') }}
+						{{ form_widget(form.Email, { 'attr': {'class': 'form-control'} }) }}
+						{{ form_errors(form.Email) }}
+					</div>
+					<div class="form-group">
+						{{ form_label(form.password, 'votre password') }}
+						{{ form_widget(form.password, { 'attr': {'class': 'form-control'} }) }}
+						{{ form_errors(form.password) }}
+					</div>
+
+					{{ include('user/_form.html.twig', {'button_label': 'login'}) }}
+					{{ form_end(form, {'render_reset': false }) }}
+					<button class="nav-item nav-link Button btn">
+						<a href="{{ path('app_user_new') }}" class="nav-item nav-link Button">Reigster</a>
+					</button>
 				</div>
-				<div class="form-group">
-					{{ form_label(form.password, 'votre password') }}
-					{{ form_widget(form.password, { 'attr': {'class': 'form-control'} }) }}
-				</div>
-
-				{{ include('user/_form.html.twig', {'button_label': 'login'}) }}
-				{{ form_end(form, {'render_reset': false }) }}
-
 			</div>
 		</div>
-	</div>
 
 
-	<!-- partial -->
-{% endblock %}
+		<!-- JavaScript Libraries -->
+		<link href="{{ asset('img/favicon.ico') }}" rel="icon"/>
+		<script src="{{ asset('https://code.jquery.com/jquery-3.4.1.min.js') }}"></script>
+		<script src="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js') }}"></script>
+		<script src="{{ asset('lib/easing/easing.min.js') }}"></script>
+		<script src="{{ asset('lib/slick/slick.min.js') }}"></script>
+		<script src="{{ asset('js/main.js') }}"></script>
+
+	</body>
+</html>

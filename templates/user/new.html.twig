@@ -1,45 +1,81 @@
-{% extends 'base.html.twig' %}
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<title>E Store - eCommerce HTML Template</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+		<meta content="eCommerce HTML Template Free Download" name="keywords"/>
+		<meta
+		content="eCommerce HTML Template Free Download" name="description"/>
 
-{% block title %}New User
-{% endblock %}
+		<!-- Favicon -->
+		<link
+		href="{{asset("img/favicon.ico")}}" rel="icon"/>
 
-{% block body %}
-	<div class="container">
-		<h1 class="my-5">Register</h1>
-		<div class="row">
-			<div class="col-md-6">
-				{{ form_start(form) }}
-				<div class="form-group">
-					{{ form_label(form.Nom, 'votre nom') }}
-					{{ form_widget(form.Nom, { 'attr': {'class': 'form-control'} }) }}
-				</div>
-				<div class="form-group">
-					{{ form_label(form.Prenom, 'votre prenom') }}
-					{{ form_widget(form.Prenom, { 'attr': {'class': 'form-control'} }) }}
-				</div>
-				<div class="form-group">
-					{{ form_label(form.Email, 'votre Email') }}
-					{{ form_widget(form.Email, { 'attr': {'class': 'form-control'} }) }}
-				</div>
-				<div class="form-group">
-					{{ form_label(form.password, 'votre password') }}
-					{{ form_widget(form.password, { 'attr': {'class': 'form-control'} }) }}
-				</div>
-				<div class="form-group"></div>
-				<div class="form-group">
-					{{ form_label(form.Type, 'account type') }}
-					{{ form_widget(form.Type, { 'attr': {'class': 'form-control'} }) }}
-				</div>
+		<!-- Google Fonts -->
+		<link
+		href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet"/>
+
+		<!-- CSS Libraries -->
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"/>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet"/>
+		<link href="{{asset("lib/slick/slick.css")}}" rel="stylesheet"/>
+		<link href="{{asset("lib/slick/slick-theme.css")}}" rel="stylesheet"/> {% block cssandthings %}{% endblock %}
+		<!-- Template Stylesheet -->
+		<link href="{{asset("css/style.css")}}" rel="stylesheet"/>
+	</head>
+
+	<body>
+		<div class="container">
+			<h1 class="my-5">Register</h1>
+			<div class="row">
+				<div class="col-md-6">
+					{{ form_start(form) }}
+					<div class="form-group">
+						{{ form_label(form.Nom, 'votre nom') }}
+						{{ form_widget(form.Nom, { 'attr': {'class': 'form-control'} }) }}
+						{{ form_errors(form.Nom) }}
+					</div>
+					<div class="form-group">
+						{{ form_label(form.Prenom, 'votre prenom') }}
+						{{ form_widget(form.Prenom, { 'attr': {'class': 'form-control'} }) }}
+						{{ form_errors(form.Prenom) }}
+					</div>
+					<div class="form-group">
+						{{ form_label(form.Email, 'votre Email') }}
+						{{ form_widget(form.Email, { 'attr': {'class': 'form-control'} }) }}
+						{{ form_errors(form.Email) }}
+					</div>
+					<div class="form-group">
+						{{ form_label(form.password, 'votre password') }}
+						{{ form_widget(form.password, { 'attr': {'class': 'form-control'} }) }}
+						{{ form_errors(form.password) }}
+					</div>
+					<div class="form-group"></div>
+					<div class="form-group">
+						{{ form_label(form.Type, 'account type') }}
+						{{ form_widget(form.Type, { 'attr': {'class': 'form-control'} }) }}
+						{{ form_errors(form.Type) }}
+					</div>
 
 
-				{{ include('user/_form.html.twig') }}
-				{{ form_end(form, {'render_reset': false }) }}
+					{{ include('user/_form.html.twig') }}
+					{{ form_end(form, {'render_reset': false }) }}
 
+				</div>
 			</div>
 		</div>
-	</div>
 
-{% endblock %}
+		<!-- JavaScript Libraries -->
+		<link href="{{ asset('img/favicon.ico') }}" rel="icon"/>
+		<script src="{{ asset('https://code.jquery.com/jquery-3.4.1.min.js') }}"></script>
+		<script src="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js') }}"></script>
+		<script src="{{ asset('lib/easing/easing.min.js') }}"></script>
+		<script src="{{ asset('lib/slick/slick.min.js') }}"></script>
+		<script src="{{ asset('js/main.js') }}"></script>
+
+	</body>
+</html>
 
 {# <h1>Create new User</h1>
 	<div class="form-row">

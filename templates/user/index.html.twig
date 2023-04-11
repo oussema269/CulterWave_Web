@@ -100,11 +100,11 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="card-box table-responsive">
-								<p class="text-muted font-13 m-b-30">
-									DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function:
-									<code>$().DataTable();</code>
-								</p>
-								<table id="datatable" class="table table-striped table-bordered" style="width:100%">
+								<h5>Rechercher
+									<br><br>
+									<input type="text" id="searchInput" placeholder="Rechercher par nom.."></h5>
+								<h1>hello</h1>
+								<table id="myTable" class="table table-striped table-bordered" style="width:100%">
 									<thead>
 
 
@@ -119,18 +119,28 @@
 									</thead>
 
 
-									<tbody>
+									<tbody id="tableBody">
 
 
 										{% for user in users %}
 											<tr>
 
-												<td>{{ user.Nom }}</td>
-												<td>{{ user.Prenom }}</td>
-												<td>{{ user.Email }}</td>
+												<td>
+													<span>{{ user.Nom }}</span>
+												</td>
+												<td>
+													<span>{{ user.Prenom }}</span>
+												</td>
+												<td>
+													<span>{{ user.Email }}</span>
+												</td>
 
-												<td>{{ user.Type }}</td>
-												<td>{{ user.isActive }}</td>
+												<td>
+													<span>{{ user.Type }}</span>
+												</td>
+												<td>
+													<span>{{ user.isActive }}</span>
+												</td>
 												<td>
 													<a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
 													<a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
@@ -149,4 +159,28 @@
 					</div>
 				</div>
 				<a href="{{ path('app_user_new') }}">Create new</a>
+				<script>
+					// Get the input field and table body
+var input = document.getElementById("searchInput");
+var tableBody = document.getElementById("tableBody");
+
+// Add event listener to input field
+input.addEventListener("keyup", function () { // Get the user input and convert to lowercase
+var filter = input.value.toLowerCase();
+
+// Loop through all table rows and hide those that do not match the filter
+for (var i = 0; i < tableBody.rows.length; i++) {
+var row = tableBody.rows[i];
+var nom = row.cells[0].getElementsByTagName("span")[0];
+var prenom = row.cells[1].getElementsByTagName("span")[0];
+var email = row.cells[2].getElementsByTagName("span")[0];
+
+if (nom.innerHTML.toLowerCase().indexOf(filter) > -1 || prenom.innerHTML.toLowerCase().indexOf(filter) > -1 || email.innerHTML.toLowerCase().indexOf(filter) > -1) {
+row.style.display = "";
+} else {
+row.style.display = "none";
+}
+}
+});
+				</script>
 			{% endblock %}
