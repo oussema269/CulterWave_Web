@@ -51,7 +51,7 @@ class CheckoutController extends AbstractController
             $commande->setDate(new DateTimeImmutable());
             $commande->setIdClient($user);
             $commande->setTotale($totalPrice );
-            $commande->setEtat(1);
+            $commande->setEtat(0);
             $entityManager->persist($commande);
             $entityManager->flush();
             
