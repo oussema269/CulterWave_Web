@@ -1,0 +1,43 @@
+{% extends 'baseProduitBack.html.twig' %}
+
+{% block title %}Categorie{% endblock %}
+
+{% block body %}
+
+                  
+    <h1>Categorie </h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdCat</th>
+                <th>Categorie</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for categorie in categories %}
+            <tr>
+                <td>{{ categorie.idCat }}</td>
+                <td>{{ categorie.categorie }}</td>
+                 <td> 
+                      {% for produit in categorie.produit %}
+                       <li>{{ produit.lib }}</li>
+                     {% endfor %}
+                 
+                 </td>
+                <td>
+                    <a href="{{ path('app_categorie_show', {'idCat': categorie.idCat}) }}">show</a>
+                    <a href="{{ path('app_categorie_edit', {'idCat': categorie.idCat}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_categorie_new') }}">Create new</a>
+{% endblock %}
