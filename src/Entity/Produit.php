@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="produit", indexes={@ORM\Index(name="fk_categorie", columns={"id_cat"}), @ORM\Index(name="id-owner", columns={"id-owner"})})
  * @ORM\Entity
- * @ORM\Entity(repositoryClass="App\Repository\ProduitRepository")
  */
 class Produit
 {
@@ -42,15 +40,13 @@ class Produit
      * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
      */
     private $prix;
+
     /**
      * @var string
      *
      * @ORM\Column(name="image", type="string", length=255, nullable=false)
      */
     private $image;
-
-
-  
 
     public function getId(): ?int
     {
@@ -105,9 +101,7 @@ class Produit
         return $this;
     }
 
-
-
-
+  
 
 
 }

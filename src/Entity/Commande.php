@@ -4,13 +4,13 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-    /**
-    * Commande
-    *
-    * @ORM\Table(name="commande", indexes={@ORM\Index(name="id_client", columns={"id_client"})})
-    * @ORM\Entity
-    * @ORM\Entity(repositoryClass="App\Repository\CommandeRepository")
-    */
+
+/**
+ * Commande
+ *
+ * @ORM\Table(name="commande", indexes={@ORM\Index(name="id_client", columns={"id_client"})})
+ * @ORM\Entity
+ */
 class Commande
 {
     /**
@@ -42,6 +42,27 @@ class Commande
      * @ORM\Column(name="totale", type="float", precision=10, scale=0, nullable=true, options={"default"="NULL"})
      */
     private $totale = NULL;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
+     */
+    private $nom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prenom", type="string", length=255, nullable=false)
+     */
+    private $prenom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255, nullable=false)
+     */
+    private $email;
 
     /**
      * @var \App\Entity\User
@@ -90,6 +111,42 @@ class Commande
     public function setTotale(?float $totale): self
     {
         $this->totale = $totale;
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): self
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }

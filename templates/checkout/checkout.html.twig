@@ -25,7 +25,7 @@
                                 <i class="fa fa-heart"></i>
                                 <span>(0)</span>
                             </a>
-                            <a href="cart.html" class="btn cart">
+                            <a href="{{ path('app_cart') }}">" class="btn cart">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>(0)</span>
                             </a>
@@ -60,20 +60,20 @@
                                     <div class="col-md-6">
                                     
                                         {{ form_start(form) }}
-                                        {{ form_widget(form) }}
-                                        <label>First Name</label>
-                                        <input class="form-control" type="text" placeholder={{prenom}}>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>Last Name"</label>
-                                        <input  class="form-control" type="text" placeholder={{nom}}>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>E-mail</label>
-                                        <input class="form-control" type="text" placeholder={{email}}>
-                                    </div>
-                                    <div class="col-md-6">
                                         
+                                    </div>
+                                    <div class="col-md-6">
+                                            {{ form_row(form.nom, {'attr': {'placeholder': nomU }}) }}
+
+                                    </div>
+                                    <div class="col-md-6">
+                                            {{ form_row(form.prenom, {'attr': {'placeholder': prenomU}}) }}
+
+                                    </div>
+                                    
+
+                                    <div class="col-md-6">
+                                            {{ form_row(form.email, {'attr': {'placeholder': emailU}}) }}
                                     </div>
                                     <div class="col-md-12">
                                         
@@ -90,6 +90,8 @@
                                     <div class="col-md-6">
                                         
                                     </div>
+                                    
+
                                     <div class="col-md-12">
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input" id="newaccount">
@@ -167,7 +169,7 @@
 
                             <div class="checkout-payment">
                                 <div class="payment-methods">
-                                    <h1>Payment Methods</h1>
+                                    <h1>Payment Methods </h1>
                                     <div class="payment-method">
                                         <div class="custom-control custom-radio">
                                             <input type="radio" class="custom-control-input" id="payment-1" name="payment">

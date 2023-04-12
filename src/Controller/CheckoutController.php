@@ -35,9 +35,9 @@ class CheckoutController extends AbstractController
         $count=count($panier);
         foreach ($user as $item) {
             $idc=$item->getId();
-            $nom=$item->getNom();
-            $prenom=$item->getPrenom();
-            $email=$item->getEmail();
+            $nomU=$item->getNom();
+            $prenomU=$item->getPrenom();
+            $emailU=$item->getEmail();
             
         }
         $user = $entityManager->getRepository(User::class)->find($idUsercon); 
@@ -47,23 +47,30 @@ class CheckoutController extends AbstractController
               
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
+            $nom = $form->get('nom')->getData();
+            $prenom = $form->get('prenom')->getData();
+            $email = $form->get('email')->getData();
             $commande=new Commande();
             $commande->setDate(new DateTimeImmutable());
             $commande->setIdClient($user);
             $commande->setTotale($totalPrice );
             $commande->setEtat(0);
+            $commande->setNom($nom);
+            $commande->setPrenom($prenom);
+            $commande->setEmail($email);
             $entityManager->persist($commande);
             $entityManager->flush();
+
             
         }
 
         return $this->render('checkout/checkout.html.twig', [
             'idClient' => $idc,
-            'nom'=>$nom,
-            'prenom'=>$prenom,
-            'email'=>$email,
             'totale'=>$totalPrice,
             'panier'=>$panier,
+            'emailU'=> $emailU,
+            'prenomU'=>$prenomU,
+            'nomU'=>$nomU,
             'form' => $form->createView(),
         ]);
     }

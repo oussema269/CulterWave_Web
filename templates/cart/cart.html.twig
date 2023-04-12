@@ -77,7 +77,7 @@
                                         <td>
                                             <div class="qty">
                                                 <button class="btn-minus"> <a href="{{ path('decrement_panier', {'idProduit': item.IdProduct.getId}) }}"><i class="fa fa-minus"> </i></a></button>
-                                                <input type="text" value={{item.getQuantite}}>
+                                                <input type="text" value={{item.getQuantite}} min="1">
                                                 <button  class="btn-plus"> <a href="{{ path('increment_panier', {'idProduit': item.IdProduct.getId}) }}"><i class="fa fa-plus"></i> </a></button>
                                             </div>
                                         </td>

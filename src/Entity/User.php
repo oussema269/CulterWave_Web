@@ -9,8 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="user")
  * @ORM\Entity
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
-
  */
 class User
 {
@@ -69,11 +67,7 @@ class User
     {
         return $this->id;
     }
-    public function setId( int $id )
-    {
-        $this->id=$id;
 
-    }
     public function getNom(): ?string
     {
         return $this->nom;
