@@ -1,0 +1,3 @@
+<?php //App%255CController%255CNomController%2523index
+
+return [PHP_INT_MAX, []];
