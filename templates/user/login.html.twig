@@ -41,24 +41,21 @@
 						{{ form_widget(form.password, { 'attr': {'class': 'form-control'} }) }}
 						{{ form_errors(form.password) }}
 					</div>
-
-					{{ include('user/_form.html.twig', {'button_label': 'login'}) }}
-					{{ form_end(form, {'render_reset': false }) }}
-					<button class="nav-item nav-link Button btn">
-						<a href="{{ path('app_user_new') }}" class="nav-item nav-link Button">Reigster</a>
-					</button>
+					<div>
+						<div class="form-group" style="display: flex; flex-direction: row; align-content: center; flex-wrap: wrap; justify-content: center; align-items: stretch;">
+							{{ include('user/_form.html.twig', {'button_label': 'login'}) }}
+							{{ form_end(form, {'render_reset': false }) }}
+							<button class=" btn" style="margin-Left:5px">
+								<a href="{{ path('app_user_new') }}" class="nav-item nav-link Button">Reigster</a>
+							</button>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-
-
-		<!-- JavaScript Libraries -->
-		<link href="{{ asset('img/favicon.ico') }}" rel="icon"/>
-		<script src="{{ asset('https://code.jquery.com/jquery-3.4.1.min.js') }}"></script>
-		<script src="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js') }}"></script>
-		<script src="{{ asset('lib/easing/easing.min.js') }}"></script>
-		<script src="{{ asset('lib/slick/slick.min.js') }}"></script>
-		<script src="{{ asset('js/main.js') }}"></script>
-
+		</body>
 	</body>
-</html>
+</html><!-- JavaScript Libraries --><link href="{{ asset('img/favicon.ico') }}" rel="icon"/><script src="{{ asset('https://code.jquery.com/jquery-3.4.1.min.js') }}"></script>
+<script src="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('lib/easing/easing.min.js') }}"></script>
+<script src="{{ asset('lib/slick/slick.min.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script></body></html>

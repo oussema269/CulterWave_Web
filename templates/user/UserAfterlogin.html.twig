@@ -4,14 +4,33 @@
 {% endblock %}
 
 {% block body %}
-	<h1>User</h1>
+	<style>
 
-	<table class="table">
+		h1 {
+			font-size: 50px;
+			text-transform: uppercase;
+			font-family: 'Gambetta', serif;
+			letter-spacing: -3px;
+			transition: 700ms ease;
+			font-variation-settings: "wght" 311;
+			margin-bottom: 0.8rem;
+			color: #DC8965;
+			outline: none;
+			text-align: center;
+		}
+
+		h1:hover {
+			font-variation-settings: "wght" 582;
+			letter-spacing: 1px;
+		}
+	</style>
+	<h1>
+		hello
+		{{user.Nom}}
+		{{user.prenom}}</h1>
+	<table class="table" style="display: flex; align-content: center;flex-wrap: wrap;  justify-content: center;align-items: baseline;}">
 		<tbody>
-			<tr>
-				<th>Id</th>
-				<td>{{ user.id }}</td>
-			</tr>
+
 			<tr>
 				<th>Nom</th>
 				<td>{{ user.Nom }}</td>
@@ -31,10 +50,12 @@
 			</tr>
 
 		</tbody>
-	</table>
 
-	<button>
-		<a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
-	</button>
-	{{ include('user/_delete_form.html.twig') }}
+	</table>
+	<div style="    display: flex; flex-wrap: nowrap; align-content: space-around; justify-content: center; align-items: flex-start;">
+		<button class="btn">
+			<a href="{{ path('app_user_edit', {'id': user.id}) }}">Edit</a>
+		</button>
+		{{ include('user/_delete_form.html.twig') }}
+	</div>
 {% endblock %}
