@@ -6,19 +6,7 @@
 		<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 		<meta content="eCommerce HTML Template Free Download" name="keywords"/>
 		<meta content="eCommerce HTML Template Free Download" name="description"/>
-		<style>
-			.card1 {
-				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-				transition: 0.3s;
-				width: 40%;
 
-			}
-
-			.card1:hover {
-				box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-			}
-		</style>
-		<!-- Favicon -->
 		<link
 		href="{{asset("img/favicon.ico")}}" rel="icon"/>
 
@@ -32,37 +20,54 @@
 		<link href="{{asset("lib/slick/slick.css")}}" rel="stylesheet"/>
 		<link href="{{asset("lib/slick/slick-theme.css")}}" rel="stylesheet"/> {% block cssandthings %}{% endblock %}
 		<!-- Template Stylesheet -->
-		<link href="{{asset("css/style.css")}}" rel="stylesheet"/>
-	</head>
+		<link href="{{asset("css/style.css")}}" rel="stylesheet"/></head>
+	<style>
+		.card1 {
+			display: flex;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+			transition: 0.3s; /* width: 70%; */
+			flex-direction: column;
+			flex-wrap: wrap;
+			align-content: center;
+			justify-content: space-evenly;
+			align-items: center;
+		}
 
-	<body>
-		{{ form_start(form) }}
-		<div class="container ">
-			<h1 class="my-5">log in</h1>
-			<div class="card1">
-				<img style="width:50%; display: block; margin-left: auto;margin-right: auto;" src="{{ asset('img/culiterwave.png') }}"/>
+	}
 
-				<div class="form-group">
-					{{ form_label(form.Email, 'votre Email') }}
-					{{ form_widget(form.Email, { 'attr': {'class': 'form-control'} }) }}
-					{{ form_errors(form.Email) }}
-				</div>
-				<div class="form-group">
-					{{ form_label(form.password, 'votre password') }}
-					{{ form_widget(form.password, { 'attr': {'class': 'form-control'} }) }}
-					{{ form_errors(form.password) }}
-				</div>
-				<div>
-					<div class="form-group" style="display: flex; flex-direction: row; align-content: center; flex-wrap: wrap; justify-content: center; align-items: stretch;">
-						{{ include('user/_form.html.twig', {'button_label': 'login'}) }}
-						{{ form_end(form, {'render_reset': false }) }}
-						<button class=" btn" style="margin-Left:5px">
-							<a href="{{ path('app_user_new') }}" class="nav-item nav-link Button">Reigster</a>
-						</button>
-					</div>
+	.card1:hover {
+		box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+	}
+	</html>
+</style></html></head><body>{{ form_start(form) }}<div class="container ">
+<h1 class="my-5" style="text-align: center;">welcome</h1>
+<div class="card1">
+	<img style="width:50%; display: block; margin-left: auto;margin-right: auto;" src="{{ asset('img/culiterwave.png') }}"/>
 
-				</div>
-			</body>
-		</html>
-	</body>
-</html></div></body></html></body></html><!-- JavaScript Libraries --><link href="{{ asset('img/favicon.ico') }}" rel="icon"/><script src="{{ asset('https://code.jquery.com/jquery-3.4.1.min.js') }}"></script><script src="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js') }}"></script><script src="{{ asset('lib/easing/easing.min.js') }}"></script><script src="{{ asset('lib/slick/slick.min.js') }}"></script><script src="{{ asset('js/main.js') }}"></script></body></html>
+	<div class="form-group" style="width: 30%; display: flex; align-content: space-between; flex-direction: column; justify-content: center; align-items: center;">
+		{{ form_label(form.Email, 'votre Email') }}
+		{{ form_widget(form.Email, { 'attr': {'class': 'form-control'} }) }}
+		{{ form_errors(form.Email) }}
+	</div>
+	<div class="form-group" style="width: 30%; display: flex; align-content: space-between; flex-direction: column; justify-content: center; align-items: center;">
+		{{ form_label(form.password, 'votre password') }}
+		{{ form_widget(form.password, { 'attr': {'class': 'form-control'} }) }}
+		{{ form_errors(form.password) }}
+	</div>
+	<div>
+		<div class="form-group" style="display: flex; flex-direction: row; align-content: center; flex-wrap: wrap; justify-content: center; align-items: stretch;">
+			{{ include('user/_form.html.twig', {'button_label': 'login'}) }}
+			{{ form_end(form, {'render_reset': false }) }}
+			<button class=" btn" style="margin-Left:5px">
+				<a href="{{ path('app_user_new') }}" class="nav-item nav-link Button">Reigster</a>
+			</button>
+		</div>
+
+	</div>
+</body>
+<!-- JavaScript Libraries -->
+<link href="{{ asset('img/favicon.ico') }}" rel="icon"/><script src="{{ asset('https://code.jquery.com/jquery-3.4.1.min.js') }}"></script>
+<script src="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('lib/easing/easing.min.js') }}"></script>
+<script src="{{ asset('lib/slick/slick.min.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script></body></body></html>
