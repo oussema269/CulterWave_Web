@@ -34,7 +34,7 @@
                     {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
                 </div>
                        <div class="form-group">
-                        {{ form_label(form.nbParticipants, 'Prix') }}
+                        {{ form_label(form.nbParticipants, 'Nombre participant') }}
                         {{ form_widget(form.nbParticipants, { 'attr': {'class': 'form-control'} }) }}
                         {% if form.nbParticipants.vars.errors|length %}
     <div class="alert alert-danger">

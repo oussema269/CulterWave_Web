@@ -87,18 +87,7 @@ class EvennementController extends AbstractController
         return new Response('Vous avez bien participé à l\'événement.');
     }
 
-    #[Route('/notif/{notyf}', name: 'app_notyf')]
-    public function indexx(?string $notyf = null): Response
-    {
-        $this->addFlash('success', 'Votre message a été envoyé avec succès');
-        $this->addFlash('info', 'Votre message a info');
-
-       
-
-        return $this->render('evennement/notif.html.twig', [
-            'notyf' => $notyf,
-        ]);
-    }
+   
 
     #[Route('/participerr/{id}', name: 'app_part')]
     #[ParamConverter('evennement', class: 'App\Entity\Evennement', options: ['id' => 'id'])]
@@ -144,7 +133,7 @@ class EvennementController extends AbstractController
             // $classroomRepository->save($classroom, true);
             $em->persist($evennement);
             $em->flush();
-         
+            $this->addFlash('success', 'Ajout avec succès');
             
             
             return $this->redirectToRoute('app_readadmin');
@@ -231,6 +220,7 @@ class EvennementController extends AbstractController
            // $classroomRepository->save($classroom, true);
            $em->persist($foundedevennement);
            $em->flush();
+           $this->addFlash('success', 'Modification avec succès');
            return $this->redirectToRoute('app_readadmin');
        }
        return $this->renderForm('evennement/editadmin.html.twig', [

@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\FormView;
-
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 class EvennementType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -22,7 +22,7 @@ class EvennementType extends AbstractType
         $builder
             ->add('nom')
             ->add('description')
-            ->add('lieu')
+            ->add('lieu', CountryType::class)
             ->add('prix', NumberType::class, [
                 'constraints' => [
                     new NotBlank([
@@ -54,6 +54,10 @@ class EvennementType extends AbstractType
                     'Musique' => 'Musique',
                     'Art' => 'Art',
                     'Theatre' => 'Theatre',
+                    'Dance' => 'Dance',
+                    'Foire' => 'Foire',
+                    'Cinema' => 'Cinema',
+                    
                 ],
 
             ])

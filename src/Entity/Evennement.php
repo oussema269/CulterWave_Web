@@ -47,13 +47,13 @@ class Evennement
     // db
     private ?string $lieu = null;
 
-    #[ORM\Column(type: "integer", nullable: false)]
+    #[ORM\Column(type: "float", nullable: false)]
     #[NotBlank(message: 'Le prix ne peut pas être negatif.')]
     #[Assert\GreaterThanOrEqual(
         value: 0,
         message: "Le prix ne peut pas être negatif."
     )]
-    private ?int $prix = null;
+    private ?float $prix = null;
     
     
 
@@ -63,7 +63,7 @@ class Evennement
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(type:"integer", nullable:false)]
-    #[NotBlank(message: 'Le prix ne peut pas être negatif.')]
+    #[NotBlank(message: 'Le nombre ne peut pas être negatif.')]
     #[Assert\GreaterThanOrEqual(
         value: 0,
         message: "Le nombre ne peut pas être negatif."
@@ -115,12 +115,12 @@ class Evennement
         return $this;
     }
 
-    public function getPrix(): ?int
+    public function getPrix(): ?float
     {
         return $this->prix;
     }
 
-    public function setPrix(int $prix): self
+    public function setPrix(float $prix): self
     {
         $this->prix = $prix;
         return $this;

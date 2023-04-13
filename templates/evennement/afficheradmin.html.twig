@@ -4,27 +4,29 @@
 
 {% block body %}
 
-  {% for message in app.session.getFlashBag.get('success') %}
+{% for message in app.session.getFlashBag.get('success') %}
   <br>
   <br>
-  <div class="container position-fixed top-3 start-50 translate-middle-x" style="width:300px;">
-    <div class="alert alert-success text-center" role="alert" style="background-color: #d4edda; border-color: #c3e6cb; color: #155724; border-radius: .25rem;">
+  <div class="container position-fixed top-505 start-505 translate-middle" style="width:300px;">
+    <div class="alert alert-success text-center" role="alert" style="background-color: #28a745; border-color: #28a745; color: #fff; border-radius: .25rem;">
       {{ message }}
     </div>
   </div>
 
-   <script>
-        setTimeout(function() {
-            document.querySelector('.alert-success').remove();
-        }, 3000);
-    </script>
+  <script>
+    setTimeout(function() {
+        document.querySelector('.alert-success').remove();
+    }, 3000);
+  </script>
 {% endfor %}
 
 
 
-  <h2><left>Evennement liste </left><div class="text-right">
+
+
+  <h1><left>Evennement liste </left><div class="text-right">
     <a href="{{ path('app_event_createadmin') }}" class="btn btn-primary">Ajouter événement</a>
-</div></h2>
+</div></h1>
 
 {% block bodyy %}
  
@@ -32,6 +34,8 @@
     <input type="text" name="nom">
     <input type="submit" value="recherche">
 </form>
+<br>
+<br>
  
 {% endblock %}
 

@@ -52,6 +52,8 @@ class SponsorController extends AbstractController
         }
         $em->remove($sponsor);
         $em->flush();
+        $this->addFlash('success', 'Delete avec succès');
+
         return $this->redirectToRoute('app_afficher');
     }
     
@@ -75,7 +77,8 @@ class SponsorController extends AbstractController
            // $classroomRepository->save($classroom, true);
            $em->persist($sponsor);
            $em->flush();
-           return $this->redirectToRoute('app_sponsor');
+           $this->addFlash('success', 'Ajout avec succès');
+           return $this->redirectToRoute('app_afficher');
            
        }
        return $this->renderForm('sponsor/add.html.twig', [
