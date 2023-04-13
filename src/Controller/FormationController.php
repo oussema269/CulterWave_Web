@@ -176,12 +176,7 @@ class FormationController extends AbstractController
         ]);
     }
     #[Route('/updateadmin/{id}', name: 'app_formation_updateadmin')]
-    public function updateback(
-        FormationRepository $repository,
-        $id,
-        ManagerRegistry $doctrine,
-        Request $request
-    ): Response {
+    public function updateback(FormationRepository $repository,$id,ManagerRegistry $doctrine,Request $request ): Response {
         $em = $doctrine->getManager();
         $foundedformation = $repository->find($id);
         $formation = new Formation();
@@ -194,13 +189,13 @@ class FormationController extends AbstractController
 
             $em->persist($foundedformation);
             $em->flush();
-            return $this->redirectToRoute('app_formation_readadmin', [
-        
-            ]);
+            return $this->redirectToRoute('app_formation_readadmin');
+            
         }
         return $this->renderForm('formation/updateAdmin.html.twig', [
             'form' => $form,
         ]);    
+        
 
     }
     #[Route('/searchadadmin', name: 'app_formation_searchadmin')]
