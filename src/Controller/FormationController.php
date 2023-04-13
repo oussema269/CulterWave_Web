@@ -62,6 +62,9 @@ class FormationController extends AbstractController
             'formations' => $list,
         ]);
     }
+   
+
+
     #[Route('/delete/{id}', name: 'app_formation_delete')]
     public function delete(FormationRepository $repository,$id,
         ManagerRegistry $doctrine
@@ -84,14 +87,13 @@ class FormationController extends AbstractController
         $em = $doctrine->getManager();
         $foundedformation = $repository->find($id);
         $formation = new Formation();
-        // createForm => créer le formulaire construit dans le buildForm (formationType)
+
         $form = $this->createForm(FormationType::class, $foundedformation);
         $form->handleRequest($request);
-        // $form->add('modifier', SubmitType::class);
-        // traiter la requete reçu (handleRequest)
+
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $doctrine->getManager();
-            // $FormationRepository->save($formation, true);
+
             $em->persist($foundedformation);
             $em->flush();
             return $this->redirectToRoute('app_formation_read');
@@ -156,6 +158,7 @@ class FormationController extends AbstractController
         $list = $repository->findByConfirmationTrue();
         return $this->render('formation/readAdmin.html.twig', [
             'formations' => $list,
+            
         ]);
     }
 
@@ -168,7 +171,9 @@ class FormationController extends AbstractController
         $em->remove($formation);
         $em->flush();
         // update table (flush)
-        return $this->redirectToRoute('app_formation_readadmin');
+        return $this->redirectToRoute('app_formation_readadmin', [
+        
+        ]);
     }
     #[Route('/updateadmin/{id}', name: 'app_formation_updateadmin')]
     public function updateback(
@@ -180,33 +185,37 @@ class FormationController extends AbstractController
         $em = $doctrine->getManager();
         $foundedformation = $repository->find($id);
         $formation = new Formation();
-        // createForm => créer le formulaire construit dans le buildForm (formationType)
+
         $form = $this->createForm(FormationType::class, $foundedformation);
         $form->handleRequest($request);
-        // $form->add('modifier', SubmitType::class);
-        // traiter la requete reçu (handleRequest)
+
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $doctrine->getManager();
-            // $FormationRepository->save($formation, true);
+
             $em->persist($foundedformation);
             $em->flush();
-            return $this->redirectToRoute('app_formation_readadmin');
+            return $this->redirectToRoute('app_formation_readadmin', [
+        
+            ]);
         }
         return $this->renderForm('formation/updateAdmin.html.twig', [
             'form' => $form,
         ]);    
 
     }
-    #[Route('/search', name: 'app_formation_searchadmin')]
+    #[Route('/searchadadmin', name: 'app_formation_searchadmin')]
     public function searchBytitreback(FormationRepository $repo, Request $request): Response
     { 
         $titre = $request->query->get('titre');
-        $list = $repo->findByTitreAndConfirmationTrue($titre);
-    
+        $list1 = $repo->findByTitreAndConfirmationTrue2($titre);
+        
         return $this->render('formation/readAdmin.html.twig', [
-            'formations' => $list,
+            'formations' => $list1,
         ]);
+        
+        
     }
+
 
     #[Route('/readadmin2', name: 'app_formation_readadmin2')]
     public function readadmin2(ManagerRegistry $doctrine, FormationRepository $repository): Response
@@ -217,6 +226,7 @@ class FormationController extends AbstractController
         return $this->render('formation/readAdmin22.html.twig', [
             'formations' => $list
         ]);
+        return $this->redirectToRoute('app_formation_readadmin2');
     }
 
     #[Route('/accepter{id}', name: 'app_formation_accepter')]

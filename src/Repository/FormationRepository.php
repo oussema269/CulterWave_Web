@@ -90,7 +90,14 @@ public function findByTitre($titre)
     ->getResult();
 return $req;
 }
-
+public function findById($id)
+{
+$req = $this->createQueryBuilder('t')
+->where("t.id = :val")
+->setParameter('val', $id)->getQuery()
+->getResult();
+return $req;
+}
 public function findByTitreAndConfirmationTrue($titre)
 {
     return $this->createQueryBuilder('f')
@@ -101,6 +108,17 @@ public function findByTitreAndConfirmationTrue($titre)
         ->getQuery()
         ->getResult();
 }
+public function findByTitreAndConfirmationTrue2($titre)
+{
+    return $this->createQueryBuilder('f')
+        ->andWhere('f.titre = :titre')
+        ->setParameter('titre', $titre)
+        ->andWhere('f.confirmation = :confirmation')
+        ->setParameter('confirmation', true)
+        ->getQuery()
+        ->getResult();
+}
+
 public function accepterFormation(Formation $formation)
 {
     $formation->setConfirmation(true);
@@ -109,5 +127,14 @@ public function accepterFormation(Formation $formation)
     $entityManager->persist($formation);
     $entityManager->flush();
 }
+public function orderByid()
+    {
+        $req = $this->createQueryBuilder('f')
+            ->orderBy("f.Id", 'ASC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
+        return $req;
+    }
 
 }

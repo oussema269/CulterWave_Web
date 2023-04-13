@@ -3,39 +3,8 @@
 {% block title %}liste formation{% endblock %}
 
 {% block body %}
-    <h1>Formation Index</h1>
-     <!-- Nav Bar Start -->
-			<div class="nav">
-				<div class="container-fluid">
-					<nav class="navbar navbar-expand-md bg-dark navbar-dark">
-						<a href="#" class="navbar-brand">MENU</a>
-						<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-							<span class="navbar-toggler-icon"></span>
-						</button>
-
-						<div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-							<ul class="navbar-nav mr-auto">
-              <li class="nav-item">
-              <input type="text" name="titre">
-              </li>
-								<li class="nav-item">
-									<a href="{{ path('app_formation_searchadmin') }}" class="nav-link">Rechercher</a>
-                   
-								</li>
-								<li class="nav-item">
-									<a href="{{ path('app_formation_ajouteradmin') }}" class="nav-link">Ajouter</a>
-								</li>
-
-                </li>
-								<li class="nav-item">
-									<a href="{{ path('app_formation_readadmin2') }}" class="nav-link">Formation en attend</a>
-								</li>
-							</ul>
-						</div>
-					</nav>
-				</div>
-			</div>
-    <!-- Nav Bar End -->
+    <h1>Formation en attend</h1>
+        
     <div class="row">
         {% for formation in formations %}
             <div class="col-md-3 mb-3">

@@ -49,13 +49,7 @@ private ?string $description = null;
 #[ORM\Column(length: 255)]
 private ?string $type = null;
 
-/**
- * @Assert\NotBlank(message="Le pays est obligatoire.")
- * @Assert\Length(
- *      min = 5,
- *      minMessage="Le pays doit contenir au moins {{ limit }} caractères."
- * )
- */
+
 #[ORM\Column(length: 255)]
 private ?string $pays = null;
 

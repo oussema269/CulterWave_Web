@@ -40,6 +40,7 @@ class ParticipationformationController extends AbstractController
         $formation = $em->getRepository(Formation::class)->find($id);
     
         $user = $this->getUser();
+        //$user = $em->getRepository(User::class)->find(1);
     
         
         $participation = new Participationformation();
