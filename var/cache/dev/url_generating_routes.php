@@ -11,6 +11,7 @@ return [
     'app_user_new-for-admin' => [[], ['_controller' => 'App\\Controller\\UserController::newforadmin'], [], [['text', '/user/newforadmin']], [], [], []],
     'app_user_show' => [[], ['_controller' => 'App\\Controller\\UserController::show'], [], [['text', '/user/myaccount']], [], [], []],
     'app_profil_admin' => [[], ['_controller' => 'App\\Controller\\UserController::adminprofile'], [], [['text', '/user/adminprofile']], [], [], []],
+    'sendmail' => [[], ['_controller' => 'App\\Controller\\UserController::sendmail'], [], [['text', '/user/sendmail']], [], [], []],
     'app_user_desactive' => [['id'], ['_controller' => 'App\\Controller\\UserController::desactive'], [], [['text', '/desactive'], ['variable', '/', '[^/]++', 'id', true], ['text', '/user']], [], [], []],
     'app_user_editadmin' => [['id'], ['_controller' => 'App\\Controller\\UserController::Editforadmin'], [], [['text', '/adminedit'], ['variable', '/', '[^/]++', 'id', true], ['text', '/user']], [], [], []],
     'app_user_edit' => [['id'], ['_controller' => 'App\\Controller\\UserController::edit'], [], [['text', '/edit'], ['variable', '/', '[^/]++', 'id', true], ['text', '/user']], [], [], []],

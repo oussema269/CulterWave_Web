@@ -82,6 +82,8 @@ class ComposerStaticInit15854d6a1f97f0385e3f7c05603065a6
             'Symfony\\Component\\Messenger\\Bridge\\Doctrine\\' => 44,
             'Symfony\\Component\\Messenger\\Bridge\\Amqp\\' => 40,
             'Symfony\\Component\\Messenger\\' => 28,
+            'Symfony\\Component\\Mailer\\Bridge\\Sendgrid\\' => 41,
+            'Symfony\\Component\\Mailer\\Bridge\\Google\\' => 39,
             'Symfony\\Component\\Mailer\\' => 25,
             'Symfony\\Component\\Intl\\' => 23,
             'Symfony\\Component\\HttpKernel\\' => 29,
@@ -342,6 +344,14 @@ class ComposerStaticInit15854d6a1f97f0385e3f7c05603065a6
         array (
             0 => __DIR__ . '/..' . '/symfony/messenger',
         ),
+        'Symfony\\Component\\Mailer\\Bridge\\Sendgrid\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/sendgrid-mailer',
+        ),
+        'Symfony\\Component\\Mailer\\Bridge\\Google\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/google-mailer',
+        ),
         'Symfony\\Component\\Mailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/mailer',
@@ -582,8 +592,15 @@ class ComposerStaticInit15854d6a1f97f0385e3f7c05603065a6
     );
 
     public static $classMap = array (
+        'App\\Controller\\MyControllerMailer' => __DIR__ . '/../..' . '/src/Controller/MyControllerMailer.php',
         'App\\Controller\\NomController' => __DIR__ . '/../..' . '/src/Controller/NomController.php',
+        'App\\Controller\\UserController' => __DIR__ . '/../..' . '/src/Controller/UserController.php',
+        'App\\Entity\\User' => __DIR__ . '/../..' . '/src/Entity/User.php',
+        'App\\Form\\EemType' => __DIR__ . '/../..' . '/src/Form/EemType.php',
+        'App\\Form\\NewadminType' => __DIR__ . '/../..' . '/src/Form/NewadminType.php',
+        'App\\Form\\UserType' => __DIR__ . '/../..' . '/src/Form/UserType.php',
         'App\\Kernel' => __DIR__ . '/../..' . '/src/Kernel.php',
+        'App\\Repository\\UserRepository' => __DIR__ . '/../..' . '/src/Repository/UserRepository.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Collator' => __DIR__ . '/..' . '/symfony/intl/Resources/stubs/Collator.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
@@ -1720,6 +1737,7 @@ class ComposerStaticInit15854d6a1f97f0385e3f7c05603065a6
         'Doctrine\\ORM\\Tools\\Pagination\\LimitSubqueryOutputWalker' => __DIR__ . '/..' . '/doctrine/orm/lib/Doctrine/ORM/Tools/Pagination/LimitSubqueryOutputWalker.php',
         'Doctrine\\ORM\\Tools\\Pagination\\LimitSubqueryWalker' => __DIR__ . '/..' . '/doctrine/orm/lib/Doctrine/ORM/Tools/Pagination/LimitSubqueryWalker.php',
         'Doctrine\\ORM\\Tools\\Pagination\\Paginator' => __DIR__ . '/..' . '/doctrine/orm/lib/Doctrine/ORM/Tools/Pagination/Paginator.php',
+        'Doctrine\\ORM\\Tools\\Pagination\\RootTypeWalker' => __DIR__ . '/..' . '/doctrine/orm/lib/Doctrine/ORM/Tools/Pagination/RootTypeWalker.php',
         'Doctrine\\ORM\\Tools\\Pagination\\RowNumberOverFunction' => __DIR__ . '/..' . '/doctrine/orm/lib/Doctrine/ORM/Tools/Pagination/RowNumberOverFunction.php',
         'Doctrine\\ORM\\Tools\\Pagination\\WhereInWalker' => __DIR__ . '/..' . '/doctrine/orm/lib/Doctrine/ORM/Tools/Pagination/WhereInWalker.php',
         'Doctrine\\ORM\\Tools\\ResolveTargetEntityListener' => __DIR__ . '/..' . '/doctrine/orm/lib/Doctrine/ORM/Tools/ResolveTargetEntityListener.php',
@@ -2038,7 +2056,10 @@ class ComposerStaticInit15854d6a1f97f0385e3f7c05603065a6
         'PHPStan\\PhpDocParser\\Ast\\Type\\GenericTypeNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/Type/GenericTypeNode.php',
         'PHPStan\\PhpDocParser\\Ast\\Type\\IdentifierTypeNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/Type/IdentifierTypeNode.php',
         'PHPStan\\PhpDocParser\\Ast\\Type\\IntersectionTypeNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/Type/IntersectionTypeNode.php',
+        'PHPStan\\PhpDocParser\\Ast\\Type\\InvalidTypeNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/Type/InvalidTypeNode.php',
         'PHPStan\\PhpDocParser\\Ast\\Type\\NullableTypeNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/Type/NullableTypeNode.php',
+        'PHPStan\\PhpDocParser\\Ast\\Type\\ObjectShapeItemNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/Type/ObjectShapeItemNode.php',
+        'PHPStan\\PhpDocParser\\Ast\\Type\\ObjectShapeNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/Type/ObjectShapeNode.php',
         'PHPStan\\PhpDocParser\\Ast\\Type\\OffsetAccessTypeNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/Type/OffsetAccessTypeNode.php',
         'PHPStan\\PhpDocParser\\Ast\\Type\\ThisTypeNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/Type/ThisTypeNode.php',
         'PHPStan\\PhpDocParser\\Ast\\Type\\TypeNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/Type/TypeNode.php',
@@ -4587,6 +4608,11 @@ class ComposerStaticInit15854d6a1f97f0385e3f7c05603065a6
         'Symfony\\Component\\Intl\\Util\\IcuVersion' => __DIR__ . '/..' . '/symfony/intl/Util/IcuVersion.php',
         'Symfony\\Component\\Intl\\Util\\IntlTestHelper' => __DIR__ . '/..' . '/symfony/intl/Util/IntlTestHelper.php',
         'Symfony\\Component\\Intl\\Util\\Version' => __DIR__ . '/..' . '/symfony/intl/Util/Version.php',
+        'Symfony\\Component\\Mailer\\Bridge\\Google\\Transport\\GmailSmtpTransport' => __DIR__ . '/..' . '/symfony/google-mailer/Transport/GmailSmtpTransport.php',
+        'Symfony\\Component\\Mailer\\Bridge\\Google\\Transport\\GmailTransportFactory' => __DIR__ . '/..' . '/symfony/google-mailer/Transport/GmailTransportFactory.php',
+        'Symfony\\Component\\Mailer\\Bridge\\Sendgrid\\Transport\\SendgridApiTransport' => __DIR__ . '/..' . '/symfony/sendgrid-mailer/Transport/SendgridApiTransport.php',
+        'Symfony\\Component\\Mailer\\Bridge\\Sendgrid\\Transport\\SendgridSmtpTransport' => __DIR__ . '/..' . '/symfony/sendgrid-mailer/Transport/SendgridSmtpTransport.php',
+        'Symfony\\Component\\Mailer\\Bridge\\Sendgrid\\Transport\\SendgridTransportFactory' => __DIR__ . '/..' . '/symfony/sendgrid-mailer/Transport/SendgridTransportFactory.php',
         'Symfony\\Component\\Mailer\\DataCollector\\MessageDataCollector' => __DIR__ . '/..' . '/symfony/mailer/DataCollector/MessageDataCollector.php',
         'Symfony\\Component\\Mailer\\DelayedEnvelope' => __DIR__ . '/..' . '/symfony/mailer/DelayedEnvelope.php',
         'Symfony\\Component\\Mailer\\Envelope' => __DIR__ . '/..' . '/symfony/mailer/Envelope.php',

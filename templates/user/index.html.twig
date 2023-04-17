@@ -144,7 +144,9 @@
 												<td>
 													{{ include('user/desactive.html.twig') }}
 													{{ include('user/_delete_form.html.twig') }}
-
+													<a href="{{ path('sendmail') }}" data-toggle="tooltip" data-placement="top" title="Logout">
+														<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+													</a>
 												</td>
 											</tr>
 										{% else %}

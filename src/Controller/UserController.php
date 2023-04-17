@@ -5,7 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Form\EemType;
-
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use App\Form\NewadminType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\UserRepository;
@@ -14,11 +15,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use App\Controller\MyControllerMailer;
 
 
 #[Route('/user')]
 class UserController extends AbstractController
 {
+    private $myControllerMailer;
+    public function __construct(MyControllerMailer $myControllerMailer)
+    {
+        $this->myControllerMailer = $myControllerMailer;
+    }
+
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository, SessionInterface $session): Response
     {
@@ -166,6 +174,26 @@ class UserController extends AbstractController
 
             return $this->redirectToRoute('hik', [], Response::HTTP_SEE_OTHER);
         }
+    }
+    #[Route('/sendmail', name: 'sendmail')]
+    public function sendmail(MailerInterface $mailer): Response
+    {
+        $email = (new Email())
+            ->from('heelos.gcfhvgjbhknj@gmail.com')
+            ->to('mhmad.hafez@hotmail.com')
+            //->cc('cc@example.com')
+            //->bcc('bcc@example.com')
+            //->replyTo('fabien@example.com')
+            //->priority(Email::PRIORITY_HIGH)
+            ->subject('Time for Symfony Mailer!')
+            ->text('Sending emails is fun again!')
+            ->html('<p>See Twig integration for better HTML integration!</p>');
+
+        $mailer->send($email);
+
+
+
+        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
     #[Route('/{id}/desactive', name: 'app_user_desactive', methods: ['POST'])]
     public function desactive(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, $id, SessionInterface $session): Response

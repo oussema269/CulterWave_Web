@@ -320,7 +320,12 @@ class __TwigTemplate_559b0ac0df39479558519b44f6781b83 extends Template
             // line 146
             echo twig_include($this->env, $context, "user/_delete_form.html.twig");
             echo "
-
+\t\t\t\t\t\t\t\t\t\t\t\t\t<a href=\"";
+            // line 147
+            echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("sendmail");
+            echo "\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Logout\">
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-off\" aria-hidden=\"true\"></span>
+\t\t\t\t\t\t\t\t\t\t\t\t\t</a>
 \t\t\t\t\t\t\t\t\t\t\t\t</td>
 \t\t\t\t\t\t\t\t\t\t\t</tr>
 \t\t\t\t\t\t\t\t\t\t";
@@ -335,7 +340,7 @@ class __TwigTemplate_559b0ac0df39479558519b44f6781b83 extends Template
             }
         }
         if (!$context['_iterated']) {
-            // line 151
+            // line 153
             echo "\t\t\t\t\t\t\t\t\t\t\t<tr>
 \t\t\t\t\t\t\t\t\t\t\t\t<td colspan=\"8\">no records found</td>
 \t\t\t\t\t\t\t\t\t\t\t</tr>
@@ -344,7 +349,7 @@ class __TwigTemplate_559b0ac0df39479558519b44f6781b83 extends Template
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['user'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 155
+        // line 157
         echo "
 \t\t\t\t\t\t\t\t\t</tbody>
 \t\t\t\t\t\t\t\t</table>
@@ -398,7 +403,7 @@ row.style.display = \"none\";
 
     public function getDebugInfo()
     {
-        return array (  348 => 155,  339 => 151,  321 => 146,  317 => 145,  311 => 142,  305 => 139,  298 => 135,  292 => 132,  286 => 129,  281 => 126,  263 => 125,  206 => 70,  204 => 69,  194 => 68,  174 => 65,  162 => 63,  156 => 60,  151 => 58,  147 => 57,  143 => 56,  139 => 55,  133 => 52,  127 => 49,  121 => 46,  115 => 43,  110 => 41,  70 => 3,  60 => 2,  37 => 1,);
+        return array (  353 => 157,  344 => 153,  325 => 147,  321 => 146,  317 => 145,  311 => 142,  305 => 139,  298 => 135,  292 => 132,  286 => 129,  281 => 126,  263 => 125,  206 => 70,  204 => 69,  194 => 68,  174 => 65,  162 => 63,  156 => 60,  151 => 58,  147 => 57,  143 => 56,  139 => 55,  133 => 52,  127 => 49,  121 => 46,  115 => 43,  110 => 41,  70 => 3,  60 => 2,  37 => 1,);
     }
 
     public function getSourceContext()
@@ -549,7 +554,9 @@ row.style.display = \"none\";
 \t\t\t\t\t\t\t\t\t\t\t\t<td>
 \t\t\t\t\t\t\t\t\t\t\t\t\t{{ include('user/desactive.html.twig') }}
 \t\t\t\t\t\t\t\t\t\t\t\t\t{{ include('user/_delete_form.html.twig') }}
-
+\t\t\t\t\t\t\t\t\t\t\t\t\t<a href=\"{{ path('sendmail') }}\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Logout\">
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-off\" aria-hidden=\"true\"></span>
+\t\t\t\t\t\t\t\t\t\t\t\t\t</a>
 \t\t\t\t\t\t\t\t\t\t\t\t</td>
 \t\t\t\t\t\t\t\t\t\t\t</tr>
 \t\t\t\t\t\t\t\t\t\t{% else %}
