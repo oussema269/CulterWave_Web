@@ -6,6 +6,8 @@ return [
     'app_nom' => [[], ['_controller' => 'App\\Controller\\NomController::index'], [], [['text', '/nom']], [], [], []],
     'app_user_index' => [[], ['_controller' => 'App\\Controller\\UserController::index'], [], [['text', '/user/']], [], [], []],
     'logout' => [[], ['_controller' => 'App\\Controller\\UserController::logout'], [], [['text', '/user/logout']], [], [], []],
+    'makenewpassword' => [[], ['_controller' => 'App\\Controller\\UserController::makenewpassword'], [], [['text', '/user/makenewpassword']], [], [], []],
+    'forgetpassword' => [[], ['_controller' => 'App\\Controller\\UserController::forgetpassword'], [], [['text', '/user/forgetpassword']], [], [], []],
     'hik' => [[], ['_controller' => 'App\\Controller\\UserController::logg'], [], [['text', '/user/hik']], [], [], []],
     'app_user_new' => [[], ['_controller' => 'App\\Controller\\UserController::new'], [], [['text', '/user/new']], [], [], []],
     'app_user_new-for-admin' => [[], ['_controller' => 'App\\Controller\\UserController::newforadmin'], [], [['text', '/user/newforadmin']], [], [], []],

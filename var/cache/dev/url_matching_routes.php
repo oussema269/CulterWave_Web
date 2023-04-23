@@ -11,6 +11,8 @@ return [
         '/nom' => [[['_route' => 'app_nom', '_controller' => 'App\\Controller\\NomController::index'], null, null, null, false, false, null]],
         '/user' => [[['_route' => 'app_user_index', '_controller' => 'App\\Controller\\UserController::index'], null, ['GET' => 0], null, true, false, null]],
         '/user/logout' => [[['_route' => 'logout', '_controller' => 'App\\Controller\\UserController::logout'], null, ['GET' => 0], null, false, false, null]],
+        '/user/makenewpassword' => [[['_route' => 'makenewpassword', '_controller' => 'App\\Controller\\UserController::makenewpassword'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        '/user/forgetpassword' => [[['_route' => 'forgetpassword', '_controller' => 'App\\Controller\\UserController::forgetpassword'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/user/hik' => [[['_route' => 'hik', '_controller' => 'App\\Controller\\UserController::logg'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/user/new' => [[['_route' => 'app_user_new', '_controller' => 'App\\Controller\\UserController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/user/newforadmin' => [[['_route' => 'app_user_new-for-admin', '_controller' => 'App\\Controller\\UserController::newforadmin'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],

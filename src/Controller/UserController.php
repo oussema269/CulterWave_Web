@@ -3,13 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Code;
+
 use App\Form\UserType;
 use App\Form\EemType;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use App\Form\NewadminType;
+use App\Form\NewpasswordType;
+use App\Form\CodeType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\UserRepository;
+use App\Repository\CodeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,11 +51,73 @@ class UserController extends AbstractController
             return $this->redirectToRoute('hik', [], Response::HTTP_SEE_OTHER);
         }
     }
+
     #[Route('/logout', name: 'logout', methods: ['GET'])]
     public function logout(SessionInterface $session): Response
     {
         $session->invalidate();
         return $this->redirectToRoute('hik', []);
+    }
+    #[Route('/makenewpassword', name: 'makenewpassword', methods: ['GET', 'POST'])]
+    public function makenewpassword(Request $request, UserRepository $userRepository, CodeRepository $codeRepository, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(NewpasswordType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $emailsubmited = $form->get('Email')->getData();
+            $codesubmited = $form->get('code')->getData();
+            $passwordsubmited = $form->get('password')->getData();
+            $confirmpasswordsubmited = $form->get('password1')->getData();
+            $code = $codeRepository->findOneBy(['email' => $emailsubmited]);
+            if ($code->getcodeEmail() == $codesubmited && $code->getEmail() == $emailsubmited && $passwordsubmited == $confirmpasswordsubmited) {
+                $user = $userRepository->findOneBy(['Email' => $emailsubmited]);
+                if ($user != null) {
+                    $user->setPassword($passwordsubmited);
+                    $userRepository->save($user, true);
+                    return $this->redirectToRoute('hik', [], Response::HTTP_SEE_OTHER);
+                }
+            }
+        }
+
+        return $this->renderForm('user/makeNewpassword.html.twig', [
+            'form' => $form,
+        ]);
+    }
+    #[Route('/forgetpassword', name: 'forgetpassword', methods: ['GET', 'POST'])]
+    public function forgetpassword(Request $request, UserRepository $userRepository, MailerInterface $mailer, CodeRepository $codeRepository): Response
+    {
+        $thecodesent = new Code();
+        $user = new User();
+        $code = new Code();
+        $form = $this->createForm(CodeType::class, $code);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $sss =  $code->getEmail();
+            $user = $userRepository->findOneBy(['Email' => $sss]);
+            if ($user != null) {
+                $codeRepository->deleteByEmail($sss);
+                $codeRepository->save($code, true);
+                $thecodesent = $codeRepository->findOneBy(['email' => $sss]);
+
+                // $email = (new Email())
+                //     ->from('heelos.gcfhvgjbhknj@gmail.com')
+                //     ->to('mhmad.hafez@hotmail.com')
+                //     //->cc('cc@example.com')
+                //     //->bcc('bcc@example.com')
+                //     //->replyTo('fabien@example.com')
+                //     //->priority(Email::PRIORITY_HIGH)
+                //     ->subject('Time for Symfony Mailer!')
+                //     ->text('your code is :' . $thecodesent->getcodeEmail())
+                //     ->html('<p>See Twig integration for better HTML integration!</p>');
+
+                // $mailer->send($email);
+                return $this->redirectToRoute('makenewpassword', [], Response::HTTP_SEE_OTHER);
+            }
+        }
+
+        return $this->renderForm('user/forgetpassword.html.twig', [
+            'form' => $form,
+        ]);
     }
     #[Route('/hik', name: 'hik', methods: ['GET', 'POST'])]
     public function logg(Request $request, UserRepository $userRepository, SessionInterface $session): Response

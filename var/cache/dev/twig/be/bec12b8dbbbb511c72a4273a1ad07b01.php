@@ -152,30 +152,35 @@ class __TwigTemplate_95625d1df513ca9cac78583e7a99061d extends Template
         echo "\" class=\"nav-item nav-link Button\">Reigster</a>
 \t\t\t</button>
 \t\t</div>
+\t\t
+\t\t\t\t<a href=\"";
+        // line 66
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("forgetpassword");
+        echo "\" class=\"nav-item nav-link \">forget password</a>
 
 \t</div>
 </body>
 <!-- JavaScript Libraries -->
 <link href=\"";
-        // line 69
+        // line 71
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("img/favicon.ico"), "html", null, true);
         echo "\" rel=\"icon\"/><script src=\"";
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("https://code.jquery.com/jquery-3.4.1.min.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 70
+        // line 72
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 71
+        // line 73
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("lib/easing/easing.min.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 72
+        // line 74
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("lib/slick/slick.min.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 73
+        // line 75
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/main.js"), "html", null, true);
         echo "\"></script></body></body></html>
 ";
@@ -217,7 +222,7 @@ class __TwigTemplate_95625d1df513ca9cac78583e7a99061d extends Template
 
     public function getDebugInfo()
     {
-        return array (  191 => 21,  179 => 73,  175 => 72,  171 => 71,  167 => 70,  161 => 69,  151 => 62,  146 => 60,  142 => 59,  135 => 55,  131 => 54,  127 => 53,  121 => 50,  117 => 49,  113 => 48,  107 => 45,  101 => 42,  79 => 23,  76 => 22,  72 => 21,  68 => 20,  56 => 11,  44 => 1,);
+        return array (  196 => 21,  184 => 75,  180 => 74,  176 => 73,  172 => 72,  166 => 71,  158 => 66,  151 => 62,  146 => 60,  142 => 59,  135 => 55,  131 => 54,  127 => 53,  121 => 50,  117 => 49,  113 => 48,  107 => 45,  101 => 42,  79 => 23,  76 => 22,  72 => 21,  68 => 20,  56 => 11,  44 => 1,);
     }
 
     public function getSourceContext()
@@ -286,6 +291,8 @@ class __TwigTemplate_95625d1df513ca9cac78583e7a99061d extends Template
 \t\t\t\t<a href=\"{{ path('app_user_new') }}\" class=\"nav-item nav-link Button\">Reigster</a>
 \t\t\t</button>
 \t\t</div>
+\t\t
+\t\t\t\t<a href=\"{{ path('forgetpassword') }}\" class=\"nav-item nav-link \">forget password</a>
 
 \t</div>
 </body>
