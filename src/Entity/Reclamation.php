@@ -98,8 +98,11 @@ private $datepro;
  {
     return $this->datepro ? $this->datepro->format('Y-m-d') : null;
 }
-
-
+/*
+public function getDatepro(): ?\DateTimeInterface
+ {
+    return $this->datepro ;
+}*/
 
 
 /*
