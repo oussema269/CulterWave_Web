@@ -90,6 +90,7 @@ public function findByTitre($titre)
     ->getResult();
 return $req;
 }
+
 public function findById($id)
 {
 $req = $this->createQueryBuilder('t')
@@ -98,6 +99,8 @@ $req = $this->createQueryBuilder('t')
 ->getResult();
 return $req;
 }
+
+
 public function findByTitreAndConfirmationTrue($titre)
 {
     return $this->createQueryBuilder('f')
@@ -136,5 +139,17 @@ public function orderByid()
             ->getResult();
         return $req;
     }
+
+
+    public function pagination(){
+        return $this->createQueryBuilder('fo')
+        ->where('fo.confirmation = :confirmation')
+        ->setParameter('confirmation', true)
+        ->orderBy('fo.id','ASC')
+        ->getQuery()
+        ;
+    }
+
+
 
 }

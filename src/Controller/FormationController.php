@@ -11,11 +11,14 @@ use Doctrine\Persistence\ManagerRegistry;
 use App\Form\FormationType;
 use App\Form\SearchType;
 use App\Repository\FormationRepository;
+use Knp\Component\Pager\PaginatorInterface;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Bundle\PaginatorBundle\KnpPaginatorBundle;
 use Doctrine\ORM\Repository\RepositoryFactory;
 
 class FormationController extends AbstractController
 {
-    #[Route('/formation', name: 'app_formation')]
+    #[Route('/formationtest', name: 'app_formation')]
     public function index(): Response
     {
         return $this->render('formation/index.html.twig', [
@@ -44,12 +47,18 @@ class FormationController extends AbstractController
         ]);
     }
     #[Route('/read', name: 'app_formation_read')]
-    public function read(ManagerRegistry $doctrine,FormationRepository $repository ): Response
+    public function read(ManagerRegistry $doctrine,FormationRepository $repository , PaginatorInterface $paginator ,Request $request): Response
     {
         
-        $list = $repository->findByConfirmationTrue();
+        
+        $pagination = $paginator->paginate(
+        $repository-> findByConfirmationTrue(),
+        $request->query->get('page',1),5
+
+        );
         return $this->render('formation/readlist.html.twig', [
-            'formations' => $list,
+            
+             'pagination' =>$pagination
         ]);
     }
 

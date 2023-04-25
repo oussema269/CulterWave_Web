@@ -63,4 +63,13 @@ class ParticipationformationRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+public function countParticipationsByFormation()
+{
+    return $this->createQueryBuilder('f')
+        ->leftJoin('f.Participationformation', 'p')
+        ->select('f.id as Idparticipationformation, COUNT(p) as Idformation')
+        ->groupBy('f.id')
+        ->getQuery()
+        ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+}
 }

@@ -8,7 +8,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Participationformation;
+use App\Repository\ParticipationformationRepository;
 use App\Entity\Formation;
+use App\Repository\FormationRepository;
 use App\Form\ParticipationformationType;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -17,12 +19,14 @@ use Symfony\Component\HttpFoundation\Request;
 class ParticipationformationController extends AbstractController
 {
     #[Route('/participationformation', name: 'app_participationformation')]
-    public function index(): Response
-    {
-        return $this->render('participationformation/index.html.twig', [
-            'controller_name' => 'ParticipationformationController',
-        ]);
-    }
+public function index(ParticipationformationRepository $participationformationRepository): Response
+{
+    $participationsByFormation = $participationformationRepository->countParticipationsByFormation();
+    return $this->render('chart.html.twig', [
+        'participationsByFormation' => $participationsByFormation
+    ]);
+}
+
 
    // #[Route('/participationformation/read', name: 'app_formation_read')]
     //public function read(ManagerRegistry $doctrine): Response
