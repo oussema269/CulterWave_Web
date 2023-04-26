@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 use App\Entity\Commande;
-
+use Symfony\Component\HttpFoundation\Request;
 use App\Repository\CommandeRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,13 +12,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class CommandeController extends AbstractController
 {
     #[Route('/commande', name: 'app_commande')]
-    public function index(CommandeRepository $repository): Response
+    public function index(CommandeRepository $repository, Request $request): Response
     {
-        $list=$repository->findAll();
+      $list=$repository->findAll();
         return $this->render('commande/commande.html.twig', [
             'controller_name' => 'CommandeController',
             'list'=>$list
         ]);
+         
+       
+           
+    
     }
     
     #[Route('/commande/remove/{idc}',name:'delete_commande')]
@@ -53,5 +57,8 @@ if ($commande) {
 
    
         }
+
+
+   
 
 }

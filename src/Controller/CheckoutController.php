@@ -14,8 +14,9 @@ use DateTimeImmutable;
 
 class CheckoutController extends AbstractController
 {
+    
     #[Route('/checkout', name: 'app_checkout')]
-    public function index(\Doctrine\Persistence\ManagerRegistry $doctrine , Request $request): Response
+    public function index(ManagerRegistry $doctrine , Request $request): Response
     {
         $idUsercon=41;
         $entityManager=$doctrine->getManager();
@@ -26,7 +27,6 @@ class CheckoutController extends AbstractController
             'idClient' => $idUsercon
         ]);
         $totalPrice = 0;
-
         foreach ($panier as $item) {
             $product = $item->getIdProduct();
             $quantity = $item->getQuantite();
@@ -41,7 +41,6 @@ class CheckoutController extends AbstractController
             
         }
         $user = $entityManager->getRepository(User::class)->find($idUsercon); 
- 
         $form = $this->createForm(AjouterCommandeType::class);
         $form->handleRequest($request);
               

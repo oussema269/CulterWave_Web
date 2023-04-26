@@ -18,7 +18,7 @@ class ProduitController extends AbstractController
     {
         $entityManager=$doctrine->getManager();
         $utilisateur = $entityManager->getRepository(User::class)->find(41);
-        $produit = $entityManager->getRepository(Produit::class)->find(39);
+        $produit = $entityManager->getRepository(Produit::class)->find(40);
         // Create a new Basket entity
         $panier = $entityManager->getRepository(Panier::class)->findOneBy([
             'idClient' => $utilisateur,
