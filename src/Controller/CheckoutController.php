@@ -26,6 +26,7 @@ class CheckoutController extends AbstractController
         $panier = $entityManager->getRepository(Panier::class)->findBy([
             'idClient' => $idUsercon
         ]);
+        $count=count($panier);
         $totalPrice = 0;
         foreach ($panier as $item) {
             $product = $item->getIdProduct();
@@ -70,6 +71,7 @@ class CheckoutController extends AbstractController
             'emailU'=> $emailU,
             'prenomU'=>$prenomU,
             'nomU'=>$nomU,
+            'count'=>$count,
             'form' => $form->createView(),
         ]);
     }
