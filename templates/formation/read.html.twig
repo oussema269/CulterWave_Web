@@ -21,7 +21,7 @@
 
     <div class="row">
    
-        {% for formation in pagination %}
+        {% for formation in pagination  %}
             <div class="col-md-3 mb-3">
                 <div class="card">
                     <div class="card-header">{{ formation.titre }}</div>
@@ -53,7 +53,8 @@
                 </div>
             </div>
         {% endfor %}
+        
        
     </div>
-
+{{ knp_pagination_render(pagination) }}
 {% endblock %}

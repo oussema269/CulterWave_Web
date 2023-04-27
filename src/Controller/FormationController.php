@@ -12,7 +12,7 @@ use App\Form\FormationType;
 use App\Form\SearchType;
 use App\Repository\FormationRepository;
 use Knp\Component\Pager\PaginatorInterface;
-use Knp\Component\Pager\Pagination\PaginationInterface;
+
 use Knp\Bundle\PaginatorBundle\KnpPaginatorBundle;
 use Doctrine\ORM\Repository\RepositoryFactory;
 
@@ -58,17 +58,23 @@ class FormationController extends AbstractController
         );
         return $this->render('formation/readlist.html.twig', [
             
-             'pagination' =>$pagination
+        'formations' => $pagination,
+        'pagination' => $pagination,
         ]);
     }
 
     #[Route('/readlist', name: 'app_formation_readlist')]
-    public function readlist(ManagerRegistry $doctrine,FormationRepository $repository ): Response
+    public function readlist(ManagerRegistry $doctrine,FormationRepository $repository, PaginatorInterface $paginator,Request $request  ): Response
     {
         
-        $list = $repository->findByConfirmationTrue();
+        $pagination = $paginator->paginate(
+            $repository-> findByConfirmationTrue(),
+            $request->query->get('page',1),5
+    
+            );
         return $this->render('formation/read.html.twig', [
-            'formations' => $list,
+            'formations' => $pagination,
+            'pagination' =>$pagination
         ]);
     }
    
@@ -115,14 +121,22 @@ class FormationController extends AbstractController
 
 
     #[Route('/search', name: 'app_formation_search')]
-    public function searchBytitre(FormationRepository $repo, Request $request): Response
+    public function searchBytitre(FormationRepository $repo, PaginatorInterface $paginator,Request $request): Response
     { 
         $titre = $request->query->get('titre');
 
         $list = $repo->findByTitreAndConfirmationTrue($titre);
     
+        $pagination = $paginator->paginate(
+        $list,
+        $request->query->getInt('page', 1), // page number
+            5 // limit per page
+        );
+    
         return $this->render('formation/read.html.twig', [
-            'formations' => $list,
+            'formations' => $pagination,
+            'pagination' =>$pagination
+            
         ]);
     }
     
@@ -169,6 +183,7 @@ class FormationController extends AbstractController
             'formations' => $list,
             
         ]);
+      
     }
 
     #[Route('/deleteAdmin/{id}', name: 'app_formation_deleteadmin')]
