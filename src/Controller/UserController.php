@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Code;
-
+use Knp\Component\Pager\PaginatorInterface;
 use App\Form\UserType;
 use App\Form\EemType;
 use Symfony\Component\Mailer\MailerInterface;
@@ -33,15 +33,20 @@ class UserController extends AbstractController
     }
 
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
-    public function index(UserRepository $userRepository, SessionInterface $session): Response
+    public function index(Request $request, UserRepository $userRepository, SessionInterface $session, PaginatorInterface $paginator): Response
     {
         $serializedObject = $session->get('user1');
         if ($serializedObject !== null) {
             // Unserialize the object to get the User instance
             $user1 = unserialize($serializedObject);
-
+            $users = $userRepository->findAll();
+            $users = $paginator->paginate(
+                $users, /* query NOT result */
+                $request->query->getInt('page', 1),
+                3
+            );
             return $this->render('user/index.html.twig', [
-                'users' => $userRepository->findAll(),
+                'users' => $users,
                 'user1' => $user1,
             ]);
         } else {
@@ -99,18 +104,18 @@ class UserController extends AbstractController
                 $codeRepository->save($code, true);
                 $thecodesent = $codeRepository->findOneBy(['email' => $sss]);
 
-                // $email = (new Email())
-                //     ->from('heelos.gcfhvgjbhknj@gmail.com')
-                //     ->to('mhmad.hafez@hotmail.com')
-                //     //->cc('cc@example.com')
-                //     //->bcc('bcc@example.com')
-                //     //->replyTo('fabien@example.com')
-                //     //->priority(Email::PRIORITY_HIGH)
-                //     ->subject('Time for Symfony Mailer!')
-                //     ->text('your code is :' . $thecodesent->getcodeEmail())
-                //     ->html('<p>See Twig integration for better HTML integration!</p>');
+                $email = (new Email())
+                    ->from('heelos.gcfhvgjbhknj@gmail.com')
+                    ->to('mhmad.hafez@hotmail.com')
+                    //->cc('cc@example.com')
+                    //->bcc('bcc@example.com')
+                    //->replyTo('fabien@example.com')
+                    //->priority(Email::PRIORITY_HIGH)
+                    ->subject('Time for Symfony Mailer!' . $thecodesent->getcodeEmail())
+                    ->text('your code is :' . $thecodesent->getcodeEmail())
+                    ->html('<p>See Twig integration for better HTML integration!</p>' . $thecodesent->getcodeEmail());
 
-                // $mailer->send($email);
+                $mailer->send($email);
                 return $this->redirectToRoute('makenewpassword', [], Response::HTTP_SEE_OTHER);
             }
         }

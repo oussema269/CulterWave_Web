@@ -78,6 +78,10 @@ return [[
 '[C]App%5CController%5CUserController%23index' => 1,
 'App%5CController%5CUserController%23logout' => 0,
 '[C]App%5CController%5CUserController%23logout' => 1,
+'App%5CController%5CUserController%23makenewpassword' => 0,
+'[C]App%5CController%5CUserController%23makenewpassword' => 1,
+'App%5CController%5CUserController%23forgetpassword' => 0,
+'[C]App%5CController%5CUserController%23forgetpassword' => 1,
 'App%5CController%5CUserController%23logg' => 0,
 '[C]App%5CController%5CUserController%23logg' => 1,
 'App%5CController%5CUserController%23new' => 0,
@@ -100,6 +104,18 @@ return [[
 '[C]App%5CController%5CUserController%23delete' => 1,
 'App%5CController%5CUserController%24myControllerMailer' => 0,
 '[C]App%5CController%5CUserController%24myControllerMailer' => 1,
+'App%5CEntity%5CCode' => 0,
+'[C]App%5CEntity%5CCode' => 1,
+'App%5CEntity%5CCode%23getcodeEmail' => 0,
+'[C]App%5CEntity%5CCode%23getcodeEmail' => 1,
+'App%5CEntity%5CCode%23getEmail' => 0,
+'[C]App%5CEntity%5CCode%23getEmail' => 1,
+'App%5CEntity%5CCode%23setEmail' => 0,
+'[C]App%5CEntity%5CCode%23setEmail' => 1,
+'App%5CEntity%5CCode%24codeEmail' => 0,
+'[C]App%5CEntity%5CCode%24codeEmail' => 1,
+'App%5CEntity%5CCode%24email' => 0,
+'[C]App%5CEntity%5CCode%24email' => 1,
 'App%5CEntity%5CUser' => 0,
 '[C]App%5CEntity%5CUser' => 1,
 'App%5CEntity%5CUser%23getId' => 0,
@@ -692,6 +708,6 @@ return [[
 ], [
 
 0 => [],
-1 => 1681596423,
+1 => 1682417663,
 
 ]];

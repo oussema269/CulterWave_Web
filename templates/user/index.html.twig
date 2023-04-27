@@ -141,12 +141,10 @@
 												<td>
 													<span>{{ user.isActive }}</span>
 												</td>
-												<td>
+												<td style="display:flex; width:40%;">
 													{{ include('user/desactive.html.twig') }}
 													{{ include('user/_delete_form.html.twig') }}
-													<a href="{{ path('sendmail') }}" data-toggle="tooltip" data-placement="top" title="Logout">
-														<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-													</a>
+
 												</td>
 											</tr>
 										{% else %}
@@ -154,9 +152,11 @@
 												<td colspan="8">no records found</td>
 											</tr>
 										{% endfor %}
-
 									</tbody>
+
 								</table>
+								{{ knp_pagination_render(users) }}
+
 							</div>
 						</div>
 					</div>
