@@ -3,6 +3,8 @@
 namespace App\Entity;
 use App\Entity\User;
 use App\Entity\Sponsor;
+use App\Entity\Rating;
+
 use App\Repository\EvennementRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Form\FormTypeInterface;
@@ -25,10 +27,17 @@ class Evennement
     //private Collection $sponsor;
     #[ORM\ManyToOne(inversedBy: 'evennement')]
     private ?Sponsor $sponsor = null;
-   // public function __construct()
-   // {
-    //    $this->sponsor = new ArrayCollection();
-   // }
+    
+
+    #[ORM\OneToMany(mappedBy: 'evennement', targetEntity: Rating::class, cascade:["persist", "remove"], orphanRemoval:true)]
+    private Collection $rating;
+
+    public function __construct()
+    {
+        $this->rating = new ArrayCollection();
+    }
+
+
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -180,6 +189,13 @@ class Evennement
         return $this;
     }
 
-
+    public function getRating(): ?Collection
+    {
+        return $this->rating;
+    }
+    public function setRating(?Rating $rating): void
+    {
+        $this->evennement = $evennement;
+    }
   
 }

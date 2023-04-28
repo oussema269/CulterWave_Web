@@ -74,7 +74,8 @@ h2 {
     padding: 0 15px;
     color: #999999;
     border: 1px solid #dddddd;
-    margin-bottom: 15px
+    margin-bottom: 15px;
+    margin-left: 0%;
 }
 
 .form-control:focus,
@@ -1298,6 +1299,8 @@ h2 {
     font-size: 22px;
     text-transform: capitalize;
     margin-bottom: 15px;
+    
+    
 }
 
 .sidebar-widget.category {
@@ -2395,13 +2398,32 @@ h2 {
     } 
 }
 
-.event-card {
-    background-image: url('/img/category-7.jpg');
-    background-size: cover;
-    background-position: center;
-}
-
-.search-button {
-    width: 100px;
-    height: 40px;
+.rating-star {
+    display: inline-block;
+    font-size: 0;
+    line-height: 1;
   }
+  
+  .rating-star input {
+    display: none;
+  }
+  
+  .rating-star label {
+    font-size: 32px;
+    color: #ccc;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+  
+  .rating-star label:before {
+    content: '\2606';
+  }
+  
+  .rating-star input:checked ~ label {
+    color: #ffce00;
+  }
+  
+  .rating-star input:checked ~ label:before {
+    content: '\2605';
+  }
+  

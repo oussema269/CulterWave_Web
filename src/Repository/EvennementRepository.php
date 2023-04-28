@@ -47,6 +47,7 @@ class EvennementRepository extends ServiceEntityRepository
         ->getQuery()
         ->getResult();
     }
+    
     public function findByTitre($nom)
     {
     return $this->createQueryBuilder('t')
@@ -54,6 +55,8 @@ class EvennementRepository extends ServiceEntityRepository
     ->setParameter('nom', '%'.$nom.'%')
     ->getQuery()
     ->getResult();
+   
+
     }
 
     public function findByOrderByNom()
@@ -64,6 +67,13 @@ class EvennementRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
         return $req;
+    }
+
+    public function paginationqu(){
+        return $this->createQueryBuilder('fo')
+        ->orderBy('fo.id','ASC')
+        ->getQuery()
+        ;
     }
     
 

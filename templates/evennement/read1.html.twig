@@ -41,6 +41,7 @@
             {% if evennement.sponsor is not null %}
     <p class="card-text">{{ evennement.sponsor.nom }}</p>
   {% endif %}
+
             
           </div>
           <div class="card-footer">
@@ -52,12 +53,30 @@
                   id: evennement.id
                 }
               )
-            }}" class="btn btn-primary">participer</a>
+            }}" class="btn btn-primary">participer</a><br>
+
+      
+    
+
           </div>
+              <div class="card-footer">
+       
+         
+                <a href="{{ path('app_rate_create', { id: evennement.id }) }}" class="btn btn-secondary">Notez cet evennement </a>
+
+      
+    
+
           </div>
         </div>
       </div>
+              </div>
+
     {% endfor %}
+          <div> <img src="{{ path('qr_code', {text: 'mon texte'}) }}" alt="QR code">
+</div>
+ {{ knp_pagination_render(form) }}
+
   </div>
 {% endblock %}
 

@@ -2,6 +2,7 @@
 namespace App\Controller;
 use App\Entity\Sponsor;
 use App\Entity\Evennement;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Form\EvennementType;
 use App\Repository\EvennementRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -10,7 +11,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Routing\Annotation\Route;
-  use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Knp\Component\Pager\Paginator;
+use Knp\Component\Pager\PaginatorInterface;
+use Knp\Bundle\PaginatorBundle\KnpPaginatorBundle;
+use App\Entity\Rating;
+use App\Form\RatingType;
+use App\Repository\RatingRepository;
+use Endroid\QrCode\QrCode;
 
 
 class EvennementController extends AbstractController
@@ -19,19 +27,29 @@ class EvennementController extends AbstractController
     #[Route('/nom', name: 'app_home')]
     public function index(): Response
     {
-        return $this->render('evennement/dashbordadmin.html.twig', [
+        return $this->render('evennement/index.html.twig', [
             'controller_name' => 'EvennementController',
         ]);
     }
 
     #[Route('/read', name: 'app_read2')]
-    public function read2(EvennementRepository $repository): Response
+    public function read2(EvennementRepository $repository,PaginatorInterface $paginator ,Request $request): Response
     {
-        $list = $repository->findAll();
+
+        $pagination = $paginator->paginate(
+            $repository ->paginationqu(),
+            $request->query->get('page',1),
+            4
+            
+    
+            );
+
         return $this->render('evennement/read1.html.twig', [
-            'form' => $list,
+            'form' => $pagination,
+            'pagination' => $pagination,
         ]);
     }
+    
 
     #[Route('/readadmin', name: 'app_readadmin')]
     public function read(EvennementRepository $repository): Response
@@ -54,16 +72,23 @@ class EvennementController extends AbstractController
             'form' => $list,
         ]);
     }
-    
     #[Route('/recherche', name: 'app_liste_ordonnee')]
-    public function listOrdonnee(Request $request, EvennementRepository $repo): Response
+    public function listOrdonnee(EvennementRepository $repository, Request $request, EvennementRepository $repo, PaginatorInterface $paginator): Response
     {
         $nom = $request->query->get('nom');
         $list = $repo->findByTitre($nom);
+        $pagination = $paginator->paginate(
+            $list,
+            $request->query->getInt('page', 1),
+        );
+    
         return $this->render('evennement/read1.html.twig', [
-            'form' => $list,
+            'form' => $pagination,
+            'pagination' => $pagination,     
         ]);
     }
+    
+    
     
     
     
@@ -136,6 +161,7 @@ class EvennementController extends AbstractController
             $this->addFlash('success', 'Ajout avec succès');
             
             
+            
             return $this->redirectToRoute('app_readadmin');
             
         }
@@ -168,6 +194,31 @@ class EvennementController extends AbstractController
            'form' => $form,
        ]);
    }
+
+
+   #[Route('/evennement/{id}/note', name: 'app_rate_create')]
+   public function rate(Evennement $evennement, Request $request, EntityManagerInterface $em, RatingRepository $ratingRepository)
+   {
+       $newRating = new Rating();
+       $form = $this->createForm(RatingType::class, $newRating);
+       $form->handleRequest($request);
+   
+       if ($form->isSubmitted() && $form->isValid()) {
+           $newRating->setEvennement($evennement);
+           $em->persist($newRating);
+           $em->flush();
+   
+           $this->addFlash('success', 'Votre note a été ajoutée avec succès !');
+   
+           return $this->redirectToRoute('app_read2');
+       }
+   
+       return $this->render('evennement/rate.html.twig', [
+           'form' => $form->createView(),
+           'evennement' => $evennement,
+       ]);
+   }
+
 
    #[Route('/delete/{id}', name: 'app_event_delete')]
    public function delete(
@@ -227,6 +278,22 @@ class EvennementController extends AbstractController
            'form' => $form,
        ]);    
    }
+
+   #[Route('/qr-code/{text}', name: 'qr_code')]
+public function generateQrCode($text)
+{
+    $qrCode = new QrCode('mon texte');
+
+    // Augmenter la taille de l'image
+    $qrCode->setSize(100);
+    
+    // Changer la couleur du QR code
+    $qrCode->setForegroundColor(['r' => 0, 'g' => 0, 'b' => 0]);
+    
+    // Retourner une réponse HTTP contenant l'image QR code
+    return new Response($qrCode->writeString(), 200, ['Content-Type' => $qrCode->getContentType()]);
+}
+
 
 
    #[Route('/edit/{id}', name: 'app_evennement_edit')]
