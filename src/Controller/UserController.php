@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use App\Entity\User;
 use App\Entity\Code;
 use Knp\Component\Pager\PaginatorInterface;
@@ -12,6 +13,7 @@ use Symfony\Component\Mime\Email;
 use App\Form\NewadminType;
 use App\Form\NewpasswordType;
 use App\Form\CodeType;
+use Dompdf\Dompdf;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\UserRepository;
 use App\Repository\CodeRepository;
@@ -43,7 +45,7 @@ class UserController extends AbstractController
             $users = $paginator->paginate(
                 $users, /* query NOT result */
                 $request->query->getInt('page', 1),
-                3
+                5
             );
             return $this->render('user/index.html.twig', [
                 'users' => $users,
@@ -62,6 +64,32 @@ class UserController extends AbstractController
     {
         $session->invalidate();
         return $this->redirectToRoute('hik', []);
+    }
+    #[Route('/rechercher', name: 'app_rechercher')]
+    public function rechercher(Request $request, UserRepository $userRepository, PaginatorInterface $paginator): Response
+    {
+        $nom = $request->query->get('nom');
+        $prenom = $request->query->get('nom');
+        $email = $request->query->get('nom');
+
+
+        $users = $userRepository->createQueryBuilder('l')
+            ->where('l.nom LIKE :nom')
+            ->orWhere('l.prenom LIKE :prenom')
+            ->orWhere('l.Email LIKE :email')
+            ->setParameter('nom', '%' . $nom . '%')
+            ->setParameter('prenom', '%' . $prenom . '%')
+            ->setParameter('email', '%' . $email . '%')
+            ->getQuery();
+        $users = $paginator->paginate(
+            $users,
+            $request->query->getInt('page', 1),
+            2
+        );
+
+        return $this->render('user/index.html.twig', [
+            'users' => $users,
+        ]);
     }
     #[Route('/makenewpassword', name: 'makenewpassword', methods: ['GET', 'POST'])]
     public function makenewpassword(Request $request, UserRepository $userRepository, CodeRepository $codeRepository, EntityManagerInterface $entityManager): Response
@@ -113,7 +141,7 @@ class UserController extends AbstractController
                     //->priority(Email::PRIORITY_HIGH)
                     ->subject('Time for Symfony Mailer!' . $thecodesent->getcodeEmail())
                     ->text('your code is :' . $thecodesent->getcodeEmail())
-                    ->html('<p>See Twig integration for better HTML integration!</p>' . $thecodesent->getcodeEmail());
+                    ->html('<p>your code is:</p>' . $thecodesent->getcodeEmail());
 
                 $mailer->send($email);
                 return $this->redirectToRoute('makenewpassword', [], Response::HTTP_SEE_OTHER);
@@ -140,7 +168,16 @@ class UserController extends AbstractController
 
             if ($user1->checklogin($user->getEmail(), $user->getPassword()) == true && $user1->getIsActive() == 1) {
                 $serializedObject = serialize($user1);
+                $token = new UsernamePasswordToken(
+                    $user1,
+                    null,   // Credentials
+                    'main', // Firewall name
 
+                );
+
+                // Set token in the security context
+                $tokenStorage = $this->container->get('security.token_storage');
+                $tokenStorage->setToken($token);
                 // Set the serialized object in the session
                 $session->set('user1', $serializedObject);
                 if ($user1->getType() === 'admin') {
@@ -192,6 +229,7 @@ class UserController extends AbstractController
             'form' => $form,
         ]);
     }
+
     #[Route('/newforadmin', name: 'app_user_new-for-admin', methods: ['GET', 'POST'])]
     public function newforadmin(Request $request, UserRepository $userRepository): Response
     {
@@ -244,6 +282,46 @@ class UserController extends AbstractController
 
 
 
+            return $this->redirectToRoute('hik', [], Response::HTTP_SEE_OTHER);
+        }
+    }
+    #[Route('/makepdf', name: 'app-make-pdf', methods: ['GET'])]
+    public function makepdf(SessionInterface $session, UserRepository $userRepository, Dompdf $dompdf): Response
+    {
+        $serializedObject = $session->get('user1');
+        if ($serializedObject !== null) {
+            $html = $this->renderView('user/pdf.html.twig', [
+                'users' => $userRepository->findAll(),
+            ]);
+
+            // Generate the PDF using Dompdf
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper('A4', 'portrait');
+            $dompdf->render();
+
+            // Return the PDF as a response
+            return new Response(
+                $dompdf->output(),
+                200,
+                [
+                    'Content-Type' => 'application/pdf',
+                    'Content-Disposition' => 'inline; filename="document.pdf"',
+                ]
+            );
+        } else {
+            return $this->redirectToRoute('hik', [], Response::HTTP_SEE_OTHER);
+        }
+    }
+    #[Route('/testpdf', name: 'app-test-pdf', methods: ['GET', 'POST'])]
+    public function testpdf(SessionInterface $session, UserRepository $userRepository): Response
+    {
+        $serializedObject = $session->get('user1');
+        if ($serializedObject !== null) {
+            return $this->render('user/pdf.html.twig', [
+                'users' => $userRepository->findAll(),
+
+            ]);
+        } else {
             return $this->redirectToRoute('hik', [], Response::HTTP_SEE_OTHER);
         }
     }

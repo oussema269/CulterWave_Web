@@ -67,7 +67,12 @@
 
 {% block body %}
 	{# <h1>{{user1}}</h1> #}
-
+	<div class="text-right">
+		<form action="{{ path('app_rechercher') }}" method="GET">
+			<input type="text" name="nom">
+			<input type="submit" value="Rechercher" class="btn btn-danger mr-2" style="background-color:#8DD3BB;">
+		</form>
+	</div>
 	<div class="row">
 		<div class="col-md-12 col-sm-12 ">
 			<div class="x_panel">

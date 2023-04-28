@@ -92,6 +92,8 @@ return [[
 '[C]App%5CController%5CUserController%23show' => 1,
 'App%5CController%5CUserController%23adminprofile' => 0,
 '[C]App%5CController%5CUserController%23adminprofile' => 1,
+'App%5CController%5CUserController%23makepdf' => 0,
+'[C]App%5CController%5CUserController%23makepdf' => 1,
 'App%5CController%5CUserController%23sendmail' => 0,
 '[C]App%5CController%5CUserController%23sendmail' => 1,
 'App%5CController%5CUserController%23desactive' => 0,
@@ -708,6 +710,6 @@ return [[
 ], [
 
 0 => [],
-1 => 1682417663,
+1 => 1682630287,
 
 ]];

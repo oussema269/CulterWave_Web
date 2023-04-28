@@ -203,7 +203,15 @@ class __TwigTemplate_d94f8cdee92520aac840dac8c75e32d6 extends Template
         // line 69
         echo "\t";
         // line 70
-        echo "
+        echo "\t<div class=\"text-right\">
+\t\t<form action=\"";
+        // line 71
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_rechercher");
+        echo "\" method=\"GET\">
+\t\t\t<input type=\"text\" name=\"nom\">
+\t\t\t<input type=\"submit\" value=\"Rechercher\" class=\"btn btn-danger mr-2\" style=\"background-color:#8DD3BB;\">
+\t\t</form>
+\t</div>
 \t<div class=\"row\">
 \t\t<div class=\"col-md-12 col-sm-12 \">
 \t\t\t<div class=\"x_panel\">
@@ -259,9 +267,9 @@ class __TwigTemplate_d94f8cdee92520aac840dac8c75e32d6 extends Template
 
 
 \t\t\t\t\t\t\t\t\t\t";
-        // line 125
+        // line 130
         $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["users"]) || array_key_exists("users", $context) ? $context["users"] : (function () { throw new RuntimeError('Variable "users" does not exist.', 125, $this->source); })()));
+        $context['_seq'] = twig_ensure_traversable((isset($context["users"]) || array_key_exists("users", $context) ? $context["users"] : (function () { throw new RuntimeError('Variable "users" does not exist.', 130, $this->source); })()));
         $context['_iterated'] = false;
         $context['loop'] = [
           'parent' => $context['_parent'],
@@ -277,47 +285,47 @@ class __TwigTemplate_d94f8cdee92520aac840dac8c75e32d6 extends Template
             $context['loop']['last'] = 1 === $length;
         }
         foreach ($context['_seq'] as $context["_key"] => $context["user"]) {
-            // line 126
+            // line 131
             echo "\t\t\t\t\t\t\t\t\t\t\t<tr>
 
 \t\t\t\t\t\t\t\t\t\t\t\t<td>
 \t\t\t\t\t\t\t\t\t\t\t\t\t<span>";
-            // line 129
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "Nom", [], "any", false, false, false, 129), "html", null, true);
+            // line 134
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "Nom", [], "any", false, false, false, 134), "html", null, true);
             echo "</span>
 \t\t\t\t\t\t\t\t\t\t\t\t</td>
 \t\t\t\t\t\t\t\t\t\t\t\t<td>
 \t\t\t\t\t\t\t\t\t\t\t\t\t<span>";
-            // line 132
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "Prenom", [], "any", false, false, false, 132), "html", null, true);
+            // line 137
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "Prenom", [], "any", false, false, false, 137), "html", null, true);
             echo "</span>
 \t\t\t\t\t\t\t\t\t\t\t\t</td>
 \t\t\t\t\t\t\t\t\t\t\t\t<td>
 \t\t\t\t\t\t\t\t\t\t\t\t\t<span>";
-            // line 135
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "Email", [], "any", false, false, false, 135), "html", null, true);
+            // line 140
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "Email", [], "any", false, false, false, 140), "html", null, true);
             echo "</span>
 \t\t\t\t\t\t\t\t\t\t\t\t</td>
 
 \t\t\t\t\t\t\t\t\t\t\t\t<td>
 \t\t\t\t\t\t\t\t\t\t\t\t\t<span>";
-            // line 139
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "Type", [], "any", false, false, false, 139), "html", null, true);
+            // line 144
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "Type", [], "any", false, false, false, 144), "html", null, true);
             echo "</span>
 \t\t\t\t\t\t\t\t\t\t\t\t</td>
 \t\t\t\t\t\t\t\t\t\t\t\t<td>
 \t\t\t\t\t\t\t\t\t\t\t\t\t<span>";
-            // line 142
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "isActive", [], "any", false, false, false, 142), "html", null, true);
+            // line 147
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "isActive", [], "any", false, false, false, 147), "html", null, true);
             echo "</span>
 \t\t\t\t\t\t\t\t\t\t\t\t</td>
 \t\t\t\t\t\t\t\t\t\t\t\t<td style=\"display:flex; width:40%;\">
 \t\t\t\t\t\t\t\t\t\t\t\t\t";
-            // line 145
+            // line 150
             echo twig_include($this->env, $context, "user/desactive.html.twig");
             echo "
 \t\t\t\t\t\t\t\t\t\t\t\t\t";
-            // line 146
+            // line 151
             echo twig_include($this->env, $context, "user/_delete_form.html.twig");
             echo "
 
@@ -335,7 +343,7 @@ class __TwigTemplate_d94f8cdee92520aac840dac8c75e32d6 extends Template
             }
         }
         if (!$context['_iterated']) {
-            // line 151
+            // line 156
             echo "\t\t\t\t\t\t\t\t\t\t\t<tr>
 \t\t\t\t\t\t\t\t\t\t\t\t<td colspan=\"8\">no records found</td>
 \t\t\t\t\t\t\t\t\t\t\t</tr>
@@ -344,13 +352,13 @@ class __TwigTemplate_d94f8cdee92520aac840dac8c75e32d6 extends Template
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['user'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 155
+        // line 160
         echo "\t\t\t\t\t\t\t\t\t</tbody>
 
 \t\t\t\t\t\t\t\t</table>
 \t\t\t\t\t\t\t\t";
-        // line 158
-        echo $this->extensions['Knp\Bundle\PaginatorBundle\Twig\Extension\PaginationExtension']->render($this->env, (isset($context["users"]) || array_key_exists("users", $context) ? $context["users"] : (function () { throw new RuntimeError('Variable "users" does not exist.', 158, $this->source); })()));
+        // line 163
+        echo $this->extensions['Knp\Bundle\PaginatorBundle\Twig\Extension\PaginationExtension']->render($this->env, (isset($context["users"]) || array_key_exists("users", $context) ? $context["users"] : (function () { throw new RuntimeError('Variable "users" does not exist.', 163, $this->source); })()));
         echo "
 
 \t\t\t\t\t\t\t</div>
@@ -403,7 +411,7 @@ row.style.display = \"none\";
 
     public function getDebugInfo()
     {
-        return array (  353 => 158,  348 => 155,  339 => 151,  321 => 146,  317 => 145,  311 => 142,  305 => 139,  298 => 135,  292 => 132,  286 => 129,  281 => 126,  263 => 125,  206 => 70,  204 => 69,  194 => 68,  174 => 65,  162 => 63,  156 => 60,  151 => 58,  147 => 57,  143 => 56,  139 => 55,  133 => 52,  127 => 49,  121 => 46,  115 => 43,  110 => 41,  70 => 3,  60 => 2,  37 => 1,);
+        return array (  361 => 163,  356 => 160,  347 => 156,  329 => 151,  325 => 150,  319 => 147,  313 => 144,  306 => 140,  300 => 137,  294 => 134,  289 => 131,  271 => 130,  209 => 71,  206 => 70,  204 => 69,  194 => 68,  174 => 65,  162 => 63,  156 => 60,  151 => 58,  147 => 57,  143 => 56,  139 => 55,  133 => 52,  127 => 49,  121 => 46,  115 => 43,  110 => 41,  70 => 3,  60 => 2,  37 => 1,);
     }
 
     public function getSourceContext()
@@ -477,7 +485,12 @@ row.style.display = \"none\";
 
 {% block body %}
 \t{# <h1>{{user1}}</h1> #}
-
+\t<div class=\"text-right\">
+\t\t<form action=\"{{ path('app_rechercher') }}\" method=\"GET\">
+\t\t\t<input type=\"text\" name=\"nom\">
+\t\t\t<input type=\"submit\" value=\"Rechercher\" class=\"btn btn-danger mr-2\" style=\"background-color:#8DD3BB;\">
+\t\t</form>
+\t</div>
 \t<div class=\"row\">
 \t\t<div class=\"col-md-12 col-sm-12 \">
 \t\t\t<div class=\"x_panel\">
