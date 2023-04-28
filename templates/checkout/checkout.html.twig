@@ -225,9 +225,12 @@
                                     </div>
                                 </div>
                                 <div class="checkout-btn">
-                                    <button type="submit" >Place Order</button>
+                                    <button type="submit" >
+                                    <a href="{{ path('app_stripe') }}" > 
+                                    Place Order</button>
+                                     </a>
                                      {{ form_end(form) }}
-
+                                   
                                 </div>
                              
                             </div>
