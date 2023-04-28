@@ -14,6 +14,7 @@ use App\Form\NewadminType;
 use App\Form\NewpasswordType;
 use App\Form\CodeType;
 use Dompdf\Dompdf;
+use Dompdf\Options;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\UserRepository;
 use App\Repository\CodeRepository;
@@ -288,13 +289,18 @@ class UserController extends AbstractController
     #[Route('/makepdf', name: 'app-make-pdf', methods: ['GET'])]
     public function makepdf(SessionInterface $session, UserRepository $userRepository, Dompdf $dompdf): Response
     {
+
         $serializedObject = $session->get('user1');
         if ($serializedObject !== null) {
+            $dompdf = new Dompdf();
+
             $html = $this->renderView('user/pdf.html.twig', [
                 'users' => $userRepository->findAll(),
+                'logo_path' => '/public/img/culiterwave.png',
             ]);
 
             // Generate the PDF using Dompdf
+
             $dompdf->loadHtml($html);
             $dompdf->setPaper('A4', 'portrait');
             $dompdf->render();

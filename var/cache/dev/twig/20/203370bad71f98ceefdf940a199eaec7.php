@@ -44,6 +44,8 @@ class __TwigTemplate_8668bb903b11b26b117f7c2786b808a9 extends Template
 \t<head>
 \t\t<meta charset=\"UTF-8\">
 \t\t<title>My PDF Document</title>
+\t\t<link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"../img/favicon.png\">
+\t\t<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css\"/>
 \t\t<style>
 \t\t\ttable {
 \t\t\t\tborder-collapse: separate;
@@ -63,39 +65,38 @@ class __TwigTemplate_8668bb903b11b26b117f7c2786b808a9 extends Template
 \t\t\th2 {
 \t\t\t\tcolor: #4287f5;
 \t\t\t}
-\t\t\tspan.circle {
-\t\t\t\tbackground: #FFB52E;
-\t\t\t\tborder-radius: 50%;
-\t\t\t\t-moz-border-radius: 50%;
-\t\t\t\t-webkit-border-radius: 50%;
-\t\t\t\tcolor: #6e6e6e;
-\t\t\t\tdisplay: inline-block;
-\t\t\t\tfont-weight: bold;
-\t\t\t\tline-height: 40px;
-\t\t\t\tmargin-right: 5px;
+\t\t\tspan.circle {}
+\t\t\th2 {
+\t\t\t\tfont-size: 45px;
+
+\t\t\t\tfont-family: monospace, monospace;
+\t\t\t}
+\t\t\timg {
+\t\t\t\twidth: 20% height: 50%
+\t\t\t}
+\t\t\tp {
 \t\t\t\ttext-align: center;
-\t\t\t\twidth: 150px;
 \t\t\t}
 \t\t</style>
 \t</head>
 \t<body>
-\t\t<h1>
+\t\t<h2>
+\t\t\tCuliter Wave</h2>
+\t\t<p>
 \t\t\tPrint Date :";
-        // line 41
-        echo twig_escape_filter($this->env, twig_date_format_filter($this->env, "now", "Y-m-d"), "html", null, true);
-        echo "</h1>
-\t\t<h1>My PDF Document</h1>
-\t\t<p>This is some example content for the PDF.</p>
-\t\t<img src=\"";
         // line 44
-        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("img/culiterwave.png"), "html", null, true);
-        echo "\" alt=\"culiterwave\">
-\t\t<img src=\"https://images.saymedia-content.com/.image/c_limit%2Ccs_srgb%2Cq_auto:eco%2Cw_640/MTc0NDYxOTk3MzAyMTYzMDc4/basic-web-design-with-html-css.webp\" alt=\"Description of the image\">
+        echo twig_escape_filter($this->env, twig_date_format_filter($this->env, "now", "Y-m-d"), "html", null, true);
+        echo "</p>
 
+\t\t";
+        // line 47
+        echo "\t\t";
+        // line 52
+        echo "
 \t\t<div>
 \t\t\t<span class=\"circle\">total users are:";
-        // line 48
-        echo twig_escape_filter($this->env, twig_length_filter($this->env, (isset($context["users"]) || array_key_exists("users", $context) ? $context["users"] : (function () { throw new RuntimeError('Variable "users" does not exist.', 48, $this->source); })())), "html", null, true);
+        // line 54
+        echo twig_escape_filter($this->env, twig_length_filter($this->env, (isset($context["users"]) || array_key_exists("users", $context) ? $context["users"] : (function () { throw new RuntimeError('Variable "users" does not exist.', 54, $this->source); })())), "html", null, true);
         echo "</span>
 \t\t</div>
 \t\t<div>
@@ -117,37 +118,37 @@ class __TwigTemplate_8668bb903b11b26b117f7c2786b808a9 extends Template
 
 
 \t\t\t\t\t";
-        // line 68
+        // line 74
         $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["users"]) || array_key_exists("users", $context) ? $context["users"] : (function () { throw new RuntimeError('Variable "users" does not exist.', 68, $this->source); })()));
+        $context['_seq'] = twig_ensure_traversable((isset($context["users"]) || array_key_exists("users", $context) ? $context["users"] : (function () { throw new RuntimeError('Variable "users" does not exist.', 74, $this->source); })()));
         $context['_iterated'] = false;
         foreach ($context['_seq'] as $context["_key"] => $context["user"]) {
-            // line 69
+            // line 75
             echo "\t\t\t\t\t\t<tr>
 
 \t\t\t\t\t\t\t<td style=\"margin-left:500px \">
 \t\t\t\t\t\t\t\t<span>";
-            // line 72
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "Nom", [], "any", false, false, false, 72), "html", null, true);
-            echo "</span>
-\t\t\t\t\t\t\t</td>
-\t\t\t\t\t\t\t<td>
-\t\t\t\t\t\t\t\t<span>";
-            // line 75
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "Prenom", [], "any", false, false, false, 75), "html", null, true);
-            echo "</span>
-\t\t\t\t\t\t\t</td>
-\t\t\t\t\t\t\t<td>
-\t\t\t\t\t\t\t\t<span>";
             // line 78
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "Email", [], "any", false, false, false, 78), "html", null, true);
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "Nom", [], "any", false, false, false, 78), "html", null, true);
+            echo "</span>
+\t\t\t\t\t\t\t</td>
+\t\t\t\t\t\t\t<td>
+\t\t\t\t\t\t\t\t<span>";
+            // line 81
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "Prenom", [], "any", false, false, false, 81), "html", null, true);
+            echo "</span>
+\t\t\t\t\t\t\t</td>
+\t\t\t\t\t\t\t<td>
+\t\t\t\t\t\t\t\t<span>";
+            // line 84
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "Email", [], "any", false, false, false, 84), "html", null, true);
             echo "</span>
 \t\t\t\t\t\t\t</td>
 
 \t\t\t\t\t\t\t<td>
 \t\t\t\t\t\t\t\t<span>";
-            // line 82
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "Type", [], "any", false, false, false, 82), "html", null, true);
+            // line 88
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "Type", [], "any", false, false, false, 88), "html", null, true);
             echo "</span>
 \t\t\t\t\t\t\t</td>
 
@@ -157,7 +158,7 @@ class __TwigTemplate_8668bb903b11b26b117f7c2786b808a9 extends Template
             $context['_iterated'] = true;
         }
         if (!$context['_iterated']) {
-            // line 88
+            // line 94
             echo "\t\t\t\t\t\t<tr>
 \t\t\t\t\t\t\t<td colspan=\"8\">no records found</td>
 \t\t\t\t\t\t</tr>
@@ -166,11 +167,13 @@ class __TwigTemplate_8668bb903b11b26b117f7c2786b808a9 extends Template
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['user'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 92
+        // line 98
         echo "\t\t\t\t</tbody>
 
 \t\t\t</table>
-\t\t</div>
+\t\t\t";
+        // line 102
+        echo "\t\t</div>
 \t</body>
 </html>
 
@@ -196,7 +199,7 @@ class __TwigTemplate_8668bb903b11b26b117f7c2786b808a9 extends Template
 
     public function getDebugInfo()
     {
-        return array (  170 => 92,  161 => 88,  150 => 82,  143 => 78,  137 => 75,  131 => 72,  126 => 69,  121 => 68,  98 => 48,  91 => 44,  85 => 41,  43 => 1,);
+        return array (  176 => 102,  171 => 98,  162 => 94,  151 => 88,  144 => 84,  138 => 81,  132 => 78,  127 => 75,  122 => 74,  99 => 54,  95 => 52,  93 => 47,  88 => 44,  43 => 1,);
     }
 
     public function getSourceContext()
@@ -205,6 +208,8 @@ class __TwigTemplate_8668bb903b11b26b117f7c2786b808a9 extends Template
 \t<head>
 \t\t<meta charset=\"UTF-8\">
 \t\t<title>My PDF Document</title>
+\t\t<link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"../img/favicon.png\">
+\t\t<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css\"/>
 \t\t<style>
 \t\t\ttable {
 \t\t\t\tborder-collapse: separate;
@@ -224,28 +229,32 @@ class __TwigTemplate_8668bb903b11b26b117f7c2786b808a9 extends Template
 \t\t\th2 {
 \t\t\t\tcolor: #4287f5;
 \t\t\t}
-\t\t\tspan.circle {
-\t\t\t\tbackground: #FFB52E;
-\t\t\t\tborder-radius: 50%;
-\t\t\t\t-moz-border-radius: 50%;
-\t\t\t\t-webkit-border-radius: 50%;
-\t\t\t\tcolor: #6e6e6e;
-\t\t\t\tdisplay: inline-block;
-\t\t\t\tfont-weight: bold;
-\t\t\t\tline-height: 40px;
-\t\t\t\tmargin-right: 5px;
+\t\t\tspan.circle {}
+\t\t\th2 {
+\t\t\t\tfont-size: 45px;
+
+\t\t\t\tfont-family: monospace, monospace;
+\t\t\t}
+\t\t\timg {
+\t\t\t\twidth: 20% height: 50%
+\t\t\t}
+\t\t\tp {
 \t\t\t\ttext-align: center;
-\t\t\t\twidth: 150px;
 \t\t\t}
 \t\t</style>
 \t</head>
 \t<body>
-\t\t<h1>
-\t\t\tPrint Date :{{ \"now\"|date(\"Y-m-d\") }}</h1>
-\t\t<h1>My PDF Document</h1>
-\t\t<p>This is some example content for the PDF.</p>
-\t\t<img src=\"{{ asset('img/culiterwave.png') }}\" alt=\"culiterwave\">
-\t\t<img src=\"https://images.saymedia-content.com/.image/c_limit%2Ccs_srgb%2Cq_auto:eco%2Cw_640/MTc0NDYxOTk3MzAyMTYzMDc4/basic-web-design-with-html-css.webp\" alt=\"Description of the image\">
+\t\t<h2>
+\t\t\tCuliter Wave</h2>
+\t\t<p>
+\t\t\tPrint Date :{{ \"now\"|date(\"Y-m-d\") }}</p>
+
+\t\t{# <p>This is some example content for the PDF.</p> #}
+\t\t{# <img src=\"{{ asset('img/culiterwave.png') }}\" alt=\"culiterwave\">
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<img
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tsrc=\"https://images.saymedia-content.com/.image/c_limit%2Ccs_srgb%2Cq_auto:eco%2Cw_640/MTc0NDYxOTk3MzAyMTYzMDc4/basic-web-design-with-html-css.webp\" alt=\"Description of the image\">
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<img src=\"{{ logo_path }}\" alt=\"My logo\"> #}
 
 \t\t<div>
 \t\t\t<span class=\"circle\">total users are:{{users|length }}</span>
@@ -295,6 +304,7 @@ class __TwigTemplate_8668bb903b11b26b117f7c2786b808a9 extends Template
 \t\t\t\t</tbody>
 
 \t\t\t</table>
+\t\t\t{# <img src=\"{{ asset('img/culiterwave.jpg') }}\" alt=\"culiterwave\"> #}
 \t\t</div>
 \t</body>
 </html>

@@ -2,6 +2,8 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>My PDF Document</title>
+		<link rel="icon" type="image/png" sizes="16x16" href="../img/favicon.png">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 		<style>
 			table {
 				border-collapse: separate;
@@ -21,28 +23,32 @@
 			h2 {
 				color: #4287f5;
 			}
-			span.circle {
-				background: #FFB52E;
-				border-radius: 50%;
-				-moz-border-radius: 50%;
-				-webkit-border-radius: 50%;
-				color: #6e6e6e;
-				display: inline-block;
-				font-weight: bold;
-				line-height: 40px;
-				margin-right: 5px;
+			span.circle {}
+			h2 {
+				font-size: 45px;
+
+				font-family: monospace, monospace;
+			}
+			img {
+				width: 20% height: 50%
+			}
+			p {
 				text-align: center;
-				width: 150px;
 			}
 		</style>
 	</head>
 	<body>
-		<h1>
-			Print Date :{{ "now"|date("Y-m-d") }}</h1>
-		<h1>My PDF Document</h1>
-		<p>This is some example content for the PDF.</p>
-		<img src="{{ asset('img/culiterwave.png') }}" alt="culiterwave">
-		<img src="https://images.saymedia-content.com/.image/c_limit%2Ccs_srgb%2Cq_auto:eco%2Cw_640/MTc0NDYxOTk3MzAyMTYzMDc4/basic-web-design-with-html-css.webp" alt="Description of the image">
+		<h2>
+			Culiter Wave</h2>
+		<p>
+			Print Date :{{ "now"|date("Y-m-d") }}</p>
+
+		{# <p>This is some example content for the PDF.</p> #}
+		{# <img src="{{ asset('img/culiterwave.png') }}" alt="culiterwave">
+																																								
+																																										<img
+																																										src="https://images.saymedia-content.com/.image/c_limit%2Ccs_srgb%2Cq_auto:eco%2Cw_640/MTc0NDYxOTk3MzAyMTYzMDc4/basic-web-design-with-html-css.webp" alt="Description of the image">
+																																										<img src="{{ logo_path }}" alt="My logo"> #}
 
 		<div>
 			<span class="circle">total users are:{{users|length }}</span>
@@ -92,6 +98,7 @@
 				</tbody>
 
 			</table>
+			{# <img src="{{ asset('img/culiterwave.jpg') }}" alt="culiterwave"> #}
 		</div>
 	</body>
 </html>
