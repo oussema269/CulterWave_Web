@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Repository;
-
+use App\Model\SearchData;
 use App\Entity\Produit;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+
 
 /**
  * @extends ServiceEntityRepository<Produit>
@@ -16,10 +19,18 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ProduitRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+
+
+
+
+    private PaginatorInterface $paginator;
+
+    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
     {
         parent::__construct($registry, Produit::class);
+        $this->paginator = $paginator;
     }
+
 
     public function save(Produit $entity, bool $flush = false): void
     {
@@ -49,6 +60,9 @@ class ProduitRepository extends ServiceEntityRepository
                         ->getOneOrNullResult();
                 }
 
+                
+
+
 
 
 //    /**
@@ -75,4 +89,42 @@ class ProduitRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+ /**
+     * Get published posts thanks to Search Data value
+     *
+     * @param SearchData $searchData
+     * @return PaginationInterface
+     */
+
+public function findBySearch(SearchData $SearchData): PaginationInterface
+{
+   
+    $query = $this->createQueryBuilder('p')
+          ->addOrderBy('p.id', 'DESC');
+
+    if (!empty($SearchData->q)) {
+        $query->andWhere('p.lib LIKE :q')
+            ->setParameter('q', "%{$SearchData->q}%");
+    }
+    if (!empty($SearchData->categories)) {
+        $query = $query
+            ->join('p.categorie', 'c')
+            ->andWhere('c.idCat IN (:categories)')
+            ->setParameter('categories', $SearchData->categories);
+    }
+
+
+
+
+    $produits=$query
+        ->getQuery()
+        ->getResult();
+    
+    $produits = $this->paginator->paginate($query ,$SearchData->page,3);
+
+    return $produits;
+}
+
 }
