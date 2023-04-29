@@ -48,9 +48,35 @@ class UserController extends AbstractController
                 $request->query->getInt('page', 1),
                 5
             );
+            $itemCount = count($users);
+
+
+
+            $userTypeQuery = $userRepository->createQueryBuilder('u')
+                ->select('COUNT(u.id)')
+                ->where("u.type = 'user'")
+                ->getQuery();
+            $userCount = $userTypeQuery->getSingleScalarResult();
+
+            $vendeurTypeQuery = $userRepository->createQueryBuilder('u')
+                ->select('COUNT(u.id)')
+                ->where("u.type = 'vendeur'")
+                ->getQuery();
+            $vendeurCount = $vendeurTypeQuery->getSingleScalarResult();
+
+            $formateurTypeQuery = $userRepository->createQueryBuilder('u')
+                ->select('COUNT(u.id)')
+                ->where("u.type = 'formateur'")
+                ->getQuery();
+            $formateurCount = $formateurTypeQuery->getSingleScalarResult();
             return $this->render('user/index.html.twig', [
                 'users' => $users,
                 'user1' => $user1,
+                'usertype' => ($userCount / $itemCount) * 100,
+                'vendeur' => ($vendeurCount / $itemCount) * 100,
+                'formateur' => ($formateurCount / $itemCount) * 100,
+
+
             ]);
         } else {
 
@@ -87,9 +113,33 @@ class UserController extends AbstractController
             $request->query->getInt('page', 1),
             2
         );
+        $itemCount = count($userRepository->findAll());
+
+
+
+        $userTypeQuery = $userRepository->createQueryBuilder('u')
+            ->select('COUNT(u.id)')
+            ->where("u.type = 'user'")
+            ->getQuery();
+        $userCount = $userTypeQuery->getSingleScalarResult();
+
+        $vendeurTypeQuery = $userRepository->createQueryBuilder('u')
+            ->select('COUNT(u.id)')
+            ->where("u.type = 'vendeur'")
+            ->getQuery();
+        $vendeurCount = $vendeurTypeQuery->getSingleScalarResult();
+
+        $formateurTypeQuery = $userRepository->createQueryBuilder('u')
+            ->select('COUNT(u.id)')
+            ->where("u.type = 'formateur'")
+            ->getQuery();
+        $formateurCount = $formateurTypeQuery->getSingleScalarResult();
 
         return $this->render('user/index.html.twig', [
             'users' => $users,
+            'usertype' => ($userCount / $itemCount) * 100,
+            'vendeur' => ($vendeurCount / $itemCount) * 100,
+            'formateur' => ($formateurCount / $itemCount) * 100,
         ]);
     }
     #[Route('/makenewpassword', name: 'makenewpassword', methods: ['GET', 'POST'])]
