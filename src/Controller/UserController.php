@@ -52,6 +52,7 @@ class UserController extends AbstractController
 
 
 
+              
             $userTypeQuery = $userRepository->createQueryBuilder('u')
                 ->select('COUNT(u.id)')
                 ->where("u.type = 'user'")
