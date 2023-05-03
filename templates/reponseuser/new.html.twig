@@ -1,0 +1,15 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}New Reponse{% endblock %}
+
+{% block body %}
+<div class="form-container" style="border: 1px solid #ccc; padding: 200px;">
+<center>
+    <h1>Create new Reponse</h1>
+
+    {{ include('reponse/_form.html.twig') }}
+
+    <a href="{{ path('app_reponseuser_index') }}">back to list</a>
+    </center>
+    </div>
+{% endblock %}

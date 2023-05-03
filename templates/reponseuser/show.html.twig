@@ -1,0 +1,29 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Reponse{% endblock %}
+
+{% block body %}
+<div class="form-container" style="border: 1px solid #ccc; padding: 200px;">
+<center>
+    <h1>Reponse</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Nombre de la Reponse</th>
+                <td>{{ reponse.idreponse }}</td>
+            </tr>
+            <tr>
+                <th>Reponse</th>
+                <td>{{ reponse.repo }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reponseuser_index') }}">back to list</a>
+</center>
+</div>
+    
+
+    
+{% endblock %}

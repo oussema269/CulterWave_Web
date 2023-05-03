@@ -1,0 +1,33 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Reclamation{% endblock %}
+
+{% block body %}
+<div class="form-container" style="border: 1px solid #ccc; padding: 200px;">
+<center>
+    <h1>Reclamation</h1>
+
+    <table class="table">
+        <tbody>
+            
+            <tr>
+                <th>Typereclamation</th>
+                <td>{{ reclamation.typereclamation }}</td>
+            </tr>
+            <tr>
+                <th>Contenu</th>
+                <td>{{ reclamation.contenu }}</td>
+            </tr>
+            <tr>
+                <th>Datepro</th>
+                <td>{{ reclamation.datepro ? reclamation.datepro|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reclamationuser_index') }}">back to list</a>
+
+    </center>
+
+    </div>
+{% endblock %}

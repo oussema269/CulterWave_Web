@@ -1,0 +1,43 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Reclamation index{% endblock %}
+
+{% block body %}
+<div class="form-container" style="border: 1px solid #ccc; padding: 200px;">
+<center>
+    <h1>Vos Reclamations</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                
+                <th>Typereclamation</th>
+                <th>Contenu</th>
+                <th>Datepro</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reclamation in reclamations %}
+            <tr>
+                
+                <td>{{ reclamation.typereclamation }}</td>
+                <td>{{ reclamation.contenu }}</td>
+                <td>{{ reclamation.datepro ? reclamation.datepro|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_reclamationuser_show', {'idreclamation': reclamation.idreclamation}) }}">show</a>
+                    
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reclamationuser_new') }}">Create new</a>
+    </center>
+    </div>
+{% endblock %}

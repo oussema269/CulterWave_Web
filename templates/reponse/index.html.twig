@@ -1,0 +1,39 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Reponse index{% endblock %}
+
+{% block body %}
+<div class="form-container" style="border: 1px solid #ccc; padding: 200px;">
+<center>
+    <h1>Reponses</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Idreponse</th>
+                <th>Reponse</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reponse in reponses %}
+            <tr>
+                <td>{{ reponse.idreponse }}</td>
+                <td>{{ reponse.repo }}</td>
+                <td>
+                    <a href="{{ path('app_reponse_show', {'idreponse': reponse.idreponse}) }}">show</a>
+                    <a href="{{ path('app_reponse_edit', {'idreponse': reponse.idreponse}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reponse_new') }}">Create new</a>
+    </center>
+    </div>
+{% endblock %}

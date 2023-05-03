@@ -1,0 +1,17 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}modifier Reclamation{% endblock %}
+
+{% block body %}
+<div class="form-container" style="border: 1px solid #ccc; padding: 200px;">
+<center>
+    <h1>Modifier Reclamation</h1>
+
+    {{ include('reclamation/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_reclamation_index') }}">back to list</a>
+
+    {{ include('reclamation/_delete_form.html.twig') }}
+    </center>
+    </div>
+{% endblock %}
