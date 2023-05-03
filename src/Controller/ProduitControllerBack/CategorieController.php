@@ -9,6 +9,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mailer\Mailer;
 
 #[Route('/categorie')]
 class CategorieController extends AbstractController
@@ -31,15 +34,23 @@ class CategorieController extends AbstractController
     }
 
     #[Route('/new', name: 'app_categorie_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager , MailerInterface $mailer): Response
     {
         $categorie = new Categorie();
         $form = $this->createForm(CategorieType::class, $categorie);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $email = (new Email())
+            ->from('hello@example.com')
+            ->to('you@example.com')
+            ->subject('catégorie')
+            ->text('une categorie a été ajouté !');
+            $mailer->send($email);
             $entityManager->persist($categorie);
             $entityManager->flush();
+    
+         
 
             return $this->redirectToRoute('app_categorie_index', [], Response::HTTP_SEE_OTHER);
         }

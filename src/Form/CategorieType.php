@@ -7,6 +7,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 class CategorieType extends AbstractType
 {
@@ -14,7 +16,7 @@ class CategorieType extends AbstractType
     {
         $builder
         ->add('categorie', TextType::class, [
-            'label' => 'Produit',
+            'label' => 'categories ',
             'constraints' => [
                 new Assert\NotBlank(), // Le champ ne doit pas être vide
                 new Assert\Length(['max' => 255]), // Le champ doit avoir une longueur maximale de 255 caractères

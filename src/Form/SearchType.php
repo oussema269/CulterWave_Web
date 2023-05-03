@@ -26,6 +26,7 @@ class SearchType extends AbstractType
                 'expanded' => true,
                 'multiple' => true
             ]);
+            
 
  ;
     }

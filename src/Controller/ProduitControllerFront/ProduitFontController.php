@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller\ProduitControllerFront;
-
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,6 +11,8 @@ use App\Model\SearchData;
 use App\Form\SearchType;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\ProduitRepository;
+use App\Entity\Panier;
+use App\Entity\User;
 
 class ProduitFontController extends AbstractController
 {
@@ -49,5 +50,42 @@ class ProduitFontController extends AbstractController
             'categories' => $categories,
             'form'=>$form->createView(),
         ]);
+    }
+
+    #[Route('/addProduit/{idProduit}', name: 'app_produit')]
+    public function add(\Doctrine\Persistence\ManagerRegistry $doctrine , $idProduit): Response
+    {
+        $entityManager=$doctrine->getManager();
+        $utilisateur = $entityManager->getRepository(User::class)->find(41);
+        $produit = $entityManager->getRepository(Produit::class)->find($idProduit);
+        // Create a new Basket entity
+        $panier = $entityManager->getRepository(Panier::class)->findOneBy([
+            'idClient' => $utilisateur,
+            'idProduct' => $produit
+        ]);
+    
+        if ($panier) {
+            // If the product is already in the cart, increment the quantity
+            $quantite = $panier->getQuantite();
+            $panier->setQuantite($quantite + 1);
+        } else {
+            // If the product is not in the cart, create a new Basket entity with quantity = 1
+            $panier = new Panier();
+            $panier->setIdClient($utilisateur);
+            $panier->setIdProduct($produit);
+            $panier->setQuantite(1);
+
+        }
+        $panier->setTotale($panier->getQuantite()*$panier->getIdProduct()->getPrix());
+        
+
+        // Persist the entity to the database
+        $entityManager->persist($panier);
+        $entityManager->flush();
+
+        // Return a response to indicate success
+        return $this->redirectToRoute('app_produit_front');
+        
+
     }
 }

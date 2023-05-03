@@ -40,7 +40,7 @@ class ProduitController extends AbstractController
 
         
                 $sid = "AC2e3e3f431567d6395601f5cc2dbb1e7a";
-                $token = "a9cea865edee01c054dd2914a8586964";
+                $token = "cb4d56f8d482711f99bcc0fb66481647";
                 $twilio = new Client($sid, $token);
 
         if ($form->isSubmitted() && $form->isValid()) {
