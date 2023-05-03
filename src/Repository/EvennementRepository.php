@@ -59,6 +59,17 @@ class EvennementRepository extends ServiceEntityRepository
 
     }
 
+    public function sortByDate()
+{
+    return $this->createQueryBuilder('a')
+        ->orderBy('a.date', 'DESC')
+        ->getQuery()
+        ->getResult();
+}
+
+
+ 
+
     public function findByOrderByNom()
     {
         $req = $this->createQueryBuilder('s')

@@ -64,14 +64,19 @@ class EvennementController extends AbstractController
 
 
     #[Route('/rechercheadmin', name: 'app_liste_ordonne')]
-    public function listOrdonne(Request $request, EvennementRepository $repo): Response
+    public function listOrdonne(Request $request, EvennementRepository $repo, PaginatorInterface $paginator): Response
     {
+       
         $nom = $request->query->get('nom');
         $list = $repo->findByTitre($nom);
+      
         return $this->render('evennement/afficheradmin.html.twig', [
             'form' => $list,
         ]);
     }
+
+ 
+
     #[Route('/recherche', name: 'app_liste_ordonnee')]
     public function listOrdonnee(EvennementRepository $repository, Request $request, EvennementRepository $repo, PaginatorInterface $paginator): Response
     {
@@ -285,7 +290,7 @@ public function generateQrCode($text)
     $qrCode = new QrCode('mon texte');
 
     // Augmenter la taille de l'image
-    $qrCode->setSize(100);
+    $qrCode->setSize(300);
     
     // Changer la couleur du QR code
     $qrCode->setForegroundColor(['r' => 0, 'g' => 0, 'b' => 0]);

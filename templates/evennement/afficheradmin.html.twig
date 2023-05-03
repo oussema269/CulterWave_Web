@@ -33,9 +33,9 @@
 {% block bodyy %}
  
 <form action="{{ path('app_liste_ordonne') }}" method="get">
-    <input type="text" name="nom">
-    <input type="submit" value="recherche">
+<input type="text" name="nom" placeholder="Rechercher..." oninput="this.form.submit()">
 </form>
+
 <br>
 <br>
  
