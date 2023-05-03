@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Entity;
-use App\Entity\User;
 use App\Entity\Sponsor;
 use App\Entity\Rating;
 
@@ -20,8 +19,7 @@ use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
  
 class Evennement
 {
-    #[ORM\ManyToOne(targetEntity: User::class)]
-    private ?User $user = null; 
+    
 
    // #[ORM\OneToMany(mappedBy: 'evennement', targetEntity: Sponsor::class, cascade:["persist", "remove"], orphanRemoval:true)]
     //private Collection $sponsor;
