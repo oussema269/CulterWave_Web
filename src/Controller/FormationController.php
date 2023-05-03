@@ -12,9 +12,8 @@ use App\Form\FormationType;
 use App\Form\SearchType;
 use App\Repository\FormationRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
-use Knp\Bundle\PaginatorBundle\KnpPaginatorBundle;
-use Doctrine\ORM\Repository\RepositoryFactory;
 
 class FormationController extends AbstractController
 {
@@ -133,12 +132,31 @@ class FormationController extends AbstractController
             5 // limit per page
         );
     
-        return $this->render('formation/read.html.twig', [
+        return $this->render('formation/readlist.html.twig', [
             'formations' => $pagination,
             'pagination' =>$pagination
             
         ]);
     }
+
+    #[Route('/formation/tri/date', name: 'app_formation_tri_date')]
+    public function triParDate(FormationRepository $repo, PaginatorInterface $paginator, Request $request): Response
+    {   
+        $formations = $repo->findSortedByDate();
+        
+        $pagination = $paginator->paginate(
+            $formations,
+            $request->query->getInt('page', 1), // page number
+            5 // limit per page
+        );
+        
+        return $this->render('formation/readlist.html.twig', [
+            'formations' => $pagination,
+            'pagination' =>$pagination
+        ]);
+    }
+
+
     
 
     //backoffice

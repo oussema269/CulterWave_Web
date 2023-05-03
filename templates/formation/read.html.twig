@@ -6,22 +6,18 @@
     <h1>Formation Index</h1>
       
 
-        <div class="col-md-6">
-                        <div class="search">
-                            <input type="text" placeholder="Search">
-                            <button><i class="fa fa-search"></i></button>
-                        </div>
-                    </div>
-          <form action="{{ path('app_formation_ajouter') }}" method="get">
+           <div class="row">
+       
+        <form action="{{ path('app_formation_tri_date') }}" method="get">
+            <input type="submit" value="tri">
+          </form> 
+           <form action="{{ path('app_formation_ajouter') }}" method="get">
             <input type="submit" value="Ajouter">
           </form>
-
-            
-        </div>
-
+          </div>
     <div class="row">
    
-        {% for formation in pagination  %}
+        {% for formation in formations  %}
             <div class="col-md-3 mb-3">
                 <div class="card">
                     <div class="card-header">{{ formation.titre }}</div>
@@ -56,5 +52,5 @@
         
        
     </div>
-{{ knp_pagination_render(pagination) }}
+{{ knp_pagination_render(formations) }}
 {% endblock %}

@@ -67,9 +67,19 @@ public function countParticipationsByFormation()
 {
     return $this->createQueryBuilder('f')
         ->leftJoin('f.Participationformation', 'p')
-        ->select('f.id as Idparticipationformation, COUNT(p) as Idformation')
+        ->select('f.id as Idparticipationformation, COUNT(p) as formation_id')
         ->groupBy('f.id')
         ->getQuery()
         ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
 }
+public function findByFormationId($id)
+{
+    return $this->createQueryBuilder('p')
+        ->select('p.formations.debut, p.formations.fin')
+        ->where('p.formations.id = :formations_id')
+        ->setParameter('formations_id', $id)
+        ->getQuery()
+        ->getOneOrNullResult();
+}
+
 }

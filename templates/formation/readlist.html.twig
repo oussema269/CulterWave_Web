@@ -6,16 +6,18 @@
     <h1>Formation Index</h1>
       
 
-        <div class="row">
+    
+           <div class="row">
         <form action="{{ path('app_formation_search') }}" method="get">
             <input type="text" name="titre">
             <input type="submit" value="recherche">
           </form>
-          <form action="{{ path('app_formation_ajouter') }}" method="get">
+        <form action="{{ path('app_formation_tri_date') }}" method="get">
+            <input type="submit" value="tri">
+          </form> 
+           <form action="{{ path('app_formation_ajouter') }}" method="get">
             <input type="submit" value="Ajouter">
           </form>
-
-          
         </div>
 
     <div class="row">

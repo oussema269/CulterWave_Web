@@ -149,7 +149,15 @@ public function orderByid()
         ->getQuery()
         ;
     }
+    public function findSortedByDate()
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            'SELECT f FROM App\Entity\Formation f WHERE f.confirmation = true ORDER BY f.debut ASC'
 
-
+        );
+        return $query->getResult();
+    }
+    
 
 }

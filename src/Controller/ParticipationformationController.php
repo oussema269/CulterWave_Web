@@ -16,15 +16,15 @@ use Symfony\Component\HttpFoundation\Request;
 
 
 
+
+
 class ParticipationformationController extends AbstractController
 {
     #[Route('/participationformation', name: 'app_participationformation')]
 public function index(ParticipationformationRepository $participationformationRepository): Response
 {
-    $participationsByFormation = $participationformationRepository->countParticipationsByFormation();
-    return $this->render('chart.html.twig', [
-        'participationsByFormation' => $participationsByFormation
-    ]);
+    return $this->render('participationformation/calendra.html.twig' );
+
 }
 
 
@@ -40,24 +40,27 @@ public function index(ParticipationformationRepository $participationformationRe
     #[Route('/add/{id}', name: 'app_participationformation_add', methods: ["GET"])]
     public function add(int $id, EntityManagerInterface $em): Response
     {
-
         $formation = $em->getRepository(Formation::class)->find($id);
     
         $user = $this->getUser();
-        //$user = $em->getRepository(User::class)->find(1);
     
-        
         $participation = new Participationformation();
-        $participation->setFormations($formation);
+        $participation->getFormations();
         $participation->setUser($user);
-    
-
         $em->persist($participation);
         $em->flush();
     
-
-        return $this->redirectToRoute('app_formation_readadmin');
+        // Récupérer la date de début et de fin de la formation
+        $dateDebut = $formation->getDebut();
+        $dateFin = $formation->getFin();
+     
+           
+        return $this->redirectToRoute('app_formation_read', ['debut' => $dateDebut,'fin' =>$dateFin]);   
     }
+    
+    
+
+
     
    
 }

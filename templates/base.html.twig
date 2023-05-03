@@ -7,7 +7,8 @@
 			<meta content="eCommerce HTML Template Free Download" name="keywords"/>
 			<meta
 			content="eCommerce HTML Template Free Download" name="description"/>
-
+			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.css" integrity="sha256-uq9PNlMzB+1h01Ij9cx7zeE2OR2pLAfRw3uUUOOPKdA=" crossorigin="anonymous">
+        	{% block stylesheets %}{% endblock %}
 			<!-- Favicon -->
 			<link
 			href="img/favicon.ico" rel="icon"/>
@@ -41,7 +42,8 @@
 							<div class="navbar-nav mr-auto">
 								<a href="index.html" class="nav-item nav-link aroduct-detail.html" class="nav-item nav-link">Event
 								</a>
-
+							<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.js" integrity="sha256-DBxkGZLxKsLKhz054qUpBqtotG00r9AELGpSigJujLg=" crossorigin="anonymous"></script>
+        						
 								<a href="{{ path('app_formation_read') }}" class="nav-item nav-link">Formation</a>
 								<a href="product-list.html" class="nav-item nav-link">Products</a>
 								<a href="cart.html" class="nav-item nav-link">Cart</a>
