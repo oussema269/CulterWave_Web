@@ -16,7 +16,7 @@ class EemType extends AbstractType
     {
         $builder
 
-            ->add('email', EmailType::class)
+            ->add('Email', EmailType::class)
             ->add('password', PasswordType::class);
     }
 
@@ -27,3 +27,4 @@ class EemType extends AbstractType
         ]);
     }
 }
+

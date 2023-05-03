@@ -18,7 +18,6 @@ use Knp\Bundle\PaginatorBundle\KnpPaginatorBundle;
 use App\Entity\Rating;
 use App\Form\RatingType;
 use App\Repository\RatingRepository;
-use Endroid\QrCode\QrCode;
 
 
 class EvennementController extends AbstractController
@@ -284,21 +283,7 @@ class EvennementController extends AbstractController
        ]);    
    }
 
-   #[Route('/qr-code/{text}', name: 'qr_code')]
-public function generateQrCode($text)
-{
-    $qrCode = new QrCode('mon texte');
-
-    // Augmenter la taille de l'image
-    $qrCode->setSize(300);
-    
-    // Changer la couleur du QR code
-    $qrCode->setForegroundColor(['r' => 0, 'g' => 0, 'b' => 0]);
-    
-    // Retourner une réponse HTTP contenant l'image QR code
-    return new Response($qrCode->writeString(), 200, ['Content-Type' => $qrCode->getContentType()]);
-}
-
+   
 
 
    #[Route('/edit/{id}', name: 'app_evennement_edit')]

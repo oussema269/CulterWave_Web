@@ -3,6 +3,7 @@
 		<head>
 			<meta charset="utf-8"/>
 			<title>E Store - eCommerce HTML Template</title>
+			<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 			<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 			<meta content="eCommerce HTML Template Free Download" name="keywords"/>
 			<meta
@@ -10,7 +11,7 @@
 
 			<!-- Favicon -->
 			<link
-			href="img/favicon.ico" rel="icon"/>
+			href="{{asset("img/favicon.ico")}}" rel="icon"/>
 
 			<!-- Google Fonts -->
 			<link
@@ -19,12 +20,11 @@
 			<!-- CSS Libraries -->
 			<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"/>
 			<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet"/>
-			<link href="lib/slick/slick.css" rel="stylesheet"/>
-			<link
-			href="lib/slick/slick-theme.css" rel="stylesheet"/>
-
+			<link href="{{asset("lib/slick/slick.css")}}" rel="stylesheet"/>
+			<link href="{{asset("lib/slick/slick-theme.css")}}" rel="stylesheet"/>
+			{% block cssandthings %}{% endblock %}
 			<!-- Template Stylesheet -->
-			<link href="css/style.css" rel="stylesheet"/>
+			<link href="{{asset("css/style.css")}}" rel="stylesheet"/>
 		</head>
 
 		<body>
@@ -39,7 +39,7 @@
 
 						<div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
 							<div class="navbar-nav mr-auto">
-								<a href="#" class="nav-item nav-link ">Home</a>
+								
 
 								
 								<a href="{{
@@ -48,6 +48,10 @@
                
               )
             }}" class="nav-item nav-link active">event</a>
+								<a href="index.html" class="nav-item nav-link active">Home</a>
+
+								<a href="product-detail.html" class="nav-item nav-link">Event
+								</a>
 
 								<a href="#" class="nav-item nav-link">formation</a>
 								<a href="product-list.html" class="nav-item nav-link">Products</a>
@@ -58,8 +62,10 @@
 								<div class="nav-item dropdown">
 									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
 									<div class="dropdown-menu">
-										<a href="my-account.html" class="nav-item nav-link">My Account</a>
-										<a href="#" class="dropdown-item">log out</a>
+										<a href="{{ path('app_user_show') }}" class="nav-item nav-link">My Account</a>
+
+
+										<a href="{{ path('logout') }}" class="dropdown-item">log out</a>
 									</div>
 								</div>
 							</div>
@@ -650,7 +656,7 @@
 									</div>
 									<p>
 										Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-																																																																																																														                  Curabitur vitae nunc eget leo finibus luctus et vitae lorem
+
 									</p>
 								</div>
 							</div>
@@ -672,7 +678,7 @@
 									</div>
 									<p>
 										Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-																																																																																																														                  Curabitur vitae nunc eget leo finibus luctus et vitae lorem
+																																																																																																																																																																																																																																																																																																																																																																																																																                  Curabitur vitae nunc eget leo finibus luctus et vitae lorem
 									</p>
 								</div>
 							</div>
@@ -694,7 +700,7 @@
 									</div>
 									<p>
 										Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-																																																																																																														                  Curabitur vitae nunc eget leo finibus luctus et vitae lorem
+																																																																																																																																																																																																																																																																																																																																																																																																																                  Curabitur vitae nunc eget leo finibus luctus et vitae lorem
 									</p>
 								</div>
 							</div>
@@ -712,8 +718,6 @@
 						<div class="col-lg-3 col-md-6">
 							<div class="footer-widget">
 								<h2>Get in Touch</h2>
-
-								
 								<div class="contact-info">
 									<p>
 										<i class="fa fa-map-marker"></i>123 E Store, Los Angeles, USA
@@ -800,18 +804,12 @@
 			</a>
 
 			<!-- JavaScript Libraries -->
-			<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-			<script src="lib/easing/easing.min.js"></script>
-			<script src="lib/slick/slick.min.js"></script>
-
-			<!-- Template Javascript -->
-			<script src="js/main.js"></script>
-
-
-
-
-
+			<link href="{{ asset('img/favicon.ico') }}" rel="icon"/>
+			<script src="{{ asset('https://code.jquery.com/jquery-3.4.1.min.js') }}"></script>
+			<script src="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js') }}"></script>
+			<script src="{{ asset('lib/easing/easing.min.js') }}"></script>
+			<script src="{{ asset('lib/slick/slick.min.js') }}"></script>
+			<script src="{{ asset('js/main.js') }}"></script>
 
 		</body>
 	</html>
