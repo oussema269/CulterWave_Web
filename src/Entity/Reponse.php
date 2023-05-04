@@ -66,8 +66,8 @@ class Reponse
 
         return $this;
     }
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getIdReponse(); // or some other string representation of the object
     }
-
 }

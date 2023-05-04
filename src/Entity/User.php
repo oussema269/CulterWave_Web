@@ -56,7 +56,7 @@ class User
      */
     private $type = 'NULL';
 
-   
+
     public function getId(): ?int
     {
         return $this->id;
@@ -122,7 +122,7 @@ class User
         return $this;
     }
 
-   
+
 
 
 
@@ -135,5 +135,9 @@ class User
             return true;
         }
         return null;
+    }
+    public function __toString(): string
+    {
+        return $this->getId(); // or any other property you want to use as a string representation
     }
 }

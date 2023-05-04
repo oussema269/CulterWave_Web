@@ -1,4 +1,4 @@
-{% extends 'Admindachboard.html.twig' %}
+{% extends 'front.html.twig' %}
 
 {% block title %}Reponse
 {% endblock %}
@@ -11,21 +11,19 @@
 			<table class="table">
 				<tbody>
 					<tr>
-						<th>Idreponse</th>
-						<td>{{ reponse.idreponse }}</td>
+						<th>cible de reclamation</th>
+						<td>{{ ciblerec.prenom }} {{ ciblerec.nom }}</td>
 					</tr>
 					<tr>
-						<th>Repo</th>
+						<th>Reponse</th>
 						<td>{{ reponse.repo }}</td>
 					</tr>
 				</tbody>
 			</table>
 
-			<a href="{{ path('app_reponse_index') }}">back to list</a>
-
-			<a href="{{ path('app_reponse_edit', {'idReponse': reponse.idreponse}) }}">edit</a>
-
-			{{ include('reponse/_delete_form.html.twig') }}
+			<a href="{{ path('app_reponseuser_index') }}">back to list</a>
 		</center>
 	</div>
+
+
 {% endblock %}

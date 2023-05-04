@@ -1,43 +1,46 @@
-{% extends 'tem.html.twig' %}
+{% extends 'Admindachboard.html.twig' %}
 
-{% block title %}Reclamation index{% endblock %}
+{% block title %}Reclamation index
+{% endblock %}
 
 {% block body %}
-    <h1>Reclamation index</h1>
+	<center>
+		<h1>Reclamations</h1>
+	</center>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>IdReclamation</th>
-                <th>Id reclamateur</th>
-                <th>cible reclamation</th>
-                <th>TypeReclamation</th>
-                <th>Contenu</th>
-                <th>Datepro</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for reclamation in reclamations %}
-            <tr>
-                <td>{{ reclamation.idReclamation }}</td>
-                <td>{{ reclamation.idReclamateur }}</td>
-                <td>{{ reclamation.idCibleReclamation }}</td>
-                <td>{{ reclamation.typeReclamation }}</td>
-                <td>{{ reclamation.contenu }}</td>
-                <td>{{ reclamation.datepro }}</td>
-                <td>
-                    <a href="{{ path('app_reclamation_show', {'idReclamation': reclamation.idReclamation}) }}">show</a>
-                    <a href="{{ path('app_reclamation_edit', {'idReclamation': reclamation.idReclamation}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id reclamation</th>
+				<th>Reclamateur</th>
+				<th>Type</th>
+				<th>Contenu</th>
+				<th>Date probleme</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for reclamation in reclamations %}
+				<tr>
+					<td>{{ reclamation.idreclamation }}</td>
+					<td>{{ reclamation.idreclamateur }}</td>
+					<td>{{ reclamation.typereclamation }}</td>
+					<td>{{ reclamation.contenu }}</td>
+					<td>{{ reclamation.datepro ? reclamation.datepro|date('Y-m-d') : '' }}</td>
+					<td>
+						<a href="{{ path('app_reclamation_show', {'idreclamation': reclamation.idreclamation}) }}">show</a>
+						<a href="{{ path('app_reclamation_edit', {'idreclamation': reclamation.idreclamation}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="5">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 
-    <a href="{{ path('app_reclamation_new') }}">Create new</a>
+	<center>
+		<a href="{{ path('app_reclamation_new') }}">Create new</a>
+	</center>
 {% endblock %}

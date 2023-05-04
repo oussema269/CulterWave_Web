@@ -1,4 +1,4 @@
-{% extends 'Admindachboard.html.twig' %}
+{% extends 'front.html.twig' %}
 
 {% block title %}Reponse index
 {% endblock %}
@@ -6,24 +6,25 @@
 {% block body %}
 	<div class="form-container" style="border: 1px solid #ccc; padding: 200px;">
 		<center>
-			<h1>Reponses</h1>
+			<h1>Vos reponses</h1>
 
 			<table class="table">
 				<thead>
 					<tr>
-						<th>Idreponse</th>
-						<th>Reponse</th>
+
+						<th>la reponse
+						</th>
 						<th>actions</th>
 					</tr>
 				</thead>
 				<tbody>
 					{% for reponse in reponses %}
 						<tr>
-							<td>{{ reponse.idreponse }}</td>
+
 							<td>{{ reponse.repo }}</td>
 							<td>
-								<a href="{{ path('app_reponse_show', {'idReponse': reponse.idreponse}) }}">show</a>
-								<a href="{{ path('app_reponse_edit', {'idReponse': reponse.idreponse}) }}">edit</a>
+								<a href="{{ path('app_reponseuser_show', {'idReponse': reponse.idreponse}) }}">show</a>
+
 							</td>
 						</tr>
 					{% else %}
@@ -33,8 +34,7 @@
 					{% endfor %}
 				</tbody>
 			</table>
-
-			<a href="{{ path('app_reponse_new') }}">Create new</a>
 		</center>
 	</div>
+
 {% endblock %}

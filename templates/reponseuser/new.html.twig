@@ -1,4 +1,4 @@
-{% extends 'Admindachboard.html.twig' %}
+{% extends 'front.html.twig' %}
 
 {% block title %}New Reponse{% endblock %}
 
@@ -9,7 +9,7 @@
 
     {{ include('reponse/_form.html.twig') }}
 
-    <a href="{{ path('app_reponse_index') }}">back to list</a>
+    <a href="{{ path('app_reponseuser_index') }}">back to list</a>
     </center>
     </div>
 {% endblock %}

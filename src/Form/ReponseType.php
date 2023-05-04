@@ -12,8 +12,8 @@ class ReponseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('repo')
-            ->add('idReclamation')
+        ->add('repo', null, ['label' => 'Reponse  '])
+            ->add('idreclamation')
         ;
     }
 
