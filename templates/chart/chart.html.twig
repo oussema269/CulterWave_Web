@@ -1,0 +1,54 @@
+{% extends 'Admindachboard.html.twig' %}
+
+{% block body %}
+<h1>Graphique</h1>
+    <canvas id="myChart" width="1200" height="750"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+   <script>
+    var formationNames = {{ formationNames|raw }};
+    var formationCounts = {{ formationCounts|raw }};
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: formationNames,
+            datasets: [{
+                label: 'Nombre de participations',
+                data: formationCounts,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1,
+                ticks: {
+                stepSize: 1
+            }
+            }]
+        },
+       options: {
+    responsive: false,
+    aspectRatio: 1,
+    width: 1200,
+    height: 750,
+    ticks: {
+        stepSize: 1
+    },
+    scales: {
+        xAxes: [{
+            ticks: {
+                fontSize: 14
+            }
+        }],
+        yAxes: [{
+            ticks: {
+                fontSize: 14
+            }
+        }]
+    },
+    barPercentage: 0.5
+}
+    });
+</script>
+
+{% endblock %}

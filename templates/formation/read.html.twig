@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}liste formation
+{% endblock %}
+
+{% block body %}
+	<h1>Formation Index</h1>
+	<div style="margin-Left:5%">
+
+		<div class="row">
+
+			<form action="{{ path('app_formation_tri_date') }}" method="get">
+				<input type="submit" value="tri">
+			</form>
+			<form action="{{ path('app_formation_ajouter') }}" method="get">
+				<input type="submit" value="Ajouter">
+			</form>
+		</div>
+		<div class="row">
+
+			{% for formation in formations  %}
+				<div class="col-md-3 mb-3">
+					<div class="card">
+						<div class="card-header">{{ formation.titre }}</div>
+						<div class="card-body">
+							<h5 class="card-title">{{ formation.type }}</h5>
+							<p class="card-text">{{ formation.description }}</p>
+							<p class="card-text">{{ formation.pays }}</p>
+							<p class="card-text">{{ formation.debut|date('Y-m-d') }}
+								|
+								{{ formation.fin|date('Y-m-d') }}</p>
+						</div>
+						<div class="card-footer">
+
+							<a href="{{ path( 'app_formation_delete', { id: formation.id } ) }}" class="btn btn-danger mr-2">Delete</a>
+							<a href="{{ path( 'app_formation_update', { id: formation.id } ) }}" class="btn btn-primary">Edit</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+
+
+		</div>
+		{{ knp_pagination_render(formations) }}
+	</div>
+{% endblock %}

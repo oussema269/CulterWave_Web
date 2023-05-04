@@ -1,0 +1,51 @@
+{% extends 'Admindachboard.html.twig' %}
+
+{% block title %}liste formation{% endblock %}
+
+{% block body %}
+    <h1>Formation en attend</h1>
+        
+    <div class="row">
+        {% for formation in formations %}
+            <div class="col-md-3 mb-3">
+                <div class="card">
+                    <div class="card-header">{{ formation.titre }}</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ formation.type }}</h5>
+                        <p class="card-text">{{ formation.description }}</p>
+                        <p class="card-text">{{ formation.pays }}</p>
+                        <p class="card-text">{{ formation.debut|date('Y-m-d') }} | {{ formation.fin|date('Y-m-d') }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{
+                          path(
+                            'app_formation_deleteadmin',
+                            {
+                              id: formation.id
+                            }
+                          )
+                        }}" class="btn btn-danger mr-2">Delete</a>
+                        <a href="{{
+                          path(
+                            'app_formation_updateadmin',
+                            {
+                              id: formation.id
+                            }
+                          )
+                        }}" class="btn btn-primary">Edit</a>
+
+                        <a href="{{
+                          path(
+                            'app_formation_accepter',
+                            {
+                              id: formation.id
+                            }
+                          )
+                        }}" class="btn btn-primary">Accepter</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'Admindachboard.html.twig' %}
+
+{% block body %}
+{% for message in app.session.getFlashBag.get('success') %}
+  <br>
+  <br>
+  <div class="container position-fixed top-505 start-505 translate-middle" style="width:300px;">
+    <div class="alert alert-success text-center" role="alert" style="background-color: #28a745; border-color: #28a745; color: #fff; border-radius: .25rem;">
+      {{ message }}
+    </div>
+  </div>
+
+  <script>
+    setTimeout(function() {
+        document.querySelector('.alert-success').remove();
+    }, 3000);
+  </script>
+{% endfor %}
+
+  <h2><left>Liste des sponsors </left><div class="text-right">
+    <a href="{{ path('app_sponsor_create') }}" class="btn btn-primary">Ajouter un sponsor</a>
+  </div></h2>
+  <form action="{{ path('app_liste_ordonneeee') }}" method="get">
+
+ 
+    <div class="">
+      <input type="text" name="nom" placeholder="Rechercher..." oninput="this.form.submit()">
+
+    </div>
+    
+</form>
+<br>
+<br>
+  <div class="row">
+    {% for sponsor in form %}
+      <div class="col-md-3 mb-3">
+        <div class="product-image">
+          
+<div class="card-header">
+    <img style="height: 200px;width: 100%;object-fit: cover;" 
+         src="{{ asset('public/img/' ~ sponsor.image  )}}" 
+         alt="{{ sponsor.nom }}" 
+         accept="image/*">
+</div>
+
+
+          <div class="card-footer">
+            <a href="{{ path('app_sponsor_delete', {id: sponsor.id}) }}" class="btn btn-danger mr-2">Supprimer</a>
+          </div>
+         
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

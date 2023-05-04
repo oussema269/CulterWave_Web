@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/main.min.css' rel='stylesheet' />
+{% endblock %}
+
+{% block body %}
+
+  <div id='calendar'></div>
+
+  {% block javascripts %}
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.6/index.global.min.js'></script>
+    <script>
+  document.addEventListener('DOMContentLoaded', function() {
+  var calendarEl = document.getElementById('calendar');
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    // ...
+  });
+  
+  // Create a new event object
+  var newEvent = {
+    title: 'My New Event',
+    start: '2023-05-01',
+    end: '2023-05-03'
+    
+  };
+  
+  // Add the new event to the calendar
+  calendar.addEvent(newEvent);
+  
+  // Render the calendar
+  calendar.render();
+
+
+        function getRandomColor() {
+          const letters = '0123456789ABCDEF';
+          let color = '#';
+          for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+          }
+          return color;
+        }
+      });
+    </script>
+  {% endblock %}
+{% endblock %}

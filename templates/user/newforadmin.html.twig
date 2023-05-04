@@ -1,0 +1,48 @@
+{% extends 'Admindachboard.html.twig' %}
+{% block body %}
+
+	<div class="container">
+		<h1 class="my-5">Register</h1>
+		<div class="row">
+			<div class="col-md-6">
+				{{ form_start(form) }}
+				<div class="form-group">
+					{{ form_label(form.Nom, 'votre nom') }}
+					{{ form_widget(form.Nom, { 'attr': {'class': 'form-control'} }) }}
+					{{ form_errors(form.Nom) }}
+				</div>
+				<div class="form-group">
+					{{ form_label(form.Prenom, 'votre prenom') }}
+					{{ form_widget(form.Prenom, { 'attr': {'class': 'form-control'} }) }}
+					{{ form_errors(form.Prenom) }}
+				</div>
+				<div class="form-group">
+					{{ form_label(form.Email, 'votre Email') }}
+					{{ form_widget(form.Email, { 'attr': {'class': 'form-control'} }) }}
+					{{ form_errors(form.Email) }}
+				</div>
+				<div class="form-group">
+					{{ form_label(form.password, 'votre password') }}
+					{{ form_widget(form.password, { 'attr': {'class': 'form-control'} }) }}
+					{{ form_errors(form.password) }}
+				</div>
+				<div class="form-group"></div>
+				<div class="form-group">
+					{{ form_label(form.Type, 'account type') }}
+					{{ form_widget(form.Type, { 'attr': {'class': 'form-control'} }) }}
+					{{ form_errors(form.Type) }}
+				</div>
+
+
+				{{ include('user/_form.html.twig') }}
+
+				{# {% if isvalid11 %}
+													<p>This content will only be displayed if some_variable is true.</p>
+												{% else %}
+													<p>This content will only be displayed if some_variable is false.</p>
+												{% endif %} #}
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+ 
+ 
+{% block bodyy %}
+ <h3><left>Evennement liste </left>
+ 
+</h3>
+<div style="float:right;">
+  <form action="{{ path('app_liste_ordonnee') }}" method="get">
+<input type="text" name="nom" placeholder="Rechercher..." oninput="this.form.submit()">
+  </form>
+</div>
+
+<br>
+<br>
+ 
+{% endblock %}
+
+
+
+  <div class="row">
+    {% for evennement in form %}
+      <div class="col-md-3 mb-3">
+      <div class="card event-card">
+        <div class="card img-item">
+        <img src="img/OIP.jpg"/>
+          <div class="card-header">{{ evennement.nom }}</div>
+          <div class="card-body">
+            <h5 class="card-title">{{ evennement.description }}</h5>
+            <p class="card-text">{{ evennement.lieu }}</p>
+            <p class="card-text">{{ evennement.prix }}</p>
+            <p class="card-text">{{ evennement.date|date('Y-m-d') }}</p>
+            <p class="card-text">{{ evennement.nbParticipants }}</p>
+
+            <p class="card-text">{{ evennement.typeEvenement }}</p>
+            {% if evennement.sponsor is not null %}
+    <p class="card-text">{{ evennement.sponsor.nom }}</p>
+  {% endif %}
+
+            
+          </div>
+          <div class="card-footer">
+       
+            <a href="{{
+              path(
+                'app_part',
+                {
+                  id: evennement.id
+                }
+              )
+            }}" class="btn btn-primary">participer</a><br>
+
+      
+    
+
+          </div>
+              <div class="card-footer">
+       
+         
+                <a href="{{ path('app_rate_create', { id: evennement.id }) }}" class="btn btn-secondary">Notez cet evennement </a>
+
+      
+    
+
+          </div>
+        </div>
+      </div>
+              </div>
+
+    {% endfor %}
+   
+ {{ knp_pagination_render(form) }}
+
+  </div>
+{% endblock %}
+
