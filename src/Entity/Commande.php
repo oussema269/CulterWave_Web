@@ -69,7 +69,7 @@ class Commande
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_client", referencedColumnName="Id")
+     *   @ORM\JoinColumn(name="id-owner", referencedColumnName="Id")
      * })
      */
     private $idClient;
@@ -162,6 +162,4 @@ class Commande
 
         return $this;
     }
-
-
 }

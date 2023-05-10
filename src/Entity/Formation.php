@@ -66,20 +66,19 @@ class Formation
     /**
      * @var string
      *
-     * @ORM\Column(name="confirmation", type="string", length=5, nullable=false)
+     * @ORM\Column(name="confirmation", type="string", length=5, nullable=true)
      */
     private $confirmation;
 
     /**
      * @var \User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="ownerID", referencedColumnName="Id")
      * })
      */
     private $ownerid;
-
     public function getOwnerid(): ?User
     {
         return $this->ownerid;

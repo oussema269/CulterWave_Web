@@ -1,62 +1,66 @@
 <?php
 
 namespace App\Entity;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Produit
  *
  * @ORM\Table(name="produit", indexes={@ORM\Index(name="fk_categorie", columns={"id_cat"})})
- * @ORM\Entity
- *@ORM\Entity(repositoryClass="App\Repository\ProduitRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ProduitRepository")
  */
 class Produit
 {
+
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     * @Groups({"produits"})
      */
     private $id;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id_cat", type="integer", nullable=false)
+     * @ORM\Column(name="id_cat", type="integer")
+     * @Groups({"produits"})
      */
-    private $idCat;
+    private int $idCat;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="lib", type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"produits"})
      */
-    private $lib;
+    private string $lib;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="stock", type="integer", nullable=false)
+     * @ORM\Column(type="integer")
+     * @Groups({"produits"})
      */
-    private $stock;
+    private int $stock;
 
     /**
-     * @var float
-     *
-     * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
+     * @ORM\Column(type="float")
+     * @Groups({"produits"})
      */
-    private $prix;
+    private float $prix;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Categorie", inversedBy="produit")
+     * @ORM\JoinColumn(name="id_cat", referencedColumnName="id_cat")
+     */
+    private $categorie;
 
-                /**
-             * @ORM\ManyToOne(targetEntity="App\Entity\Categorie", inversedBy="produit")
-            * @ORM\JoinColumn(name="id_cat", referencedColumnName="id_cat")
-             */
-            private $categorie;
-
+    public function __construct()
+    {
+        $this->id = 0;
+        $this->idCat = 0;
+        $this->lib = ''; // initialize $lib to an empty string
+        $this->stock = 0;
+        $this->prix = 0.0;
+        $this->categorie = null;
+    }
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -102,6 +106,7 @@ class Produit
     {
         return $this->prix;
     }
+
     public function setPrix(float $prix): self
     {
         $this->prix = $prix;
@@ -110,16 +115,29 @@ class Produit
     }
 
     public function getCategorie(): ?Categorie
-        {
-            return $this->categorie;
-        }
+    {
+        return $this->categorie;
+    }
 
     public function setCategorie(?Categorie $categorie): self
-        {
-            $this->categorie = $categorie;
+    {
+        $this->categorie = $categorie;
 
-            return $this;
-        }
+        return $this;
+    }
+
+  
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'id_cat' => $this->idCat,
+            'lib' => $this->lib,
+            'stock' => $this->stock,
+            'prix' => $this->prix,
+        ];
+    }
+    
 
 
 

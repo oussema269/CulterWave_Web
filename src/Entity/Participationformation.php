@@ -22,7 +22,7 @@ class Participationformation
     private $idparticipationformation;
 
     /**
-     * @var string|null
+     * @var string
      *
      * @ORM\Column(name="confirmation", type="string", length=5, nullable=true)
      */

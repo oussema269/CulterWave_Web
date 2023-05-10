@@ -43,12 +43,13 @@ class UserController extends AbstractController
             // Unserialize the object to get the User instance
             $user1 = unserialize($serializedObject);
             $users = $userRepository->findAll();
+            $itemCount = count($users);
             $users = $paginator->paginate(
                 $users, /* query NOT result */
                 $request->query->getInt('page', 1),
                 5
             );
-            $itemCount = count($users);
+
 
 
 
@@ -71,6 +72,7 @@ class UserController extends AbstractController
                 ->getQuery();
             $formateurCount = $formateurTypeQuery->getSingleScalarResult();
             return $this->render('user/index.html.twig', [
+                'count' => $itemCount,
                 'users' => $users,
                 'user1' => $user1,
                 'usertype' => ($userCount / $itemCount) * 100,
@@ -112,7 +114,7 @@ class UserController extends AbstractController
         $users = $paginator->paginate(
             $users,
             $request->query->getInt('page', 1),
-            2
+            5
         );
         $itemCount = count($userRepository->findAll());
 
@@ -137,6 +139,7 @@ class UserController extends AbstractController
         $formateurCount = $formateurTypeQuery->getSingleScalarResult();
 
         return $this->render('user/index.html.twig', [
+            'count' => $itemCount,
             'users' => $users,
             'usertype' => ($userCount / $itemCount) * 100,
             'vendeur' => ($vendeurCount / $itemCount) * 100,
@@ -155,7 +158,7 @@ class UserController extends AbstractController
             $confirmpasswordsubmited = $form->get('password1')->getData();
             $code = $codeRepository->findOneBy(['email' => $emailsubmited]);
             if ($code->getcodeEmail() == $codesubmited && $code->getEmail() == $emailsubmited && $passwordsubmited == $confirmpasswordsubmited) {
-                $user = $userRepository->findOneBy(['Email' => $emailsubmited]);
+                $user = $userRepository->findOneBy(['email' => $emailsubmited]);
                 if ($user != null) {
                     $user->setPassword($passwordsubmited);
                     $userRepository->save($user, true);
@@ -187,6 +190,7 @@ class UserController extends AbstractController
                 $email = (new Email())
                     ->from('heelos.gcfhvgjbhknj@gmail.com')
                     ->to('mhmad.hafez@hotmail.com')
+                    // ->to($sss)
                     //->cc('cc@example.com')
                     //->bcc('bcc@example.com')
                     //->replyTo('fabien@example.com')
@@ -217,44 +221,45 @@ class UserController extends AbstractController
             // $user = $this->findOneBy(['Email' => $user->getEmail()]);
             $user1 = $userRepository->findOneBy(['email' => $user->getEmail()]);
 
+            if ($user1) {
+                if ($user1->checklogin($user->getEmail(), $user->getPassword()) == true && $user1->getIsActive() == 1) {
+                    $serializedObject = serialize($user1);
+                    $token = new UsernamePasswordToken(
+                        $user1,
+                        null,   // Credentials
+                        'main', // Firewall name
 
-            if ($user1->checklogin($user->getEmail(), $user->getPassword()) == true && 1 == 1) {
-                $serializedObject = serialize($user1);
-                $token = new UsernamePasswordToken(
-                    $user1,
-                    null,   // Credentials
-                    'main', // Firewall name
+                    );
 
-                );
+                    // // Set token in the security context
+                    $tokenStorage = $this->container->get('security.token_storage');
+                    $tokenStorage->setToken($token);
+                    // // Set the serialized object in the session
+                    $session->set('user1', $serializedObject);
+                    if ($user1->getType() === 'admin') {
+                        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+                    }
+                    if ($user1->getType() === 'vendeur') {
+                        return $this->render('user/UserAfterlogin.html.twig', [
+                            'user' => $user1,
+                        ]);
+                    }
+                    if ($user1->getType() === 'formateur') {
+                        return $this->render('user/UserAfterlogin.html.twig', [
+                            'user' => $user1,
+                        ]);
+                    }
+                    if ($user1->getType() === 'user') {
+                        return $this->render('user/UserAfterlogin.html.twig', [
+                            'user' => $user1,
+                        ]);
+                    }
 
-                // // Set token in the security context
-                $tokenStorage = $this->container->get('security.token_storage');
-                $tokenStorage->setToken($token);
-                // // Set the serialized object in the session
-                $session->set('user1', $serializedObject);
-                if ($user1->getType() === 'admin') {
-                    return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+
+                    return $this->redirectToRoute('hik', [], Response::HTTP_SEE_OTHER);
+                } else {
+                    return $this->redirectToRoute('hik', [], Response::HTTP_SEE_OTHER);
                 }
-                if ($user1->getType() === 'vendeur') {
-                    return $this->render('user/UserAfterlogin.html.twig', [
-                        'user' => $user1,
-                    ]);
-                }
-                if ($user1->getType() === 'formateur') {
-                    return $this->render('user/UserAfterlogin.html.twig', [
-                        'user' => $user1,
-                    ]);
-                }
-                if ($user1->getType() === 'user') {
-                    return $this->render('user/UserAfterlogin.html.twig', [
-                        'user' => $user1,
-                    ]);
-                }
-
-
-                return $this->redirectToRoute('hik', [], Response::HTTP_SEE_OTHER);
-            } else {
-                return $this->redirectToRoute('hik', [], Response::HTTP_SEE_OTHER);
             }
         }
         return $this->renderForm('user/login.html.twig', [
@@ -402,7 +407,7 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
-    #[Route('/{id}/desactive', name: 'app_user_desactive', methods: ['POST'])]
+    #[Route('/desactive/{id}', name: 'app_user_desactive')]
     public function desactive(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, $id, SessionInterface $session): Response
     {
         $serializedObject = $session->get('user1');
@@ -417,7 +422,7 @@ class UserController extends AbstractController
             throw $this->createNotFoundException('The user does not exist');
         }
 
-
+        $user->setIsActive(0);
         $entityManager->flush();
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
@@ -458,20 +463,37 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
-    public function delete(Request $request, User $user, UserRepository $userRepository, SessionInterface $session): Response
+    public function delete(Request $request, User $user, $id, UserRepository $userRepository, SessionInterface $session): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
-            $userRepository->remove($user, true);
-            $serializedObject = $session->get('user1');
+        $user = $userRepository->find($id);
+        $userRepository->remove($user, true);
+        $serializedObject = $session->get('user1');
 
-            $user1 = unserialize($serializedObject);
-            if ($user1->getId() === $user->getId()) {
-                // Unserialize the object to get the User instance
+        $user1 = unserialize($serializedObject);
+        if ($user1->getId() === $user->getId()) {
+            // Unserialize the object to get the User instance
 
-                $session->invalidate();
-                return $this->redirectToRoute('', []);
-            }
+            $session->invalidate();
+            return $this->redirectToRoute('', []);
         }
+
+        return $this->redirectToRoute('hik', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('admindelete/{id}', name: 'app_user_deleteadmin')]
+    public function deleteadmin(Request $request, User $user, $id, UserRepository $userRepository, SessionInterface $session): Response
+    {
+        $userdel = $userRepository->find($id);
+        $userRepository->remove($userdel, true);
+        $serializedObject = $session->get('user1');
+
+        $user1 = unserialize($serializedObject);
+        if ($user1->getId() === $userdel->getId()) {
+            // Unserialize the object to get the User instance
+
+            $session->invalidate();
+            return $this->redirectToRoute('app_user_index', []);
+        }
+
 
         return $this->redirectToRoute('hik', [], Response::HTTP_SEE_OTHER);
     }

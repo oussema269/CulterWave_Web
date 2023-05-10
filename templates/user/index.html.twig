@@ -145,7 +145,7 @@
 					<i class="fa fa-user"></i>
 					Total Users are
 				</span>
-				<div class="count">{{users|length }}</div>
+				<div class="count">{{count}}</div>
 
 			</div>
 			<div class="col-md-2 col-sm-4 tile_stats_count">
@@ -227,7 +227,7 @@
 														<th>Prenom</th>
 														<th>Email</th>
 														<th>Type</th>
-														{# <th>IsActive</th> #}
+														<th>IsActive</th>
 														<th>actions</th>
 													</tr>
 												</thead>
@@ -240,6 +240,7 @@
 														<tr>
 
 															<td>
+
 																<span>{{ user.Nom }}</span>
 															</td>
 															<td>
@@ -252,13 +253,26 @@
 															<td>
 																<span>{{ user.Type }}</span>
 															</td>
-															{# <td>
+															<td>
 																<span>{{ user.isActive }}</span>
-															</td> #}
+															</td>
 															<td
 																style="display:flex; width:40%;">
-																{{ include('user/desactive.html.twig') }}
-																{{ include('user/_delete_form.html.twig') }}
+																{# {{ include('user/desactive.html.twig') }} #}
+
+
+																<a href="{{ path('app_user_desactive',{'id': user.id}) }}">
+																	<button type="submit" class="bn632-hover bn20">
+																		<span class="mdi mdi-delete mdi-24px"></span>
+																		<span class="mdi mdi-delete-empty mdi-24px"></span>
+																		<span>Deactivate</span>
+																	</button>
+																</a>
+
+
+																<a href="{{ path('app_user_deleteadmin', {'id': user.id}) }}">
+																	<button class="btn  btn-delete btn12-hover bn19">Delete</button>
+																</a>
 
 															</td>
 														</tr>

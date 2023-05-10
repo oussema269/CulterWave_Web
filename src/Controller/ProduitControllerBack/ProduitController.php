@@ -21,7 +21,7 @@ class ProduitController extends AbstractController
         $produit = $entityManager
             ->getRepository(Produit::class)
             ->createQueryBuilder('p')
-            ->leftJoin('p.categorie','c')
+            ->leftJoin('p.categorie', 'c')
             ->AddSelect('c')
             ->getQuery()
             ->getResult();
@@ -38,22 +38,24 @@ class ProduitController extends AbstractController
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
 
-        
-                $sid = "AC2e3e3f431567d6395601f5cc2dbb1e7a";
-                $token = "cb4d56f8d482711f99bcc0fb66481647";
-                $twilio = new Client($sid, $token);
+
+        $sid = "AC2e3e3f431567d6395601f5cc2dbb1e7a";
+        $token = "c823497f698b5e8d14ff9c195b318fb8";
+        $twilio = new Client($sid, $token);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($produit);
             $entityManager->flush();
 
             $message = $twilio->messages
-                  ->create("+21627865222", // to
-                           ["body" => "un article a été ajouté", 
-                           "from" =>"+16204989929"
-                           ]
-                  );
-             print($message->sid);
+                ->create(
+                    "+21627865222", // to
+                    [
+                        "body" => "un article a été ajouté",
+                        "from" => "+16204989929"
+                    ]
+                );
+            print($message->sid);
 
             return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -80,7 +82,7 @@ class ProduitController extends AbstractController
         $from = '+16204989929'; // Remplacez par votre numéro Twilio
         $to = '+21627865222'; // Remplacez par le numéro de téléphone du destinataire
 
-$client = new Client($sid, $token);
+        $client = new Client($sid, $token);
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
 
@@ -92,11 +94,11 @@ $client = new Client($sid, $token);
                     'from' => $from, // Expéditeur
                     'body' => 'un article a été ajouté' // Corps du message
                 )
-               
+
             );
             print($message->sid);
-            
-            
+
+
 
             return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -110,7 +112,7 @@ $client = new Client($sid, $token);
     #[Route('/{id}', name: 'app_produit_delete', methods: ['POST'])]
     public function delete(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $produit->getId(), $request->request->get('_token'))) {
             $entityManager->remove($produit);
             $entityManager->flush();
         }

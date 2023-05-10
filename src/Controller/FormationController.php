@@ -226,12 +226,16 @@ class FormationController extends AbstractController
     {
         $serializedObject = $session->get('user1');
         if ($serializedObject !== null) {
+            $user1 = unserialize($serializedObject);
             $formation = new Formation();
 
             $form = $this->createForm(FormationType::class, $formation);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
+                $formation->setConfirmation('false');
+                $formation->setOwnerid($user1);
+
                 $em = $doctrine->getManager();
                 $em->persist($formation);
                 $em->flush();
