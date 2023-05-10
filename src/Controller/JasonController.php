@@ -73,7 +73,6 @@ class JasonController extends AbstractController
                 'idprod' => $item->getIdProduct()->getId(),
                 'nomproduit' => $item->getIdProduct()->getLib(),
                 'prix' => $item->getIdProduct()->getPrix(),
-                'image' => $item->getIdProduct()->getImage(),
                 'count'=>$count
             ];
         }

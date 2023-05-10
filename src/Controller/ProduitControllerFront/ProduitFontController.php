@@ -74,7 +74,7 @@ class ProduitFontController extends AbstractController
 
 
             $entityManager = $doctrine->getManager();
-            $utilisateur = $entityManager->getRepository(User::class)->find(49);
+            $utilisateur = $entityManager->getRepository(User::class)->find($user1->getId());
             $produit = $entityManager->getRepository(Produit::class)->find($idProduit);
             // Create a new Basket entity
             $panier = $entityManager->getRepository(Panier::class)->findOneBy([

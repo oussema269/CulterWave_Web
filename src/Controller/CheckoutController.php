@@ -24,12 +24,15 @@ class CheckoutController extends AbstractController
         $serializedObject = $session->get('user1');
         if ($serializedObject !== null) {
             $idUsercon = 49;
+            $user1 = new User();
+            $serializedObject = $session->get('user1');
+            $user1 = unserialize($serializedObject);
             $entityManager = $doctrine->getManager();
             $user = $entityManager->getRepository(User::class)->findBy([
-                'id' => $idUsercon
+                'id' => $user1
             ]);
             $panier = $entityManager->getRepository(Panier::class)->findBy([
-                'idClient' => $idUsercon
+                'idClient' => $user1
             ]);
             $count = count($panier);
             $totalPrice = 0;
@@ -88,9 +91,12 @@ class CheckoutController extends AbstractController
         $serializedObject = $session->get('user1');
         if ($serializedObject !== null) {
             $idUsercon = 41;
+            $user1 = new User();
+            $serializedObject = $session->get('user1');
+            $user1 = unserialize($serializedObject);
             $entityManager = $doctrine->getManager();
             $panier = $entityManager->getRepository(Panier::class)->findBy([
-                'idClient' => $idUsercon
+                'idClient' => $user1
             ]);
             $count = count($panier);
 

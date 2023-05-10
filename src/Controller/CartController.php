@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Controller;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 use App\Entity\Panier;
+use App\Repository\UserRepository;
+use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,9 +21,11 @@ class CartController extends AbstractController
         $serializedObject = $session->get('user1');
         if ($serializedObject !== null) {
             $idUsercon = 49;
+            $serializedObject = $session->get('user1');
+            $user1 = unserialize($serializedObject);
             $entityManager = $doctrine->getManager();
             $panier = $entityManager->getRepository(Panier::class)->findBy([
-                'idClient' => $idUsercon
+                'idClient' => $user1
             ]);
             $totalPrice = 0;
 
@@ -50,12 +55,17 @@ class CartController extends AbstractController
 
     public function count(ManagerRegistry $doctrine, SessionInterface $session): Response
     {
+       
+            
+
         $serializedObject = $session->get('user1');
         if ($serializedObject !== null) {
-            $idUsercon = 49;
+            $user1 = new User();
+            $serializedObject = $session->get('user1');
+            $user1 = unserialize($serializedObject);
             $entityManager = $doctrine->getManager();
             $panier = $entityManager->getRepository(Panier::class)->findBy([
-                'idClient' => $idUsercon
+                'idClient' => $user1
             ]);
             $count = count($panier);
 
@@ -86,7 +96,7 @@ class CartController extends AbstractController
 
             $entityManager->remove($panier);
             $entityManager->flush();
-
+            
             $response = new Response();
             $response->send();
             return $this->redirectToRoute('app_cart');
@@ -105,10 +115,12 @@ class CartController extends AbstractController
     {
         $serializedObject = $session->get('user1');
         if ($serializedObject !== null) {
-            $idUsercon = 49;
+            $user1 = new User();
+            $serializedObject = $session->get('user1');
+            $user1 = unserialize($serializedObject);
             $entityManager = $doctrine->getManager();
             $paniers = $entityManager->getRepository(Panier::class)->findBy([
-                'idClient' => $idUsercon,
+                'idClient' => $user1,
                 'idProduct' => $idProduit
             ]);
             $totalPrice = 0;
@@ -138,9 +150,12 @@ class CartController extends AbstractController
         $serializedObject = $session->get('user1');
         if ($serializedObject !== null) {
             $idUsercon = 49;
+            $user1 = new User();
+            $serializedObject = $session->get('user1');
+            $user1 = unserialize($serializedObject);
             $entityManager = $doctrine->getManager();
             $paniers = $entityManager->getRepository(Panier::class)->findBy([
-                'idClient' => $idUsercon,
+                'idClient' => $user1,
                 'idProduct' => $idProduit
             ]);
             $totalPrice = 0;
