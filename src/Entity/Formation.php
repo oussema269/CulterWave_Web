@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Formation
@@ -18,6 +19,7 @@ class Formation
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     *  @Groups({"formation"})
      */
     private $id;
 
@@ -25,6 +27,7 @@ class Formation
      * @var string
      *
      * @ORM\Column(name="titre", type="text", length=65535, nullable=false)
+     * @Groups({"formation"})
      */
     private $titre;
 
@@ -32,6 +35,7 @@ class Formation
      * @var string
      *
      * @ORM\Column(name="description", type="text", length=65535, nullable=false)
+     * @Groups({"formation"})
      */
     private $description;
 
@@ -39,6 +43,7 @@ class Formation
      * @var string
      *
      * @ORM\Column(name="type", type="text", length=65535, nullable=false)
+     * @Groups({"formation"})
      */
     private $type;
 
@@ -46,6 +51,7 @@ class Formation
      * @var string
      *
      * @ORM\Column(name="pays", type="text", length=65535, nullable=false)
+     * @Groups({"formation"})
      */
     private $pays;
 
@@ -53,6 +59,7 @@ class Formation
      * @var \DateTime
      *
      * @ORM\Column(name="debut", type="date", nullable=false)
+     * @Groups({"formation"})
      */
     private $debut;
 
@@ -60,6 +67,7 @@ class Formation
      * @var \DateTime
      *
      * @ORM\Column(name="fin", type="date", nullable=false)
+     * @Groups({"formation"})
      */
     private $fin;
 
@@ -67,6 +75,7 @@ class Formation
      * @var string
      *
      * @ORM\Column(name="confirmation", type="string", length=5, nullable=true)
+     * @Groups({"formation"})
      */
     private $confirmation;
 

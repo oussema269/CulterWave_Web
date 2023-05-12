@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Evennement
@@ -20,6 +21,7 @@ class Evennement
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups({"evennement"})
      */
     private $id;
 
@@ -27,6 +29,7 @@ class Evennement
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255, nullable=false)
+      *@Groups({"evennement"})
      */
     private $nom;
 
@@ -34,6 +37,7 @@ class Evennement
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=500, nullable=false)
+     * @Groups({"evennement"})
      */
     private $description;
 
@@ -41,6 +45,7 @@ class Evennement
      * @var string
      *
      * @ORM\Column(name="lieu", type="string", length=255, nullable=false)
+     * @Groups({"evennement"})
      */
     private $lieu;
 
@@ -48,6 +53,7 @@ class Evennement
      * @var int
      *
      * @ORM\Column(name="prix", type="integer", nullable=false)
+     * @Groups({"evennement"})
      */
     private $prix;
 
@@ -55,6 +61,7 @@ class Evennement
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="date", nullable=false)
+     * @Groups({"evennement"})
      */
     private $date;
 
@@ -62,6 +69,7 @@ class Evennement
      * @var int
      *
      * @ORM\Column(name="nb_participants", type="integer", nullable=false)
+     * @Groups({"evennement"})
      */
     private $nbParticipants;
 
@@ -69,6 +77,7 @@ class Evennement
      * @var string
      *
      * @ORM\Column(name="type_evenement", type="string", length=255, nullable=false)
+     * @Groups({"evennement"})
      */
     private $typeEvenement;
 

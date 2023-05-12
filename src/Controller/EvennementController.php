@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use DateTime;
 use App\Entity\Sponsor;
 use App\Entity\Evennement;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,6 +21,10 @@ use App\Entity\Rating;
 use App\Form\RatingType;
 use App\Repository\RatingRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\SerializerInterface;
+
 
 
 class EvennementController extends AbstractController
@@ -337,4 +341,84 @@ class EvennementController extends AbstractController
             'form' => $form,
         ]);
     }
+    
+        
+
+ #[Route('/evajoutercodenameone',name:"addev")]
+    public function ajouter(Request $request, NormalizerInterface $Normalizer): JsonResponse
+    {
+  
+        
+        $evennement = new Evennement();
+        $evennement->setNom($request->get('nom'));
+        $evennement->setDescription($request->get('description'));
+        $evennement->setLieu($request->get('lieu'));
+        $evennement->setDate(new DateTime($request->get('date')));
+        $evennement->setPrix($request->get('prix'));
+       
+        $evennement->setNbParticipants($request->get('nb_participants'));
+        $evennement->setTypeEvenement($request->get('type_evenement'));
+        $evennement->setSponsor($request->get('sponsor_id '));
+
+        
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($evennement);
+        $entityManager->flush();
+
+        $jsoncontent = $Normalizer->normalize($evennement, 'json',['groups' =>'evennement']);
+        
+        return new JsonResponse(json_encode($jsoncontent) );
+    }
+
+    #[Route('/readJson', name: 'app_ev_readJson')]
+    public function readJson(EvennementRepository $repository, NormalizerInterface $Normalizer): Response
+    {
+        $list = $repository->findAll();       
+    
+        $jsoncontent = $Normalizer->normalize($list, 'json',['groups' =>'evennement']);
+        
+        return new Response(json_encode($jsoncontent) );
+
+    
+        
+    }
+    
+
+   
+    
+
+    #[ROUTE('/modifiercodenameone/{id}', name:"updateJson")]
+    public function updateJson(Request $request, $id,NormalizerInterface $Normalizer
+    )
+{
+   $em = $this->getDoctrine()->getManager();
+   $evennement = $em->getRepository(Evennement::class)->find($id);
+   $evennement->setNom($request->get('nom'));
+   $evennement->setDescription($request->get('description'));
+   $evennement->setLieu($request->get('lieu'));
+   $evennement->setPrix($request->get('prix'));
+   $evennement->setDate(new DateTime($request->get('date')));
+   $evennement->setNbParticipants($request->get('nb_participants'));
+   $evennement->setTypeEvenement($request->get('type_evenement'));
+   $evennement->setSponsor($request->get('sponsor_id '));
+   
+   $em->flush();
+
+   $eventNormalises = $Normalizer->normalize($evennement,'json',['groups'=>"evennement"]);
+    return new JsonResponse("event modifier". json_encode($eventNormalises));
+}
+    
+ #[Route('/evdeleteJson/{id}', name:"evdeletejson")]
+    public function deleteJson(Request $reqe,$id,NormalizerInterface $Normalizer
+):Response {
+        $em = $this->getDoctrine()->getManager();
+        $evennement = $em->getRepository(Evennement::class)->find($id);
+        $em->remove($evennement);
+        $em->flush();
+        $jsonContent = $Normalizer->normalize($evennement,'json', ['groups'=>'evennement']);
+        return new Response("evennement supprime" .json_encode($jsonContent));
+    }
+
+
+
 }

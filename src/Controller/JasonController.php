@@ -76,6 +76,7 @@ class JasonController extends AbstractController
                 'count'=>$count
             ];
         }
+       
  
         $jsonData = $serializer->serialize($formatred, 'json');
         return new Response($jsonData);

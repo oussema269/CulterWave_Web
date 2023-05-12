@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use App\Entity\Formation;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,7 +14,6 @@ use App\Form\SearchType;
 use App\Repository\FormationRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[Route('/formation')]
@@ -61,7 +60,7 @@ class FormationController extends AbstractController
             }
 
             return $this->render('formation/add.html.twig', [
-                'formation' => $form,
+                'formation' => $form, 
                 'form' => $form->createView(),
             ]);
         } else {
@@ -349,4 +348,83 @@ class FormationController extends AbstractController
 
         return $this->redirectToRoute('app_formation_readadmin', []);
     }
+
+    #[Route('/ajouterJson', name:"ajouterJson")]
+    public function ajouterFormation(Request $request, NormalizerInterface $Normalizer): JsonResponse
+    {
+  
+        
+        $formation = new Formation();
+        $formation->setTitre($request->get('titre'));
+        $formation->setDescription($request->get('description'));
+        $formation->setType($request->get('type'));
+        $formation->setPays($request->get('pays'));
+        $debut = DateTime::createFromFormat('d/m/Y', $request->get('debut'))->format('Y-m-d H:i:s');
+        $formation->setDebut(new DateTime($debut));
+
+        $fin = DateTime::createFromFormat('d/m/Y', $request->get('fin'))->format('Y-m-d H:i:s');
+        $formation->setFin(new DateTime($fin));
+
+        
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($formation);
+        $entityManager->flush();
+
+        $jsoncontent = $Normalizer->normalize($formation, 'json',['groups' =>'formation']);
+        
+        return new JsonResponse(json_encode($jsoncontent) );
+    }
+    
+    
+  
+    
+    
+    #[Route('/readJson', name: 'app_formation_readJson')]
+    public function readJson(ManagerRegistry $doctrine,FormationRepository $repository , PaginatorInterface $paginator ,Request $request, NormalizerInterface $normalizer): Response
+    {
+        
+        
+        $pagination = $paginator->paginate(
+        $repository-> findByConfirmationTrue(),
+        $request->query->get('page',1),5
+
+        );
+        $formations = $pagination->getItems();
+        $formationsNormalises = $normalizer->normalize($formations, 'json', ['groups' => 'formation']);
+
+        return $this->json($formationsNormalises);
+
+    }
+
+
+    
+    #[Route('/UpdateJson/{id}', name:"updateJson")]
+    public function upadateJson(Request $req, $id, NormalizerInterface $Normalizer){
+        $em = $this->getDoctrine()->getManager();
+        $formations = $em->getRepository(Formation::class)->find($id);
+        $formations->setTitre($req->get('titre'));
+        $formations->setDescription($req->get('description'));
+        $formations->setType($req->get('type'));
+        $formations->setPays($req->get('pays'));
+        $formations->setDebut(new DateTime($req->get('debut')));
+        $formations->setFin(new DateTime($req->get('fin')));
+        
+        $em->flush();
+
+        $jsoncontent = $Normalizer->normalize($formations,'json',['groups'=>'formation']);
+        return new JsonResponse("Formation modifier " . json_encode($jsoncontent));
+
+    } 
+
+    #[Route('/deleteJson/{id}', name:"deletejson")]
+    public function deleteJson(Request $reqe,$id,NormalizerInterface $Normalizer){
+        $em = $this->getDoctrine()->getManager();
+        $formationss = $em->getRepository(Formation::class)->find($id);
+        $em->remove($formationss);
+        $em->flush();
+        $jsonContent = $Normalizer->normalize($formationss,'json', ['groups'=>'formation']);
+        return new JsonResponse("Formation supprime" .json_encode($jsonContent));
+    }
+
 }

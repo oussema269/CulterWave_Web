@@ -52,7 +52,7 @@ class ProduitMobileController extends AbstractController
 
         $jsonContent = $Normalizer->normalize($Produit, 'json', ['groups' => 'Produits']);
         return new Response(json_encode($jsonContent));
-    }
+    }*/
     #[Route("deleteProduitMobile/{id}", name: "deleteProduitMobile")]
     public function deleteProduitJSON(Request $req, $id, NormalizerInterface $Normalizer)
     {
@@ -66,9 +66,8 @@ class ProduitMobileController extends AbstractController
     }
 
 
-*/
 
-#[Route("addProduitMobile", name: "addProduitMobile")]
+#[Route("addProduitMobile", name: "addProduitMobileProduit")]
 public function addProduitJSON(Request $req, NormalizerInterface $Normalizer, CategorieRepository $CategorieRepository): Response
 {
     // Récupérer la catégorie à partir de l'id de catégorie passé dans la requête
@@ -87,7 +86,7 @@ public function addProduitJSON(Request $req, NormalizerInterface $Normalizer, Ca
 
     // Intégration de l'API Twilio
     $sid = "AC2e3e3f431567d6395601f5cc2dbb1e7a";
-    $token = "c823497f698b5e8d14ff9c195b318fb8";
+    $token = "014d320c5dcaf40788e4953d958587a9";
     $twilio = new Client($sid, $token);
 
     $message = $twilio->messages
