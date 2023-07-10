@@ -38,7 +38,7 @@ public function index(ParticipationformationRepository $participationformationRe
         //]);
     //}
     #[Route('/add/{id}', name: 'app_participationformation_add', methods: ["GET"])]
-    public function add(int $id, EntityManagerInterface $em): Response
+    public function add(int $id, EntityManagerInterface $em, Request $request): Response
     {
         $formation = $em->getRepository(Formation::class)->find($id);
     
@@ -51,11 +51,15 @@ public function index(ParticipationformationRepository $participationformationRe
         $em->flush();
     
         // Récupérer la date de début et de fin de la formation
-        $dateDebut = $formation->getDebut();
-        $dateFin = $formation->getFin();
+        $debut = $formation->getDebut();
+        $fin = $formation->getFin();
      
            
-        return $this->redirectToRoute('app_formation_read', ['debut' => $dateDebut,'fin' =>$dateFin]);   
+        return $this->redirectToRoute('app_formation_read', [
+            'id' => $id,
+            'debut' => $request->query->get('debut'),
+            'fin' => $request->query->get('fin'),
+        ]);
     }
     
     

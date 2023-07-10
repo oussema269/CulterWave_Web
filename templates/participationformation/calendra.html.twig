@@ -20,8 +20,8 @@
   // Create a new event object
   var newEvent = {
     title: 'My New Event',
-    start: '2023-05-01',
-    end: '2023-05-03'
+    start: '{{ debut|date('d/m/Y') }}',
+    end: '{{ fin|date('d/m/Y') }}'
     
   };
   
